@@ -1,5 +1,5 @@
 <a href="" class="bg-container border-2 border-panel-600 w-full min-h-40 flex p-4 rounded-xl mb-5">
-    <object data="" type="">
+    <object class="h-fit" data="" type="">
         <a href="">
             <img class="w-14 h-14 object-cover rounded-md mr-5"
                 src="https://images.unsplash.com/photo-1714745455353-f47a2e2b5647?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOHx8fGVufDB8fHx8fA%3D%3D"
@@ -8,7 +8,8 @@
     </object>
     <div class="w-full h-fit flex flex-col">
         <div class="flex justify-between mb-5">
-            <div class="group relative text-xl font-medium hover:cursor-pointer">
+            <div
+                class="group relative text-xl font-medium max-w-xl text-wrap text-ellipsis line-clamp-1 truncate hover:cursor-pointer">
                 Title
                 <span class="underline-animation"></span>
             </div>
@@ -33,7 +34,7 @@
                 emit event with table name and test</p>
         </div>
         <div class="flex items-start text-sm">
-            <div class=" flex items-center mr-3 ">
+            <div class=" flex items-center mr-3 text-ellipsis text-wrap">
                 <object data="" type="">
                     <a href=""
                         class="text-blue-500 mr-1 hover:underline hover:text-blue-700 transition-colors duration-300">
