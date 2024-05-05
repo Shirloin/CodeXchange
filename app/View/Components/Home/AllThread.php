@@ -2,10 +2,12 @@
 
 namespace App\View\Components\Home;
 
+use App\Models\Post;
 use Illuminate\View\Component;
 
 class AllThread extends Component
 {
+    public $posts;
     /**
      * Create a new component instance.
      *
@@ -13,7 +15,7 @@ class AllThread extends Component
      */
     public function __construct()
     {
-        //
+        $this->posts = Post::with(['topics', 'replies', 'user'])->get();
     }
 
     /**

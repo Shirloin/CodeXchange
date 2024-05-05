@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\Reply;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+
+use function App\Helper\getID;
 
 class ReplySeeder extends Seeder
 {
@@ -15,6 +19,16 @@ class ReplySeeder extends Seeder
      */
     public function run()
     {
-        Reply::factory()->count(20)->create();
+        for ($i = 0; $i < 20; $i++) {
+            $post = Post::all()->random();
+            $user_id = User::all()->random()->id;
+            $reply = new Reply();
+            $reply->id = getID();
+            $reply->content = fake()->words(10, true);
+            $reply->user_id = $user_id;
+            $reply->post_id = $post->id;
+            $reply->save();
+            $post->increment('replies_count');
+        }
     }
 }

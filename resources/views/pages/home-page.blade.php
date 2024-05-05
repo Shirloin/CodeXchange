@@ -1,6 +1,6 @@
 @extends('template')
 @section('content')
-    <div class="relative w-full mx-auto flex flex-grow justify-start lg:gap-x-10 px-6 xl:px-16  py-10 text-white"
+    <div class="relative w-full mx-auto flex flex-grow justify-start lg:gap-x-10 px-6 xl:px-16  pt-10 text-white"
         x-data="{ tab: '#tab1' }">
         <aside class="w-52 hidden flex-none lg:sticky lg:top-10 lg:block lg:self-start">
             <a href="http://" class="btn-blue-hover rounded-2xl flex justify-center items-center mb-8 w-full  py-4">
@@ -21,16 +21,16 @@
         </aside>
         <div class="w-full mx-auto md:flex-1 xl:max-w-[835px] ">
             <div x-show="tab === '#tab1'">
-                @include('components.home.all-thread')
+                <x-home.all-thread />
             </div>
             <div x-show="tab === '#tab2'">
-                @include('components.home.solved')
+                <x-home.solved />
             </div>
             <div x-show="tab === '#tab3'">
-                @include('components.home.unsolved')
+                <x-home.unsolved />
             </div>
             <div x-show="tab === '#tab4'">
-                @include('components.home.no-replies')
+                <x-home.no-replies />
             </div>
         </div>
 

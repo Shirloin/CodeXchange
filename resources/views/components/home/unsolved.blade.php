@@ -1,5 +1,5 @@
 <div>
-    @include('components.post.post-card')
-    @include('components.post.post-card')
-    @include('components.post.post-card')
+    @foreach ($posts as $post)
+        <x-post.post-card :post="$post" />
+    @endforeach
 </div>

@@ -26,6 +26,7 @@ class PostFactory extends Factory
             'title' => $this->faker->words(3, true),
             'content' => $this->faker->paragraph(rand(1, 3), true),
             'user_id' =>  User::all()->random()->id,
+            'is_solved' => $this->faker->randomElement([true, false]),
         ];
     }
     public function configure()

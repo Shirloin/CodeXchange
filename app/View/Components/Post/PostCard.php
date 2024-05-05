@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Post;
 
+use App\Models\Post;
 use Illuminate\View\Component;
 
 class PostCard extends Component
@@ -11,9 +12,10 @@ class PostCard extends Component
      *
      * @return void
      */
-    public function __construct()
+    public Post $post;
+    public function __construct($post)
     {
-        //
+        $this->post = $post;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\View\Components\Home;
 
+use App\Models\Post;
 use Illuminate\View\Component;
 
 class Unsolved extends Component
@@ -11,9 +12,12 @@ class Unsolved extends Component
      *
      * @return void
      */
+    public $posts;
     public function __construct()
     {
-        //
+        $this->posts = Post::with(['topics', 'replies', 'user'])
+            ->where('is_solved', false)
+            ->get();
     }
 
     /**
