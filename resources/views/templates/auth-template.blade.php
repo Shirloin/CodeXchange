@@ -13,10 +13,10 @@
 
 <body>
     @include('components.background')
-    <div class="min-h-screen relative  w-full flex flex-col justify-between z-20">
-        <x-navbar />
+    <div class="min-h-screen relative w-full flex flex-col justify-center z-20">
         @yield('content')
     </div>
+    <x-footer />
     @livewireScripts
 </body>
 

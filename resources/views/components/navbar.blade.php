@@ -16,7 +16,7 @@
     </div>
     <div class="hidden md:flex items-center gap-4 text-sm font-semibold">
         <a href="/login"
-            class=" bg-panel-1000 px-8 py-3 rounded-md hover:text-blue-400 transition-colors duration-300">Sign In</a>
+            class=" bg-panel-1000 px-8 py-3 rounded-md hover:text-grey-600 transition-colors duration-300">Sign In</a>
         <a href="/register" class="btn-blue-hover px-8 py-3 rounded-md ">Sign Up</a>
     </div>
     <div class="flex md:hidden">

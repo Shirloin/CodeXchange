@@ -1,4 +1,4 @@
-@extends('template')
+@extends('templates.template')
 @section('content')
     <div class="relative w-full mx-auto flex flex-grow justify-start lg:gap-x-10 px-6 xl:px-16  pt-10 text-white"
         x-data="{ tab: '#tab1' }">

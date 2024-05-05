@@ -13,8 +13,9 @@ export default {
                 'panel-800': '#0E1727',
                 'panel-700': '#102035',
                 'panel-600': '#20375940',
+                'grey-600': '#bad9fc'
             },
         },
     },
-    plugins: [require('daisyui')],
+    plugins: [],
 }
