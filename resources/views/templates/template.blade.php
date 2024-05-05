@@ -16,8 +16,8 @@
     <div class="min-h-screen relative w-full flex flex-col justify-between z-20">
         <x-navbar />
         @yield('content')
-        <x-footer />
     </div>
+    <x-footer />
     @livewireScripts
 </body>
 
