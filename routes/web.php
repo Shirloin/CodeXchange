@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,9 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('pages.auth.register-page');
 });
+
+Route::get('/profile', [UserController::class, 'index']);
+
 Route::get('/debug', function () {
     return view('pages.debug-page');
 });

@@ -19,4 +19,8 @@
     .side-nav-li{
         @apply w-full px-4 py-2 hover:bg-panel-600 hover:bg-opacity-30 hover:text-blue-700 rounded-xl cursor-pointer
     }
+
+    .progress-primary::-webkit-progress-value{
+        @apply bg-blue-1200 
+    }
 }

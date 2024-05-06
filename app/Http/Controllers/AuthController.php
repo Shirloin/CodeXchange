@@ -36,8 +36,8 @@ class AuthController extends Controller
     public function create(Request $request){
         $rules = [
             'email' => ['required', 'unique:users', 'email'],
-            'username' => ['required', 'unique:users', 'min:3', 'max:50'],
-            'password' => ['required', 'min:3', 'max:50']
+            'username' => ['required', 'unique:users', 'min:3', 'max:15'],
+            'password' => ['required', 'min:3', 'max:15']
         ];
         $messages = [
             'required'=> 'All fields must be filled',
@@ -45,9 +45,9 @@ class AuthController extends Controller
             'unique.username' => 'Username has been taken',
             'email' => 'Email is in invalid format',
             'username.min' => 'Username length must be at least 3 characters',
-            'username.max' => 'Username length must be less than 50 characters',
+            'username.max' => 'Username length must be less than 15 characters',
             'password.min' => 'Password length must be at least 3 characters',
-            'password.max' => 'Password length must be less than 50 characters'
+            'password.max' => 'Password length must be less than 15 characters'
         ];
         $validator = Validator::make($request->all(), $rules, $messages);
         if($validator->fails()){

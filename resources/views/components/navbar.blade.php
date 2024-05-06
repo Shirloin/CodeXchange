@@ -15,11 +15,18 @@
         </a>
     </div>
     <div class="hidden md:flex items-center gap-4 text-sm font-semibold">
-        @auth
+        @guest
             <a href="/login"
                 class=" bg-panel-1000 px-8 py-3 rounded-md hover:text-grey-600 transition-colors duration-300">Sign In</a>
             <a href="/register" class="btn-blue-hover px-8 py-3 rounded-md ">Sign Up</a>
+        @endguest
+        @auth
+            <a href="/profile" class="mr-4 flex items-center bg-container p-2 rounded-xl">
+                <img class=" w-10 h-10 rounded-full object-cover mr-4" src={{ Auth::user()->image }} alt="">
+                <p class="mr-4 text-xl">{{ Auth::user()->username }}</p>
+            </a>
         @endauth
+
     </div>
     <div class="flex md:hidden">
         <button>

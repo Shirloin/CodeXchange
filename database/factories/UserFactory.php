@@ -22,6 +22,7 @@ class UserFactory extends Factory
             'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => bcrypt('ilovenar'),
+            'image' => $this->faker->imageUrl(640, 480, 'people', true, null, false, 'png')
         ];
     }
 

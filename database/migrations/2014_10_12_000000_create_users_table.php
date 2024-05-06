@@ -23,6 +23,10 @@ return new class extends Migration
             $table->string("gender")->nullable();
             $table->string("image")->default('https://source.unsplash.com/random/');
             $table->integer('xp')->default(0);
+            $table->integer('level')->default(1);
+            $table->integer('posts_count')->default(0);
+            $table->integer('replies_count')->default(0);
+            $table->integer('likes_count')->default(0);
             $table->timestamps();
         });
     }
