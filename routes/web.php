@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TopicController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,3 +28,7 @@ Route::get('/register', function () {
 Route::get('/debug', function () {
     return view('pages.debug-page');
 });
+
+
+Route::post('/register', [AuthController::class, 'create']);
+Route::post('/login', [AuthController::class, 'login']);
