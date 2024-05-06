@@ -55,7 +55,7 @@ class AchievementSeeder extends Seeder
                 'image' => '/assets/achievements/kingy.svg'
             ],
             [
-                'id' =>getID(),
+                'id' => getID(),
                 'name' => 'NAR NAR',
                 'description' => 'Rewarded after having all of the remain achievements',
                 'image' => '/assets/achievements/slc.png'

@@ -11,6 +11,7 @@ class Library extends Model
     protected $table = "libraries";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "user_id",
         "post_id"

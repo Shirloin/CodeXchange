@@ -11,6 +11,7 @@ class UserAchievement extends Model
     protected $table = "user_achievements";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "user_id",
         "achievement_id"

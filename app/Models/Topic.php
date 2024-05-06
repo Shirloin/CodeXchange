@@ -11,6 +11,7 @@ class Topic extends Model
     protected $table = "topics";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
 
     public function posts()
     {

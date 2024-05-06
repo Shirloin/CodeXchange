@@ -13,7 +13,7 @@
 
 <body>
     @include('components.background')
-    <div class="min-h-screen relative w-full flex flex-col justify-between z-20">
+    <div class="min-h-screen relative w-full flex flex-col justify-between z-20 overflow-hidden">
         <x-navbar />
         @yield('content')
     </div>

@@ -1,0 +1,9 @@
+<div class="relative inline-block" x-data="{ tooltip: false }">
+    <div x-show="tooltip"
+        class="w-60 absolute flex flex-col bg-panel-1000 text-white text-sm rounded py-2 px-4 mb-1 -translate-y-full">
+        <span class="font-bold mb-2">{{ $achievement->name }}</span>
+        <span class="text-xs font-medium">{{ $achievement->description }}</span>
+    </div>
+    <img class="md:w-16 lg:w-24 opacity-40 hover:opacity-100" src={{ $achievement->image }}
+        x-on:mouseenter="tooltip = true" x-on:mouseleave="tooltip = false" alt="">
+</div>

@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $table = "users";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         'username',
         'email',
@@ -41,16 +42,20 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    public function likes(){
+    public function likes()
+    {
         return $this->belongsToMany(Like::class, 'likes', 'user_id', 'post_id');
     }
-    public function libraries(){
+    public function libraries()
+    {
         return $this->hasMany(Post::class, 'libraries', 'post_id', 'user_id');
     }
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
-    public function achievements(){
+    public function achievements()
+    {
         return $this->hasMany(Achievement::class, 'user_achievements', 'user_id', 'achievements_id');
     }
 }

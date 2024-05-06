@@ -11,6 +11,7 @@ class Post extends Model
     protected $table = "posts";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "title",
         "content",
@@ -24,17 +25,21 @@ class Post extends Model
         return $this->belongsToMany(Topic::class, 'post_topics', 'post_id', 'topic_id');
     }
 
-    public function likes(){
+    public function likes()
+    {
         return $this->belongsToMany(Like::class, 'likes', 'post_id', 'user_id');
     }
 
-    public function libraries(){
+    public function libraries()
+    {
         return $this->belongsToMany(Post::class, 'libraries', 'post_id', 'user_id');
     }
-    public function replies(){
+    public function replies()
+    {
         return $this->hasMany(Reply::class);
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

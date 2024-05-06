@@ -11,6 +11,7 @@ class Reply extends Model
     protected $table = "replies";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "content",
         "is_approved",

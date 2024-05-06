@@ -11,6 +11,7 @@ class Like extends Model
     protected $table = "likes";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "user_id",
         "post_id"

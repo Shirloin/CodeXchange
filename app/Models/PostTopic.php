@@ -11,6 +11,7 @@ class PostTopic extends Model
     protected $table = "post_topics";
     public $incrementing = false;
     protected $keyType = 'string';
+    public $timestamps = true;
     protected $fillable = [
         "post_id",
         "topic_id"

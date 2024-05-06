@@ -21,29 +21,29 @@
                 {{ $post->title }}
                 <span class="underline-animation"></span>
             </div>
-            <div class="hidden md:flex gap-6">
+            <div class="hidden md:flex gap-6 font-medium">
                 <div class="flex items-center gap-1">
                     <i class="fa-solid fa-comment"></i>
                     <p>{{ $post->replies_count }}</p>
                 </div>
                 @if ($post->topics->first()->name == 'C')
-                    @include("components.topic.c-topic")
+                    @include('components.topic.c-topic')
                 @elseif ($post->topics->first()->name == 'SQL')
-                    @include("components.topic.sql-topic")
+                    @include('components.topic.sql-topic')
                 @elseif ($post->topics->first()->name == 'MongoDB')
-                    @include("components.topic.mongodb-topic")
+                    @include('components.topic.mongodb-topic')
                 @elseif ($post->topics->first()->name == 'Java')
-                    @include("components.topic.java-topic")
+                    @include('components.topic.java-topic')
                 @elseif ($post->topics->first()->name == 'HTML')
-                    @include("components.topic.html-topic")
+                    @include('components.topic.html-topic')
                 @elseif ($post->topics->first()->name == 'CSS')
-                    @include("components.topic.css-topic")
+                    @include('components.topic.css-topic')
                 @elseif ($post->topics->first()->name == 'Javascript')
-                    @include("components.topic.js-topic")
+                    @include('components.topic.js-topic')
                 @elseif ($post->topics->first()->name == 'Laravel')
-                    @include("components.topic.laravel-topic")
+                    @include('components.topic.laravel-topic')
                 @elseif ($post->topics->first()->name == 'Network')
-                    @include("components.topic.network-topic")
+                    @include('components.topic.network-topic')
                 @endif
             </div>
         </div>
