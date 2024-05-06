@@ -19,7 +19,7 @@
                     class="relative min-h-20 min-w-48 bg-container flex justify-between rounded-2xl px-3 py-1 mr-5">
                     <div class="flex flex-1 items-center">
                         <div class="mr-4 flex flex-shrink-0 justify-center">
-                            <img width="50" height="50" src={{ $topic->image }} class="h-full" loading="lazy">
+                            <img width="50" height="50" src={{ $topic->image }} class="h-full object-cover" loading="lazy">
                         </div>
                         <div class="w-full lg:w-auto flex justify-between md:block">
                             <h2 class="text-left text-base font-semibold leading-tight">{{ $topic->name }}</h2>

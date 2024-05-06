@@ -26,10 +26,25 @@
                     <i class="fa-solid fa-comment"></i>
                     <p>{{ $post->replies_count }}</p>
                 </div>
-                <p
-                    class="h-fit rounded-full ring-1 ring-orange-400 text-orange-400 text-center w-36 py-1 hover:bg-orange-400 hover:text-white transition-colors duration-300">
-                    {{ $post->topics->first()->name }}
-                </p>
+                @if ($post->topics->first()->name == 'C')
+                    @include("components.topic.c-topic")
+                @elseif ($post->topics->first()->name == 'SQL')
+                    @include("components.topic.sql-topic")
+                @elseif ($post->topics->first()->name == 'MongoDB')
+                    @include("components.topic.mongodb-topic")
+                @elseif ($post->topics->first()->name == 'Java')
+                    @include("components.topic.java-topic")
+                @elseif ($post->topics->first()->name == 'HTML')
+                    @include("components.topic.html-topic")
+                @elseif ($post->topics->first()->name == 'CSS')
+                    @include("components.topic.css-topic")
+                @elseif ($post->topics->first()->name == 'Javascript')
+                    @include("components.topic.js-topic")
+                @elseif ($post->topics->first()->name == 'Laravel')
+                    @include("components.topic.laravel-topic")
+                @elseif ($post->topics->first()->name == 'Network')
+                    @include("components.topic.network-topic")
+                @endif
             </div>
         </div>
         <div class="w-full mb-5">
