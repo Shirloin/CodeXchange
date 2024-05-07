@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use LivewireUI\Modal\ModalComponent;
 
-class EditDobModal extends ModalComponent
+class EditDobModal extends Component
 {
 
     public $dob;
@@ -49,7 +49,6 @@ class EditDobModal extends ModalComponent
         $user->dob = $this->dob;
         $user->save();
         Controller::SuccessMessage('Date of Birth Updated');
-        $this->closeModal();
         return redirect('/profile'.'/'.$user->id);
     }
     public static function modalMaxWidth(): string

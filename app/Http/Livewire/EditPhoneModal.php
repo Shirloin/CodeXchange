@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use LivewireUI\Modal\ModalComponent;
 
-class EditPhoneModal extends ModalComponent
+class EditPhoneModal extends Component
 {
     public $phone;
     private $rules = [
@@ -47,7 +47,6 @@ class EditPhoneModal extends ModalComponent
         $user->phone = $this->phone;
         $user->save();
         Controller::SuccessMessage('Phone Number Updated');
-        $this->closeModal();
         return redirect('/profile'.'/'.$user->id);
     }
     public static function modalMaxWidth(): string

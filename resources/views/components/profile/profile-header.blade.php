@@ -3,14 +3,12 @@
         <div class="flex justify-center">
             <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
             <div class="flex flex-col items-start text-grey-600">
-                <p class="text-sm flex items-center mb-2 gap-4">Username: {{ $user->username }}
-                    <button class="text-sm text-blue-1200 hover:text-blue-500"
-                        onclick="Livewire.emit('openModal', 'edit-username-modal', {username: '{{ $user->username }}'})">Edit</button>
+                <p class="text-sm flex items-center mb-2 gap-4">{{ $user->username }}
+                    @if ($user->id == Auth::user()->id)
+                    @endif
                 </p>
-
                 @if ($user->id == Auth::user()->id)
-                    <p class="text-sm flex items-center mb-2 gap-4">
-                        Phone:
+                    {{-- <p class="text-sm flex items-center mb-2 gap-4">
                         {{ $user->phone }}
                         <button class=" text-sm text-blue-1200 hover:text-blue-500"
                             onclick="Livewire.emit('openModal', 'edit-phone-modal', {phone: '{{ $user->phone }}'})">
@@ -22,7 +20,6 @@
                         </button>
                     </p>
                     <p class="text-sm flex items-center mb-2 gap-4">
-                        Date of Birth:
                         {{ $user->dob }}
                         <button class=" text-sm text-blue-1200 hover:text-blue-500"
                             onclick="Livewire.emit('openModal', 'edit-dob-modal', {dob: '{{ $user->dob }}'})">
@@ -34,7 +31,6 @@
                         </button>
                     </p>
                     <p class="text-sm flex items-center mb-2 gap-4">
-                        Gender:
                         {{ $user->gender }}
                         <button class=" text-sm text-blue-1200 hover:text-blue-500"
                             onclick="Livewire.emit('openModal', 'edit-gender-modal', {gender: '{{ $user->gender }}'})">
@@ -44,7 +40,7 @@
                                 Input Gender
                             @endif
                         </button>
-                    </p>
+                    </p> --}}
                 @endif
             </div>
         </div>

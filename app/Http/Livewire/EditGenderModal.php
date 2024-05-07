@@ -4,11 +4,11 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use LivewireUI\Modal\ModalComponent;
 
-class EditGenderModal extends ModalComponent
+class EditGenderModal extends Component
 {
     public $gender;
     private $rules = [
@@ -44,7 +44,6 @@ class EditGenderModal extends ModalComponent
         $user->gender = $this->gender;
         $user->save();
         Controller::SuccessMessage('Gender Updated');
-        $this->closeModal();
         return redirect('/profile'.'/'.$user->id);
     }
     public function set($gender){

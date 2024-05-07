@@ -2,7 +2,7 @@
     class="bg-container border-2 border-panel-600 w-full min-h-40 flex md:flex-row flex-col  p-4 rounded-xl mb-5">
     <div class="flex justify-between items-start md:mr-5 mb-5 md:mb-0 ">
         <object class="" data="" type="">
-            <a href="" class="flex text-xl font-medium ">
+            <a href="/profile/{{$post->user->id}}" class="flex text-xl font-medium ">
                 <img class="w-14 h-14 object-cover rounded-md mr-5" src={{ $post->user->image }} alt="">
                 <p class="group relative flex md:hidden h-fit">{{ $post->user->username }} <span
                         class="underline-animation"></span>
