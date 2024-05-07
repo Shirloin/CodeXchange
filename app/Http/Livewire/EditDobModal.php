@@ -50,7 +50,7 @@ class EditDobModal extends ModalComponent
         $user->save();
         Controller::SuccessMessage('Date of Birth Updated');
         $this->closeModal();
-        return redirect()->to('/profile');
+        return redirect('/profile'.'/'.$user->id);
     }
     public static function modalMaxWidth(): string
     {

@@ -48,7 +48,7 @@ class EditPhoneModal extends ModalComponent
         $user->save();
         Controller::SuccessMessage('Phone Number Updated');
         $this->closeModal();
-        return redirect()->to('/profile');
+        return redirect('/profile'.'/'.$user->id);
     }
     public static function modalMaxWidth(): string
     {

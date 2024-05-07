@@ -45,7 +45,7 @@ class EditGenderModal extends ModalComponent
         $user->save();
         Controller::SuccessMessage('Gender Updated');
         $this->closeModal();
-        return redirect()->to('/profile');
+        return redirect('/profile'.'/'.$user->id);
     }
     public function set($gender){
         $this->gender = $gender;

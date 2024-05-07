@@ -3,6 +3,7 @@
 namespace App\View\Components\profile;
 
 use App\Models\Achievement;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
@@ -15,9 +16,9 @@ class ProfileHeader extends Component
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
-        $this->user = Auth::user();
+        $this->user = $user;
         $this->achievements = Achievement::all();
     }
 

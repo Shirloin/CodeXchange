@@ -48,7 +48,7 @@ class EditUsernameModal extends ModalComponent
         $user->save();
         Controller::SuccessMessage('Username Updated');
         $this->closeModal();
-        return redirect()->to('/profile');
+        return redirect('/profile'.'/'.$user->id);
     }
     public static function modalMaxWidth(): string
     {

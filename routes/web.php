@@ -27,7 +27,7 @@ Route::get('/register', function () {
     return view('pages.auth.register-page');
 });
 
-Route::get('/profile', [UserController::class, 'index']);
+Route::get('/profile/{id}', [UserController::class, 'index']);
 
 Route::get('/debug', function () {
     return view('pages.debug-page');
