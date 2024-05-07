@@ -2,7 +2,33 @@
     <div class="mx-auto lg:mx-0 lg:flex lg:max-w-full lg:items-center">
         <div class="flex justify-center">
             <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
-            <p class="text-3xl">{{ $user->username }}</p>
+            <div class="flex flex-col items-start text-grey-600">
+                <p class="text-xl flex items-center mb-2">{{ $user->username }}
+                    <button class="text-sm text-blue-1200 hover:text-blue-500 ml-4" onclick="Livewire.emit('openModal', 'edit-username-modal', {username: '{{$user->username}}'})">Edit</button>
+                </p>
+                @if ($user->phone != null)
+                    <p class="text-xl flex items-center mb-2">{{ $user->phone }}
+                        <button class="ml-4 text-sm text-blue-1200 hover:text-blue-500">Edit</button>
+                    </p>
+                @else
+                    <button class="text-sm text-blue-1200 hover:text-blue-500 mb-2">Input Phone Number</button>
+                @endif
+
+                @if ($user->dob != null)
+                    <p class="text-xl flex items-center mb-2">{{ $user->dob }}
+                        <button class="ml-4 text-sm text-blue-1200 hover:text-blue-500">Edit</button>
+                    </p>
+                @else
+                    <button class="text-sm text-blue-1200 hover:text-blue-500 mb-2">Input Date of Birth</button>
+                @endif
+                @if ($user->gender != null)
+                    <p class="text-xl flex items-center mb-2">{{ $user->gender }}
+                        <button class="ml-4 text-sm text-blue-1200 hover:text-blue-500">Edit</button>
+                    </p>
+                @else
+                    <button class="text-sm text-blue-1200 hover:text-blue-500 mb-2">Input Gender</button>
+                @endif
+            </div>
         </div>
         <div class="lg:ml-auto ">
             <div
@@ -34,7 +60,7 @@
             </div>
         </div>
     </div>
-    <div class="w-full hidden md:flex flex-wrap justify-center">
+    <div class="w-full hidden md:flex flex-wrap justify-center mt-10">
         @foreach ($achievements as $achievement)
             <x-achievement.achievement-tooltip :achievement="$achievement" />
         @endforeach

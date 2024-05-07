@@ -8,6 +8,7 @@
     <title>CodeXchange</title>
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
@@ -18,6 +19,7 @@
         @yield('content')
     </div>
     <x-footer />
+    @livewire('livewire-ui-modal')
     @livewireScripts
 </body>
 

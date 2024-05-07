@@ -20,6 +20,10 @@
         @apply w-full px-4 py-2 hover:bg-panel-600 hover:bg-opacity-30 hover:text-blue-700 rounded-xl cursor-pointer
     }
 
+    .bg-blur{
+        @apply modal-backdrop bg-black bg-opacity-20 backdrop-blur-sm
+    }
+
     .progress-primary::-webkit-progress-value{
         @apply bg-blue-1200 
     }
