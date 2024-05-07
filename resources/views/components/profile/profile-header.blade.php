@@ -3,10 +3,13 @@
         <div class="flex justify-center">
             <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
             <div class="flex flex-col items-start text-grey-600">
-                <p class="text-sm flex items-center mb-2 gap-4">{{ $user->username }}
+                <div class="flex justify-start gap-2 ">
+                    <p class="text-sm mb-2 gap-4">{{ $user->username }}
+                    </p>
                     @if ($user->id == Auth::user()->id)
+                        <livewire:edit-username-modal :username='$user->username'>
                     @endif
-                </p>
+                </div>
                 @if ($user->id == Auth::user()->id)
                     {{-- <p class="text-sm flex items-center mb-2 gap-4">
                         {{ $user->phone }}
