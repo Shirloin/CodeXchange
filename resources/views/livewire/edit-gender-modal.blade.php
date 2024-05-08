@@ -1,5 +1,5 @@
 <div x-data="{ show: false }" x-cloak>
-    @if (Auth::user()->phone == null)
+    @if (Auth::user()->gender == null)
         <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">Input Gender
         </button>
     @else

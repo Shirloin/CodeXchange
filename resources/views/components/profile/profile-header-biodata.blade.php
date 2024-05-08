@@ -1,5 +1,7 @@
 <div class="flex justify-center">
-    <img class="w-28 h-28 sm:w-40 sm:h-40  rounded-3xl mr-8" src={{ $user->image }} alt="">
+
+    <livewire:edit-image-modal :image='$user->image' />
+
     <div class="flex flex-col items-start text-grey-600 text-sm sm:text-lg mb-4 sm:mb-0">
         <div class="h-8 sm:h-10 flex items-center gap-2">
             {{ $user->username }}

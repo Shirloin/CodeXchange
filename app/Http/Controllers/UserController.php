@@ -9,7 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         $id = $request->id;
         $user = User::find($id);
 
