@@ -20,14 +20,16 @@ class EditPhoneModal extends Component
         'numeric' => 'Phone Number must be numeric'
     ];
 
-    public function mount($phone){
+    public function mount($phone)
+    {
         $this->phone = $phone;
     }
 
-    public function update(){
+    public function update()
+    {
         /** @var User $user */
         $user = Auth::user();
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             Controller::FailMessage('Update Phone Number Failed');
         }
         $validator = Validator::make(
@@ -35,14 +37,14 @@ class EditPhoneModal extends Component
             $this->rules,
             $this->message
         );
-        if($validator->fails()){
+        if ($validator->fails()) {
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->phone = $this->phone;
         $user->save();
         Controller::SuccessMessage('Phone Number Updated');
-        return redirect('/profile'.'/'.$user->id);
+        return redirect('/profile' . '/' . $user->id);
     }
     public static function modalMaxWidth(): string
     {
@@ -50,6 +52,6 @@ class EditPhoneModal extends Component
     }
     public function render()
     {
-        return view('livewire.edit-phone-modal');
+        return view('livewire.profile.edit-phone-modal');
     }
 }

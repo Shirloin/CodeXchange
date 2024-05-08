@@ -75,6 +75,6 @@ class EditImageModal extends Component
 
     public function render()
     {
-        return view('livewire.edit-image-modal');
+        return view('livewire.profile.edit-image-modal');
     }
 }

@@ -21,19 +21,21 @@ class EditDobModal extends Component
         'before_or_equal' => 'Date of Birth must be before or equal to 31 December 2010'
     ];
 
-    public function mount($dob){
+    public function mount($dob)
+    {
         $this->dob = $dob;
     }
 
     public function render()
     {
-        return view('livewire.edit-dob-modal');
+        return view('livewire.profile.edit-dob-modal');
     }
 
-    public function update(){
+    public function update()
+    {
         /** @var User $user */
         $user = Auth::user();
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             Controller::FailMessage('Update Date of Birth Failed');
         }
         $validator = Validator::make(
@@ -41,13 +43,13 @@ class EditDobModal extends Component
             $this->rules,
             $this->message
         );
-        if($validator->fails()){
+        if ($validator->fails()) {
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->dob = $this->dob;
         $user->save();
         Controller::SuccessMessage('Date of Birth Updated');
-        return redirect('/profile'.'/'.$user->id);
+        return redirect('/profile' . '/' . $user->id);
     }
 }

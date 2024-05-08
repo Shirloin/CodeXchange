@@ -48,6 +48,6 @@ class EditUsernameModal extends Component
     }
     public function render()
     {
-        return view('livewire.edit-username-modal');
+        return view('livewire.profile.edit-username-modal');
     }
 }

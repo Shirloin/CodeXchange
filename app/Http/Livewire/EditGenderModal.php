@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class EditGenderModal extends Component
 {
-    
+
     public $gender;
     private $rules = [
         'gender' => 'required'
@@ -19,18 +19,20 @@ class EditGenderModal extends Component
         'required' => 'Date of Birth must be filled',
     ];
 
-    public function mount($gender){
+    public function mount($gender)
+    {
         $this->gender = $gender;
     }
 
     public function render()
     {
-        return view('livewire.edit-gender-modal');
+        return view('livewire.profile.edit-gender-modal');
     }
-    public function update(){
+    public function update()
+    {
         /** @var User $user */
         $user = Auth::user();
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             Controller::FailMessage('Update Gender Failed');
         }
         $validator = Validator::make(
@@ -38,14 +40,14 @@ class EditGenderModal extends Component
             $this->rules,
             $this->message
         );
-        if($validator->fails()){
+        if ($validator->fails()) {
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->gender = $this->gender;
         $user->save();
         Controller::SuccessMessage('Gender Updated');
-        return redirect('/profile'.'/'.$user->id);
+        return redirect('/profile' . '/' . $user->id);
     }
     public function set($gender)
     {
