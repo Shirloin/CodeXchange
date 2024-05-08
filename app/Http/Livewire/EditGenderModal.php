@@ -4,9 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Component;
 
 class EditGenderModal extends Component
 {
@@ -48,9 +48,5 @@ class EditGenderModal extends Component
     }
     public function set($gender){
         $this->gender = $gender;
-    }
-    public static function modalMaxWidth(): string
-    {
-        return 'md';
     }
 }

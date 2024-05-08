@@ -21,7 +21,6 @@ class EditUsernameModal extends Component
     ];
 
     public function update(){
-        dd($this->username);
         /** @var User $user */
         $user = Auth::user();
         if(!$user instanceof User){

@@ -2,49 +2,27 @@
     <div class="mx-auto lg:mx-0 lg:flex lg:max-w-full lg:items-center">
         <div class="flex justify-center">
             <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
-            <div class="flex flex-col items-start text-grey-600">
-                <div class="flex justify-start gap-2 ">
-                    <p class="text-sm mb-2 gap-4">{{ $user->username }}
-                    </p>
-                    @if ($user->id == Auth::user()->id)
+            <div class="flex flex-col items-start text-grey-600 text-lg">
+                <div class="h-10 flex items-center ">
+                    {{ $user->username }}
+                    @can('isMyProfile')
                         <livewire:edit-username-modal :username='$user->username'>
-                    @endif
+                        @endcan
                 </div>
-                @if ($user->id == Auth::user()->id)
-                    {{-- <p class="text-sm flex items-center mb-2 gap-4">
+                @can('isMyProfile')
+                    <div class="h-10 flex items-center">
                         {{ $user->phone }}
-                        <button class=" text-sm text-blue-1200 hover:text-blue-500"
-                            onclick="Livewire.emit('openModal', 'edit-phone-modal', {phone: '{{ $user->phone }}'})">
-                            @if ($user->phone != null)
-                                Edit
-                            @else
-                                Input Phone Number
-                            @endif
-                        </button>
-                    </p>
-                    <p class="text-sm flex items-center mb-2 gap-4">
+                        <livewire:edit-phone-modal :phone='$user->phone'>
+                    </div>
+                    <div class="h-10 flex items-center">
                         {{ $user->dob }}
-                        <button class=" text-sm text-blue-1200 hover:text-blue-500"
-                            onclick="Livewire.emit('openModal', 'edit-dob-modal', {dob: '{{ $user->dob }}'})">
-                            @if ($user->dob != null)
-                                Edit
-                            @else
-                                Input Date of Birth
-                            @endif
-                        </button>
-                    </p>
-                    <p class="text-sm flex items-center mb-2 gap-4">
-                        {{ $user->gender }}
-                        <button class=" text-sm text-blue-1200 hover:text-blue-500"
-                            onclick="Livewire.emit('openModal', 'edit-gender-modal', {gender: '{{ $user->gender }}'})">
-                            @if ($user->gender != null)
-                                Edit
-                            @else
-                                Input Gender
-                            @endif
-                        </button>
-                    </p> --}}
-                @endif
+                        <livewire:edit-dob-modal :dob='$user->dob'>
+                    </div>
+                    <div class="h-10 flex items-center">
+                        {{ $user->dob }}
+                        <livewire:edit-gender-modal :gender='$user->gender'>
+                    </div>
+                @endcan
             </div>
         </div>
         <div class="lg:ml-auto ">

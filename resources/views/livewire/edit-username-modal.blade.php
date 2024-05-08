@@ -1,10 +1,10 @@
 <div>
-    <button class="text-sm text-blue-1200 hover:text-blue-500" onclick="my_modal_2.showModal()">Edit
+    <button class="text-sm text-blue-1200 hover:text-blue-500 " onclick="edit_username_modal.showModal()">Edit
     </button>
-    <dialog id="my_modal_2" class="modal">
+    <dialog id="edit_username_modal" class="modal">
         <form class="modal-box max-w-md bg-panel-800 text-grey-600" wire:submit.prevent='update'>
-            <h3 class="font-bold text-3xl mb-10">Edit Username {{ $username }}</h3>
-            <input wire:model="username"
+            <h3 class="font-bold text-3xl mb-10">Edit Username</h3>
+            <input wire:model.defer="username"
                 class="w-full bg-transparent p-3 mb-6 ring-1 ring-grey-600 rounded-md focus:ring-grey-600 focus:outline-none"
                 type="text" placeholder="Username" value={{ $username }}>
             <button
@@ -12,6 +12,6 @@
         </form>
         <form method="dialog" class="modal-backdrop bg-blur">
             <button>close</button>
-        </form>
+        </form> 
     </dialog>
 </div>

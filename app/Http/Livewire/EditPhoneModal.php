@@ -4,9 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Component;
 
 class EditPhoneModal extends Component
 {
@@ -22,11 +22,6 @@ class EditPhoneModal extends Component
 
     public function mount($phone){
         $this->phone = $phone;
-    }
-
-    public function render()
-    {
-        return view('livewire.edit-phone-modal');
     }
 
     public function update(){
@@ -52,5 +47,9 @@ class EditPhoneModal extends Component
     public static function modalMaxWidth(): string
     {
         return 'md';
+    }
+    public function render()
+    {
+        return view('livewire.edit-phone-modal');
     }
 }

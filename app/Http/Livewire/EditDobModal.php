@@ -4,13 +4,12 @@ namespace App\Http\Livewire;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Console\View\Components\Component;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Component;
 
 class EditDobModal extends Component
 {
-
     public $dob;
     private $rules = [
         'dob' => 'required|date|after_or_equal:1980-01-01|before_or_equal:2010-12-31'
@@ -50,9 +49,5 @@ class EditDobModal extends Component
         $user->save();
         Controller::SuccessMessage('Date of Birth Updated');
         return redirect('/profile'.'/'.$user->id);
-    }
-    public static function modalMaxWidth(): string
-    {
-        return 'md';
     }
 }
