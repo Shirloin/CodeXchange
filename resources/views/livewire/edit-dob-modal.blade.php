@@ -3,7 +3,8 @@
         <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">Input Date of Birth
         </button>
     @else
-        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">Edit
+        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">
+            <i class="fas fa-edit"></i>
         </button>
     @endif
 

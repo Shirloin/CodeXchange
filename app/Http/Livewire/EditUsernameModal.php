@@ -17,13 +17,14 @@ class EditUsernameModal extends Component
     private $message = [
         'required' => 'Username must be filled',
         'min' => 'Username length must be at least 3 characters',
-        'max' => 'Username length must be less than 15 characters'  
+        'max' => 'Username length must be less than 15 characters'
     ];
 
-    public function update(){
+    public function update()
+    {
         /** @var User $user */
         $user = Auth::user();
-        if(!$user instanceof User){
+        if (!$user instanceof User) {
             Controller::FailMessage('Update Username Failed');
         }
         $validator = Validator::make(
@@ -31,21 +32,18 @@ class EditUsernameModal extends Component
             $this->rules,
             $this->message
         );
-        if($validator->fails()){
+        if ($validator->fails()) {
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
         $user->username = $this->username;
         $user->save();
         Controller::SuccessMessage('Username Updated');
-        return redirect('/profile'.'/'.$user->id);
+        return redirect('/profile' . '/' . $user->id);
     }
 
-    public function save(){
-        dd($this->username);
-    }
-
-    public function mount($username){
+    public function mount($username)
+    {
         $this->username = $username;
     }
     public function render()

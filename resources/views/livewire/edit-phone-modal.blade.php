@@ -1,11 +1,10 @@
 <div x-data="{ show: false }" x-cloak>
     @if (Auth::user()->phone == null)
-        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500"
-            onclick="edit_phone_modal.showModal()">Input Phone Number
+        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">Input Phone Number
         </button>
     @else
-        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500"
-            onclick="edit_phone_modal.showModal()">Edit
+        <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500"><i
+                class="fas fa-edit"></i>
         </button>
     @endif
 
