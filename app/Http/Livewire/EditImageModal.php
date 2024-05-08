@@ -18,10 +18,11 @@ class EditImageModal extends Component
     public $image;
     public $file;
     private $rules = [
-        'file' => 'mimes:jpeg,png,jpg|max:2048'
+        'file' => 'required|image|max:2048'
     ];
     private $message = [
-        'mimes' => 'File extension must in jpeg, png, jpg',
+        'required' => 'Image must not be empty',
+        'image' => 'File must be an image',
         'max' => 'File size must be not more than 2048 bytes'
     ];
 
@@ -46,8 +47,12 @@ class EditImageModal extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $this->remove();
-        $this->upload($user);
+        if ($this->image) {
+            $this->remove();
+        }
+        if ($this->file) {
+            $this->upload($user);
+        }
         Controller::SuccessMessage('Profile Image Updated');
         return redirect('/profile' . '/' . $user->id);
     }

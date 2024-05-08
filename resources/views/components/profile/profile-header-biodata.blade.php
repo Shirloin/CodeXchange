@@ -1,5 +1,4 @@
 <div class="flex justify-center">
-
     <livewire:edit-image-modal :image='$user->image' />
 
     <div class="flex flex-col items-start text-grey-600 text-sm sm:text-lg mb-4 sm:mb-0">
