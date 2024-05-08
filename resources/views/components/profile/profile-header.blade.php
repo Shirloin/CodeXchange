@@ -1,9 +1,9 @@
 <div class="container mt-12">
     <div class="mx-auto lg:mx-0 lg:flex lg:max-w-full lg:items-center">
         <div class="flex justify-center">
-            <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
-            <div class="flex flex-col items-start text-grey-600 text-lg">
-                <div class="h-10 flex items-center uppercase gap-2" >
+            <img class="w-32 h-32 sm:w-40 sm:h-40  rounded-3xl mr-8" src={{ $user->image }} alt="">
+            <div class="flex flex-col items-start text-grey-600 text-sm sm:text-lg mb-4 sm:mb-0">
+                <div class="h-10 flex items-center gap-2" >
                     {{ $user->username }}
                     @can('isMyProfile')
                         <livewire:edit-username-modal :username='$user->username'>
