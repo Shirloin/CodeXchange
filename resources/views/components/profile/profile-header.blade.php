@@ -3,23 +3,23 @@
         <div class="flex justify-center">
             <img class="w-16 h-16 sm:w-28 sm:h-28  rounded-3xl mr-8" src={{ $user->image }} alt="">
             <div class="flex flex-col items-start text-grey-600 text-lg">
-                <div class="h-10 flex items-center ">
+                <div class="h-10 flex items-center uppercase gap-2" >
                     {{ $user->username }}
                     @can('isMyProfile')
                         <livewire:edit-username-modal :username='$user->username'>
                         @endcan
                 </div>
                 @can('isMyProfile')
-                    <div class="h-10 flex items-center">
+                    <div class="h-10 flex items-center gap-2">
                         {{ $user->phone }}
                         <livewire:edit-phone-modal :phone='$user->phone'>
                     </div>
-                    <div class="h-10 flex items-center">
+                    <div class="h-10 flex items-center gap-2">
                         {{ $user->dob }}
                         <livewire:edit-dob-modal :dob='$user->dob'>
                     </div>
-                    <div class="h-10 flex items-center">
-                        {{ $user->dob }}
+                    <div class="h-10 flex items-center gap-2">
+                        {{ $user->gender }}
                         <livewire:edit-gender-modal :gender='$user->gender'>
                     </div>
                 @endcan

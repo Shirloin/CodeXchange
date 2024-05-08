@@ -10,6 +10,7 @@ use Livewire\Component;
 
 class EditGenderModal extends Component
 {
+    
     public $gender;
     private $rules = [
         'gender' => 'required'
@@ -46,7 +47,8 @@ class EditGenderModal extends Component
         Controller::SuccessMessage('Gender Updated');
         return redirect('/profile'.'/'.$user->id);
     }
-    public function set($gender){
+    public function set($gender)
+    {
         $this->gender = $gender;
     }
 }

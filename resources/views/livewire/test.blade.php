@@ -1,4 +1,4 @@
-<div x-data="{ show: false}" x-cloak>
+<div x-data="{ show: false }">
     @if (Auth::user()->phone == null)
         <button x-on:click.prevent="show=true" class="text-sm text-blue-1200 hover:text-blue-500">Input Gender
         </button>
@@ -7,20 +7,15 @@
         </button>
     @endif
 
-    <div class="fixed z-10 inset-0 overflow-y-auto"
-        aria-labelledby="modal-title" role="dialog" aria-modal="true" 
-        x-show="show" x-transition:enter="transition ease-out duration-100 transform"
-        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-        x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 scale-100"
-        x-transition:leave-end="opacity-0 scale-95"
-        >
+    <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true"
+        x-show="show">
         <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div x-on:click.prevent="show=false" class="fixed inset-0 bg-black bg-opacity-20 backdrop-blur-sm transition-opacity"
+            <div x-on:click.prevent="show=false" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                 aria-hidden="true"></div>
 
             <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-            <form wire:submit.prevent='update'
+            <div
                 class="inline-block align-bottom bg-panel-800 rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6 text-grey-600">
                 <div>
                     @if (Auth::user()->gender == null)
@@ -48,8 +43,8 @@
                     </div>
                 </div>
                 <button type="submit"
-                    class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">Save</button>
-            </form>
+                class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">Save</button>
+            </div>
         </div>
     </div>
 </div>
