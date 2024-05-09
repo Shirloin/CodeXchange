@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -8,27 +8,32 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class EditUsernameModal extends Component
+class EditPhoneModal extends Component
 {
-    public $username;
+    public $phone;
     private $rules = [
-        'username' => 'required|min:3|max:15'
+        'phone' => 'required|digits:12|numeric'
     ];
     private $message = [
-        'required' => 'Username must be filled',
-        'min' => 'Username length must be at least 3 characters',
-        'max' => 'Username length must be less than 15 characters'
+        'required' => 'Phone Number must be filled',
+        'digits' => 'Phone Number length must be 12 characters',
+        'numeric' => 'Phone Number must be numeric'
     ];
+
+    public function mount($phone)
+    {
+        $this->phone = $phone;
+    }
 
     public function update()
     {
         /** @var User $user */
         $user = Auth::user();
         if (!$user instanceof User) {
-            Controller::FailMessage('Update Username Failed');
+            Controller::FailMessage('Update Phone Number Failed');
         }
         $validator = Validator::make(
-            ['username' => $this->username],
+            ['phone' => $this->phone],
             $this->rules,
             $this->message
         );
@@ -36,18 +41,13 @@ class EditUsernameModal extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $user->username = $this->username;
+        $user->phone = $this->phone;
         $user->save();
-        Controller::SuccessMessage('Username Updated');
+        Controller::SuccessMessage('Phone Number Updated');
         return redirect('/profile' . '/' . $user->id);
-    }
-
-    public function mount($username)
-    {
-        $this->username = $username;
     }
     public function render()
     {
-        return view('livewire.profile.edit-username-modal');
+        return view('livewire.profile.edit-phone-modal');
     }
 }

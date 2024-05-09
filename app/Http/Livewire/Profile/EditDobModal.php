@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Profile;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -8,35 +8,32 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class EditGenderModal extends Component
+class EditDobModal extends Component
 {
-
-    public $gender;
+    public $dob;
     private $rules = [
-        'gender' => 'required'
+        'dob' => 'required|date|after_or_equal:1980-01-01|before_or_equal:2010-12-31'
     ];
     private $message = [
         'required' => 'Date of Birth must be filled',
+        'date' => 'Date of Birth type must be date',
+        'after_or_equal' => 'Date of Birth must be after or equal to 1 January 1980',
+        'before_or_equal' => 'Date of Birth must be before or equal to 31 December 2010'
     ];
 
-    public function mount($gender)
+    public function mount($dob)
     {
-        $this->gender = $gender;
-    }
-
-    public function render()
-    {
-        return view('livewire.profile.edit-gender-modal');
+        $this->dob = $dob;
     }
     public function update()
     {
         /** @var User $user */
         $user = Auth::user();
         if (!$user instanceof User) {
-            Controller::FailMessage('Update Gender Failed');
+            Controller::FailMessage('Update Date of Birth Failed');
         }
         $validator = Validator::make(
-            ['gender' => $this->gender],
+            ['dob' => $this->dob],
             $this->rules,
             $this->message
         );
@@ -44,13 +41,13 @@ class EditGenderModal extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $user->gender = $this->gender;
+        $user->dob = $this->dob;
         $user->save();
-        Controller::SuccessMessage('Gender Updated');
+        Controller::SuccessMessage('Date of Birth Updated');
         return redirect('/profile' . '/' . $user->id);
     }
-    public function set($gender)
+    public function render()
     {
-        $this->gender = $gender;
+        return view('livewire.profile.edit-dob-modal');
     }
 }

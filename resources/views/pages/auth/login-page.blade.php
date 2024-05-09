@@ -18,7 +18,8 @@
                     placeholder="Enter Password" id="password" name="password" type="password" autocomplete="off"
                     value={{ old('password') }}>
             </div>
-            <button type="submit" class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">Log In</button>
+            <button onclick="showLoading()" type="submit"
+                class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">Log In</button>
             <a href="/register" class="mx-auto mt-4 text-sm text-grey-600 hover:underline">Sign Up</a>
         </form>
     </div>
