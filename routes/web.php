@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\Pages\Auth\Login;
+use App\Http\Livewire\Pages\Auth\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,12 +22,9 @@ Route::get('/', function () {
     return view('pages.home-page');
 });
 Route::get('/topic', [TopicController::class, 'index']);
-Route::get('/login', function () {
-    return view('pages.auth.login-page');
-});
-Route::get('/register', function () {
-    return view('pages.auth.register-page');
-});
+
+Route::get('/login', [AuthController::class, 'goToLogin']);
+Route::get('/register', [AuthController::class, 'goToRegister']);
 
 Route::get('/profile/{id}', [UserController::class, 'index']);
 

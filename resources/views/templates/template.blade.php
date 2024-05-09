@@ -8,7 +8,6 @@
     <title>CodeXchange</title>
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="/public/js/javascript.js" defer></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <style>

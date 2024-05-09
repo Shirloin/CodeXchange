@@ -12,6 +12,16 @@ use function App\Helper\getID;
 
 class AuthController extends Controller
 {
+
+    public function goToLogin()
+    {
+        return view('pages.auth.login-page');
+    }
+    public function goToRegister()
+    {
+        return view('pages.auth.register-page');
+    }
+
     public function login(Request $request)
     {
         $rules = [

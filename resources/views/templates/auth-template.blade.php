@@ -8,12 +8,10 @@
     <title>CodeXchange</title>
     @livewireStyles
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="/public/js/javascript.js" defer></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
 <body>
-    @include('livewire.loading-spinner')
     @include('components.background')
     <div class="min-h-screen relative w-full flex flex-col justify-center z-20">
         @yield('content')
