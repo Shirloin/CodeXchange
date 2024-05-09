@@ -22,10 +22,16 @@
         @endguest
         @auth
             <a href="/profile/{{ Auth::user()->id }}" class="mr-4 flex items-center p-2 rounded-xl">
-                <img class=" w-10 h-10 rounded-full object-cover mr-4" src={{ Auth::user()->image }} alt=""
+                <img class=" w-10 h-10 rounded-full object-cover" src={{ Auth::user()->image }} alt=""
                     loading="lazy">
-                {{-- <p class="mr-4 text-xl">{{ Auth::user()->username }}</p> --}}
             </a>
+            <form action="/logout" method="post">
+                @csrf
+                <button class="flex bg-container items-center px-6 py-3 rounded-lg ">
+                    <i class="fa-solid fa-arrow-right-from-bracket fa-lg mr-2"></i>
+                    <p class="text-md">Log Out</p>
+                </button>
+            </form>
         @endauth
 
     </div>

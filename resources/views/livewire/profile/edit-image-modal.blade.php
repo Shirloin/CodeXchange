@@ -6,5 +6,6 @@
             accept="image/*">
         <p>Edit Profile</p>
     </label>
+
     <img class="w-28 h-28 sm:w-40 sm:h-40  rounded-3xl object-cover  group-hover:opacity-50" src={{ $image }}>
 </div>
