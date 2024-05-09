@@ -2,8 +2,9 @@
 
 @section('content')
     <div class="w-full h-full flex flex-grow p-4">
-        <form autocomplete="off"
+        <form action="/login" method="post" autocomplete="off"
             class="h-fit w-96 m-auto flex flex-col px-4 sm:px-8 py-4 sm:py-6 bg-container rounded-xl font-semibold text-sm text-grey-600">
+            @csrf
             <h1 class="text-2xl font-bold mb-4">Sign In</h1>
             <div class="mb-4">
                 <label for="username">Username </label>
