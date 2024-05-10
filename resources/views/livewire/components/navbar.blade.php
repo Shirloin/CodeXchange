@@ -21,13 +21,13 @@
             <a href="/register" class="btn-blue-hover px-8 py-3 rounded-md ">Sign Up</a>
         @endguest
         @auth
-            <a href="/profile/{{ Auth::user()->id }}" class=" flex items-center p-2 rounded-xl">
-                <img class=" w-10 h-10 rounded-full object-cover" src={{ Auth::user()->image }} alt=""
+            <a href="/profile/{{ Auth::user()->id }}" class=" flex justify-center items-center rounded-xl bg-panel-700">
+                <img class=" w-10 h-10  rounded-lg object-cover" src={{ Auth::user()->image }} alt=""
                     loading="lazy">
             </a>
             <form wire:submit='logout' method="post">
                 @csrf
-                <button class="flex bg-container items-center px-6 py-3 rounded-lg ">
+                <button class="flex bg-panel-700 items-center px-6 py-3 rounded-lg ">
                     <i class="fa-solid fa-arrow-right-from-bracket fa-lg mr-2"></i>
                     <p class="text-md">Log Out</p>
                 </button>

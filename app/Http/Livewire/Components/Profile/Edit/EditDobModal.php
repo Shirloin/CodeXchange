@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Profile;
+namespace App\Http\Livewire\Components\Profile\Edit;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -48,6 +48,6 @@ class EditDobModal extends Component
     }
     public function render()
     {
-        return view('livewire.profile.edit-dob-modal');
+        return view('livewire.components.profile.edit.edit-dob-modal');
     }
 }

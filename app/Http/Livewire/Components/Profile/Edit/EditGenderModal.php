@@ -1,35 +1,36 @@
 <?php
 
-namespace App\Http\Livewire\Profile;
+namespace App\Http\Livewire\Components\Profile\Edit;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
 use Livewire\Component;
 
-class EditUsernameModal extends Component
+class EditGenderModal extends Component
 {
-    public $username;
+    public $gender;
     private $rules = [
-        'username' => 'required|min:3|max:15'
+        'gender' => 'required'
     ];
     private $message = [
-        'required' => 'Username must be filled',
-        'min' => 'Username length must be at least 3 characters',
-        'max' => 'Username length must be less than 15 characters'
+        'required' => 'Date of Birth must be filled',
     ];
 
+    public function mount($gender)
+    {
+        $this->gender = $gender;
+    }
     public function update()
     {
         /** @var User $user */
         $user = Auth::user();
         if (!$user instanceof User) {
-            Controller::FailMessage('Update Username Failed');
+            Controller::FailMessage('Update Gender Failed');
         }
         $validator = Validator::make(
-            ['username' => $this->username],
+            ['gender' => $this->gender],
             $this->rules,
             $this->message
         );
@@ -37,18 +38,17 @@ class EditUsernameModal extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $user->username = $this->username;
+        $user->gender = $this->gender;
         $user->save();
-        Controller::SuccessMessage('Username Updated');
+        Controller::SuccessMessage('Gender Updated');
         return redirect('/profile' . '/' . $user->id);
     }
-
-    public function mount($username)
+    public function set($gender)
     {
-        $this->username = $username;
+        $this->gender = $gender;
     }
     public function render()
     {
-        return view('livewire.profile.edit-username-modal');
+        return view('livewire.components.profile.edit.edit-gender-modal');
     }
 }

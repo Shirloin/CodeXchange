@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', Home::class);
 Route::get('/topic', Topic::class);
+Route::get('/topic/{name}', Topic::class);
 Route::get('/login', Login::class);
 Route::get('/register', Register::class);
 
