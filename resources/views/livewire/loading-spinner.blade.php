@@ -1,4 +1,4 @@
-<div class="fixed top-0 left-0 w-screen h-screen justify-center items-center bg-black bg-opacity-80 z-50 hidden"
+<div wire:loading class="fixed top-0 left-0 w-screen h-screen justify-center items-center bg-black bg-opacity-80 z-50 "
     id="loadingOverlay">
     <div class="text-white text-lg"><span class="loader"></span></div>
 </div>

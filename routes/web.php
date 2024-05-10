@@ -5,6 +5,9 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use App\Http\Livewire\Pages\Auth\Login;
 use App\Http\Livewire\Pages\Auth\Register;
+use App\Http\Livewire\Pages\Home;
+use App\Http\Livewire\Pages\Profile;
+use App\Http\Livewire\Pages\Topic;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,21 +21,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home-page');
-});
-Route::get('/topic', [TopicController::class, 'index']);
+Route::get('/', Home::class);
+Route::get('/topic', Topic::class);
+Route::get('/login', Login::class);
+Route::get('/register', Register::class);
 
-Route::get('/login', [AuthController::class, 'goToLogin']);
-Route::get('/register', [AuthController::class, 'goToRegister']);
+Route::get('/profile/{id}', Profile::class);
 
-Route::get('/profile/{id}', [UserController::class, 'index']);
-
-Route::get('/debug', function () {
-    return view('pages.debug-page');
-});
-
-
-Route::post('/register', [AuthController::class, 'create']);
-Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
