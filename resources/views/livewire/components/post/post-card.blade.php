@@ -26,24 +26,23 @@
                     <i class="fa-solid fa-comment"></i>
                     <p>{{ $post->replies_count }}</p>
                 </div>
-                @if ($post->topics->first()->name == 'C')
-                    @include('components.topic.c-topic')
-                @elseif ($post->topics->first()->name == 'SQL')
-                    @include('components.topic.sql-topic')
-                @elseif ($post->topics->first()->name == 'MongoDB')
-                    @include('components.topic.mongodb-topic')
-                @elseif ($post->topics->first()->name == 'Java')
-                    @include('components.topic.java-topic')
-                @elseif ($post->topics->first()->name == 'HTML')
-                    @include('components.topic.html-topic')
-                @elseif ($post->topics->first()->name == 'CSS')
-                    @include('components.topic.css-topic')
-                @elseif ($post->topics->first()->name == 'Javascript')
-                    @include('components.topic.js-topic')
-                @elseif ($post->topics->first()->name == 'Laravel')
-                    @include('components.topic.laravel-topic')
-                @elseif ($post->topics->first()->name == 'Network')
-                    @include('components.topic.network-topic')
+                @php
+                    $topicComponents = [
+                        'C' => 'c-topic',
+                        'SQL' => 'sql-topic',
+                        'MongoDB' => 'mongodb-topic',
+                        'Java' => 'java-topic',
+                        'HTML' => 'html-topic',
+                        'CSS' => 'css-topic',
+                        'Javascript' => 'js-topic',
+                        'Laravel' => 'laravel-topic',
+                        'Network' => 'network-topic',
+                    ];
+                    $topicName = $post->topics->first()->name;
+                    $componentName = $topicComponents[$topicName] ?? null;
+                @endphp
+                @if ($componentName)
+                    @include('components.topic.' . $componentName)
                 @endif
             </div>
         </div>
@@ -53,7 +52,7 @@
         <div class="flex flex-wrap items-start text-sm">
             <div class=" flex items-center mr-3 text-ellipsis text-wrap">
                 <object data="" type="">
-                    <a href=""
+                    <a href="/profile/{{ $post->user_id }}"
                         class="text-blue-500 mr-1 hover:underline hover:text-blue-700 transition-colors duration-300">
                         Shirloin
                     </a>
