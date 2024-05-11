@@ -1,6 +1,5 @@
-<div class="relative w-full  flex flex-col items-center text-white">
-    <div
-        class="relative w-full flex flex-col items-center flex-grow justify-start lg:gap-x-10 px-6 xl:px-16">
+<div class="relative w-full  flex flex-col items-center flex-grow justify-start text-white">
+    <div class="relative w-full flex flex-col items-center flex-grow justify-start  lg:gap-x-10 px-6 xl:px-16">
         <div class="mx-auto px-7 py-10">
             <div class="my-6 max-w-xl text-center ">
                 <h1 class="mb-6 text-5xl text-white">Explore By Topic</h1>
@@ -29,14 +28,14 @@
             @endforeach
         </div>
     </div>
-    <div class="w-full mx-auto mt-20 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
-        <h1 class="w-fit mx-auto mb-10 md:mb-16 text-grey-600 text-5xl font-medium uppercase ">
-            {{ $name }}
-        </h1>
-        @if (!empty($posts))
+    @if ($posts->count() > 0)
+        <div class="w-full mx-auto mt-20 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
+            <h1 class="w-fit mx-auto mb-10 md:mb-16 text-grey-600 text-5xl font-medium uppercase ">
+                {{ $name }}
+            </h1>
             @foreach ($posts as $post)
                 @livewire('components.post.post-card', ['post' => $post])
             @endforeach
-        @endif
-    </div>
+        </div>
+    @endif
 </div>
