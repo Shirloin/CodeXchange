@@ -13,8 +13,8 @@
 
     <div class="flex items-center text-xs font-bold uppercase mt-4">
         <span>Level {{ $user->level }}</span>
-        <progress class="progress progress-primary mx-4 flex-1 rounded-full bg-black h-2" value="32"
-            max="100"></progress>
+        <progress class="progress progress-primary mx-4 flex-1 rounded-full bg-black h-2" value={{ $user->xp }}
+            max="5000"></progress>
         <span>{{ $user->xp }} XP</span>
     </div>
 </div>
