@@ -29,7 +29,11 @@ class User extends Authenticatable
         'dob',
         'gender',
         'image',
-        'xp'
+        'xp',
+        'level',
+        'posts_count',
+        'replies_count',
+        'likes_count'
     ];
 
     /**
