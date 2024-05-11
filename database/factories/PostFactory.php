@@ -27,13 +27,7 @@ class PostFactory extends Factory
             'content' => $this->faker->paragraph(rand(1, 3), true),
             'user_id' =>  User::all()->random()->id,
             'is_solved' => $this->faker->randomElement([true, false]),
+            'topic_id' => Topic::all()->random()->id,
         ];
-    }
-    public function configure()
-    {
-        return $this->afterCreating(function (Post $post) {
-            $topics = Topic::all()->shuffle()->take(rand(1, 3));
-            $post->topics()->attach($topics);
-        });
     }
 }

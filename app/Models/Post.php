@@ -18,11 +18,12 @@ class Post extends Model
         "is_solved",
         "replies_count",
         "likes_count",
-        "user_id"
+        "user_id",
+        'topic_id'
     ];
-    public function topics()
+    public function topic()
     {
-        return $this->belongsToMany(Topic::class, 'post_topics', 'post_id', 'topic_id');
+        return $this->belongsTo(Topic::class);
     }
 
     public function likes()

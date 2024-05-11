@@ -10,7 +10,7 @@ class AllThread extends Component
     public $posts;
     public function mount()
     {
-        $this->posts = Post::with(['topics', 'replies', 'user'])->get();
+        $this->posts = Post::with(['topic', 'replies', 'user'])->get();
     }
     public function render()
     {

@@ -38,7 +38,7 @@
                         'Laravel' => 'laravel-topic',
                         'Network' => 'network-topic',
                     ];
-                    $topicName = $post->topics->first()->name;
+                    $topicName = $post->topic->name;
                     $componentName = $topicComponents[$topicName] ?? null;
                 @endphp
                 @if ($componentName)

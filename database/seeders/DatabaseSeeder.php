@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             TopicSeeder::class,
             PostSeeder::class,
-            PostTopicSeeder::class,
             ReplySeeder::class,
             LikeSeeder::class,
         ]);

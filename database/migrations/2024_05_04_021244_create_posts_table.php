@@ -21,7 +21,9 @@ return new class extends Migration
             $table->integer('replies_count')->default(0);
             $table->integer('likes_count')->default(0);
             $table->uuid('user_id');
+            $table->uuid('topic_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate("CASCADE")->onDelete("CASCADE");
+            $table->foreign('topic_id')->references('id')->on('topics')->onUpdate("CASCADE")->onDelete("CASCADE");
             $table->timestamps();
         });
     }

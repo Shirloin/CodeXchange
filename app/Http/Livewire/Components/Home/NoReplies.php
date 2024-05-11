@@ -10,7 +10,7 @@ class NoReplies extends Component
     public $posts;
     public function mount()
     {
-        $this->posts = Post::with(['topics', 'replies', 'user'])
+        $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('replies_count', 0)
             ->get();
     }

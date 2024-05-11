@@ -17,7 +17,7 @@ class Topic extends Component
         $this->topics = ModelsTopic::all();
         if ($name != null) {
             $this->name = $name;
-            $this->posts = Post::whereHas('topics', function ($query) use ($name) {
+            $this->posts = Post::whereHas('topic', function ($query) use ($name) {
                 $query->where('name', $name);
             })->get();
         }

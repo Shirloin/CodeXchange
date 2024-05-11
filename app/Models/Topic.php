@@ -12,9 +12,14 @@ class Topic extends Model
     public $incrementing = false;
     protected $keyType = 'string';
     public $timestamps = true;
+    protected $fillable = [
+        "id",
+        "name",
+        "image"
+    ];
 
     public function posts()
     {
-        return $this->belongsToMany(Post::class, 'post_topics', 'topic_id', 'post_id');
+        return $this->hasMany(Post::class);
     }
 }
