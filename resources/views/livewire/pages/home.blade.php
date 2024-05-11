@@ -1,7 +1,7 @@
 <div class="relative w-full mx-auto flex flex-grow justify-start lg:gap-x-10 px-6 xl:px-16  pt-10 text-white"
     x-data="{ tab: '#tab1' }">
     <aside class="w-52 hidden flex-none lg:sticky lg:top-10 lg:block lg:self-start">
-        <a href="http://" class="btn-blue-hover rounded-2xl flex justify-center items-center mb-8 w-full  py-4">
+        <a href="/create-post" class="btn-blue-hover rounded-2xl flex justify-center items-center mb-8 w-full  py-4">
             <span class="inline-block flex-shrink-0 text-wrap">New Discussion</span>
         </a>
         <ul class="flex flex-col gap-y-2 lg:max-h-[80vh] lg:overflow-y-auto text-white font-semibold">

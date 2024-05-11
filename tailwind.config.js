@@ -15,12 +15,16 @@ export default {
                 'panel-600': '#20375940',
                 'grey-700': '##bac6cc',
                 'grey-600': '#bad9fc',
+                'grey-500': '#62748b',
+                'grey-400': '#ebedf1',
                 'blue-1000': '#1b55ac0d',
                 'blue-1100': '#1b55ac33',
-                'blue-1200': '#1b55ac', 
+                'blue-1200': '#1b55ac',
+                'blue-1300': '#1b55ac21',
+                'blue-1400': '#1b55ac33',
             },
         },
     },
-    
-    plugins: [require('daisyui')],
+
+    plugins: [],
 }

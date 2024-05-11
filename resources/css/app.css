@@ -7,7 +7,7 @@
 @tailwind utilities;
 
 @layer components{
-    
+
     .btn-blue-hover{
         @apply bg-gradient-to-r from-blue-700 to-blue-800 hover:bg-gradient-to-r hover:from-blue-700 hover:via-blue-600 hover:to-cyan-500
     }
@@ -26,6 +26,12 @@
     }
 
     .progress-primary::-webkit-progress-value{
-        @apply bg-blue-1200 
+        @apply bg-blue-1200
     }
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        text-indent: 1px;
+        text-overflow: '';
+      }
 }

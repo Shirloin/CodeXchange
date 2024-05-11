@@ -15,6 +15,7 @@ class Topic extends Component
     public function mount($name = '')
     {
         $this->topics = ModelsTopic::all();
+        $this->posts = collect();
         if ($name != null) {
             $this->name = $name;
             $this->posts = Post::whereHas('topic', function ($query) use ($name) {
