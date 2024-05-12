@@ -58,8 +58,6 @@ class CreatePost extends Component
         $post->topic_id = $this->topic;
         $post->user_id = $user->id;
         $post->save();
-        $user->increment('posts_count');
-        $user->increment('xp', 100);
         Controller::SuccessMessage('Create Post Success');
         return redirect('/');
     }

@@ -12,7 +12,8 @@ class NoReplies extends Component
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('replies_count', 0)
-            ->get();
+            ->get()
+            ->sortByDesc('created_at');
     }
     public function render()
     {

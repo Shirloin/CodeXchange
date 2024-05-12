@@ -3,8 +3,6 @@
     <div class="flex flex-col items-start text-grey-600 text-sm sm:text-lg mb-4 sm:mb-0">
         <div class="h-8 sm:h-10 flex items-center gap-2">
             {{ $user->username }}
-            @if ($user->id == Auth::user()->id)
-            @endif
             @can('isMyProfile', $user)
                 @livewire('components.profile.edit.edit-username-modal', ['username' => $user->username])
             @endcan

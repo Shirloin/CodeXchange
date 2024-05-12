@@ -10,7 +10,9 @@ class AllThread extends Component
     public $posts;
     public function mount()
     {
-        $this->posts = Post::with(['topic', 'replies', 'user'])->get();
+        $this->posts = Post::with(['topic', 'replies', 'user'])
+            ->get()
+            ->sortByDesc('created_at');
     }
     public function render()
     {

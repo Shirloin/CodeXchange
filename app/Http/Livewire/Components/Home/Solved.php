@@ -12,7 +12,8 @@ class Solved extends Component
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('is_solved', true)
-            ->get();
+            ->get()
+            ->sortByDesc('created_at');
     }
     public function render()
     {

@@ -21,6 +21,14 @@ class Post extends Model
         "user_id",
         'topic_id'
     ];
+    protected static function booted()
+    {
+        static::created(function ($post) {
+            $post->user->increment('posts_count');
+            $post->user->increment('xp', 100);
+        });
+    }
+
     public function topic()
     {
         return $this->belongsTo(Topic::class);
