@@ -7,6 +7,7 @@ use App\Http\Livewire\Pages\Auth\Login;
 use App\Http\Livewire\Pages\Auth\Register;
 use App\Http\Livewire\Pages\CreatePost;
 use App\Http\Livewire\Pages\Home;
+use App\Http\Livewire\Pages\Post;
 use App\Http\Livewire\Pages\Profile;
 use App\Http\Livewire\Pages\Topic;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +31,6 @@ Route::get('/login', Login::class);
 Route::get('/register', Register::class);
 
 Route::get('/profile/{id}', Profile::class);
+Route::get('/post/{id}', Post::class);
 
 Route::post('/logout', [AuthController::class, 'logout']);

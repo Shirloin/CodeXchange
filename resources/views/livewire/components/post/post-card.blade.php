@@ -1,5 +1,5 @@
-<a href=""
-    class="bg-container border-2 border-panel-600 w-full min-h-40 flex md:flex-row flex-col  p-4 rounded-xl mb-5">
+<a href="/post/{{ $post->id }}"
+    class="bg-container text-white border-2 border-panel-600 w-full min-h-40 flex md:flex-row flex-col  p-4 rounded-xl mb-5">
     <div class="flex justify-between items-start md:mr-5 mb-5 md:mb-0 ">
         <object class="" data="" type="">
             <a href="/profile/{{ $post->user->id }}" class="flex text-xl font-medium ">
@@ -16,11 +16,13 @@
     </div>
     <div class="w-full h-fit flex flex-col">
         <div class="flex justify-between mb-5">
-            <div
-                class="group relative text-xl font-medium max-w-xl text-wrap text-ellipsis line-clamp-1 truncate hover:cursor-pointer">
-                {{ $post->title }}
-                <span class="underline-animation"></span>
-            </div>
+            <object data="" type="">
+                <a href="/post/{{ $post->id }}"
+                    class="group relative text-xl font-medium max-w-xl text-wrap text-ellipsis line-clamp-1 truncate hover:cursor-pointer">
+                    {{ $post->title }}
+                    <span class="underline-animation"></span>
+                </a>
+            </object>
             <div class="hidden md:flex gap-6 font-medium">
                 <div class="flex items-center gap-1">
                     <i class="fa-solid fa-comment"></i>
