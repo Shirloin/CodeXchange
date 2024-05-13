@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -48,7 +49,7 @@ class User extends Authenticatable
 
     public function likes()
     {
-        return $this->belongsToMany(Like::class, 'likes', 'user_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
     }
     public function libraries()
     {
@@ -61,5 +62,9 @@ class User extends Authenticatable
     public function achievements()
     {
         return $this->hasMany(Achievement::class, 'user_achievements', 'user_id', 'achievements_id');
+    }
+    public function hasLikedPost(Post $post)
+    {
+        return $this->likes()->where('post_id', $post->id)->exists();
     }
 }

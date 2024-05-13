@@ -1,43 +1,42 @@
 <div class="relative ml-16 before-content">
 
-        <div class="mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 ">
-            <div class="flex px-6 py-4 lg:p-5">
-                {{-- Image --}}
-                <div class="mr-5 hidden max-w-min text-left md:block">
-                    <a class="relative flex items-start mb-2 rounded-lg w-20 h-20 p-0.5"
-                        href="/profile/{{ $reply->user_id }}">
-                        <img class="relative w-20 h-20 rounded-lg" src={{ $reply->user->image }} loading='lazy'
-                            alt="">
-                    </a>
-                    <div class="text-center leading-none text-grey-500">
-                        <p class="text-sm font-semibold">Level {{ $reply->user->level }}</p>
+    <div class="mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 ">
+        <div class="flex px-6 py-4 lg:p-5">
+            {{-- Image --}}
+            <div class="mr-5 hidden max-w-min text-left md:block">
+                <a class="relative flex items-start mb-2 rounded-lg w-20 h-20 p-0.5"
+                    href="/profile/{{ $reply->user_id }}">
+                    <img class="relative w-20 h-20 rounded-lg" src={{ $reply->user->image }} loading='lazy' alt="">
+                </a>
+                <div class="text-center leading-none text-grey-500">
+                    <p class="text-sm font-semibold">Level {{ $reply->user->level }}</p>
+                </div>
+            </div>
+            <div class="relative flex flex-1 flex-col">
+                {{-- Header --}}
+                <div class="mb-4 flex items-center justify-between">
+                    <div class="md:hidden">
+                        <a class="relative mr-4 block overflow-hidden rounded-lg" href="/profile/{{ $reply->user_id }}">
+                            <img class="w-10 h-10 object-cover bg-white md:w-20 md:h-20 rounded-lg"
+                                src={{ $reply->user->image }} alt="">
+                        </a>
+                    </div>
+                    <div class="flex-1 text-left leading-none">
+                        <div class="flex items-center">
+                            <a class="h-fit mr-2 block text-lg font-bold text-white"
+                                href="/profile/{{ $reply->user_id }}">{{ $reply->user->username }}</a>
+                        </div>
+                        <div class="mt-2 flex flex-wrap items-center gap-x-1 text-xs font-medium">
+                            <p class="text-2xs text-grey-600">Replied 53 minutes ago</p>
+                        </div>
                     </div>
                 </div>
-                <div class="relative flex flex-1 flex-col">
-                    {{-- Header --}}
-                    <div class="mb-4 flex items-center justify-between">
-                        <div class="md:hidden">
-                            <a class="relative mr-4 block overflow-hidden rounded-lg"
-                                href="/profile/{{ $reply->user_id }}">
-                                <img class="w-10 h-10 object-cover bg-white md:w-20 md:h-20 rounded-lg"
-                                    src={{ $reply->user->image }} alt="">
-                            </a>
-                        </div>
-                        <div class="flex-1 text-left leading-none">
-                            <div class="flex items-center">
-                                <a class="h-fit mr-2 block text-lg font-bold text-white"
-                                    href="/profile/{{ $reply->user_id }}">{{ $reply->user->username }}</a>
-                            </div>
-                            <div class="mt-2 flex flex-wrap items-center gap-x-1 text-xs font-medium">
-                                <p class="text-2xs text-grey-600">Replied 53 minutes ago</p>
-                            </div>
-                        </div>
-                    </div>
-                    {{-- Content --}}
-                    <div class="mb-0 text-grey-100 leading-relaxed break-words">
-                        {{ $reply->content }}
-                    </div>
-                    {{-- Action --}}
+                {{-- Content --}}
+                <div class="mb-0 text-grey-100 leading-relaxed break-words">
+                    {{ $reply->content }}
+                </div>
+                {{-- Action --}}
+                @can('isMyReply', $reply)
                     <div class="mt-auto">
                         <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
                             <div class="relative ml-auto">
@@ -65,9 +64,10 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                @endcan
             </div>
         </div>
+    </div>
 
     @foreach ($reply->replies as $reply)
         @livewire('components.reply.reply-card', ['reply' => $reply])

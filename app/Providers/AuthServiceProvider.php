@@ -30,6 +30,12 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isMyProfile', function ($user, $profileUser) {
             return $user->id === $profileUser->id;
         });
+        Gate::define('isMyPost', function($user, $post){
+            return $user->id === $post->user_id;
+        });
+        Gate::define('isMyReply', function($user, $reply){
+            return $user->id === $reply->user_id;
+        });
 
 
         //
