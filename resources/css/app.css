@@ -25,6 +25,10 @@
         @apply modal-backdrop bg-black bg-opacity-20 backdrop-blur-sm
     }
 
+    .before-content::before{
+        @apply absolute block top-0 -left-9 content-[""] w-1 h-full bg-panel-800
+    }
+
     .progress::-webkit-progress-value{
         @apply bg-blue-1200 rounded-full
     }
