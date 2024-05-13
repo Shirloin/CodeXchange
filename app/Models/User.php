@@ -67,4 +67,20 @@ class User extends Authenticatable
     {
         return $this->likes()->where('post_id', $post->id)->exists();
     }
+    public function like(Post $post)
+    {
+        if (!$this->hasLikedPost($post)) {
+            $like = new Like();
+            $like->user_id = $this->id;
+            $like->post_id = $post->id;
+            $like->save();
+        }
+        return $this;
+    }
+
+    public function unlike(Post $post)
+    {
+        $this->likes()->detach($post->id);
+        return $this;
+    }
 }

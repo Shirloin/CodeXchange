@@ -1,4 +1,4 @@
-<div x-data="{ show: false }">
+<div x-data="{ show: false }" x-cloak>
     <button x-on:click.prevent="show=!show" x-cloak class="w-full flex items-center p-6">
         <div class="mr-5">
             <img class="w-12 h-12 rounded-xl" src={{ Auth::user()->image }} alt="">

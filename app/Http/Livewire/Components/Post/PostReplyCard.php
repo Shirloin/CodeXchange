@@ -15,10 +15,11 @@ class PostReplyCard extends Component
     }
     public function like()
     {
-        $like = new Like();
-        $like->user_id = Auth::user()->id;
-        $like->post_id = $this->post->id;
-        $like->save();
+        if (Auth::user()->hasLikedPost($this->post)) {
+            Auth::user()->unlike($this->post);
+        } else {
+            Auth::user()->like($this->post);
+        }
     }
     public function render()
     {
