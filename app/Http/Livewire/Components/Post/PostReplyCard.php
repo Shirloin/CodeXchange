@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Post;
 
 use App\Models\Like;
+use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -20,6 +21,7 @@ class PostReplyCard extends Component
         } else {
             Auth::user()->like($this->post);
         }
+        $this->post = Post::find($this->post->id);
     }
     public function render()
     {
