@@ -17,7 +17,7 @@
                 <div class="mb-4 flex items-center justify-between">
                     <div class="md:hidden">
                         <a class="relative mr-4 block overflow-hidden rounded-lg" href="/profile/{{ $reply->user_id }}">
-                            <img class="w-10 h-10 object-cover bg-white md:w-20 md:h-20 rounded-lg"
+                            <img class="min-w-10 min-h-10 w-10 h-10 object-cover bg-white md:w-20 md:h-20 rounded-lg"
                                 src={{ $reply->user->image }} alt="">
                         </a>
                     </div>

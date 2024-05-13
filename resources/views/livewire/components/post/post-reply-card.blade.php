@@ -63,13 +63,15 @@
                 {{ $post->content }}
             </div>
             {{-- Action --}}
-            @can('isMyPost', $post)
-                <div class="mt-auto">
-                    <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
-                            <button class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl {{Auth::user()->hasLikedPost($post) ? "bg-blue-1200" : "text-grey-600"}}">
-                                <i class="fa-solid fa-heart mr-2"></i>
-                                <p class="font-semibold ">{{$post->likes_count}}</p>
-                            </button>
+
+            <div class="mt-auto">
+                <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
+                    <button wire:click='like'
+                        class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'bg-blue-1200' : 'text-grey-600' }}">
+                        <i class="fa-solid fa-heart mr-2"></i>
+                        <p class="font-semibold ">{{ $post->likes_count }}</p>
+                    </button>
+                    @can('isMyPost', $post)
                         <div class="relative ml-auto">
                             <div class=" relative inline-block text-left" x-data="{ show: false }" x-cloak>
                                 <button x-on:click="show=!show" @click.away="show = false"
@@ -93,9 +95,9 @@
                             </div>
 
                         </div>
-                    </div>
+                    @endcan
                 </div>
-            @endcan
+            </div>
         </div>
     </div>
 </div>
