@@ -24,13 +24,18 @@ class Like extends Model
     {
         static::created(function ($like) {
             $like->post->increment('likes_count');
+            $like->user->increment('likes_count');
         });
         static::deleted(function ($like) {
             $like->post->decrement('likes_count');
+            $like->user->decrement('likes_count');
         });
     }
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id', 'id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
