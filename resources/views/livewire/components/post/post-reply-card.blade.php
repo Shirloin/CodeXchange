@@ -1,4 +1,4 @@
-<div class="mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600">
+<div class="group/post mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 hover:border-blue-1200">
     <div class="flex px-6 py-4 lg:p-5">
         {{-- Image --}}
         <div class="mr-5 hidden max-w-min text-left md:block">
@@ -64,18 +64,22 @@
             </div>
             {{-- Action --}}
 
-            <div class="mt-auto">
-                <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
+            <div class="mt-auto" x-data="{show: false}">
+                <div class="relative h-9 -mb-1 mt-4 flex justify-start">
                     @auth
                         <button wire:click='like'
-                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'text-blue-1200' : 'text-grey-600' }}">
+                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-2 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'text-blue-600' : 'text-grey-600' }}">
                             <i class="fa-solid fa-heart mr-2"></i>
                             <p class="font-semibold ">{{ $post->likes()->count() }}</p>
+                        </button>
+                        <button x-on:click="show=true"
+                            class="hidden bg-blue-1700 group-hover/post:inline-flex justify-center items-center font-semibold  text-sm py-2 px-6 border-transparent mr-auto md:mr-2 rounded-xl text-grey-600">
+                            <p class="font-semibold ">Reply</p>
                         </button>
                     @endauth
                     @guest
                         <button wire:click='like'
-                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl text-grey-600">
+                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-0 rounded-xl text-grey-600">
                             <i class="fa-solid fa-heart mr-2"></i>
                             <p class="font-semibold ">{{ $post->likes()->count() }}</p>
                         </button>
@@ -103,14 +107,13 @@
                                             class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                     </div>
                                 </div>
-                                <div x-show="show">
-                                    @livewire('components.post.post-pop-up', ['post' => $post])
-                                </div>
+                                @livewire('components.post.post-pop-up', ['post' => $post])
                             </div>
 
                         </div>
                     @endcan
                 </div>
+                @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post'])
             </div>
         </div>
     </div>

@@ -1,6 +1,5 @@
 <div class="relative ml-16 before-content">
-
-    <div class="mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 ">
+    <div class="group/reply mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 hover:border-blue-1200">
         <div class="flex px-6 py-4 lg:p-5">
             {{-- Image --}}
             <div class="mr-5 hidden max-w-min text-left md:block">
@@ -36,9 +35,18 @@
                     {{ $reply->content }}
                 </div>
                 {{-- Action --}}
-                @can('isMyReply', $reply)
-                    <div class="mt-auto">
-                        <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
+                <div class="mt-auto">
+                    <div class="relative h-9 -mb-1 mt-4 flex justify-start" x-data="{show:false}">
+                        @auth
+                            <button x-on:click="show=true"
+                                class="hidden bg-blue-1700 group-hover/reply:inline-flex justify-center items-center font-semibold  text-sm py-2 px-6 border-transparent mr-auto md:mr-2 rounded-xl text-grey-600">
+                                <p class="font-semibold ">Reply</p>
+                            </button>
+                            <div >
+                                @livewire('components.reply.reply-pop-up', ['post' => $reply->post, 'msg' => 'Reply to', 'to' => $reply->user->username])
+                            </div>
+                        @endauth
+                        @can('isMyReply', $reply)
                             <div class="relative ml-auto">
                                 <div class=" relative inline-block text-left" x-data="{ dropdown: false, show: false }" x-cloak>
                                     <button x-on:click="dropdown=!dropdown"
@@ -54,20 +62,20 @@
                                         class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg  focus:outline-none">
                                         <div class="p-1.5 text-black font-medium text-sm">
                                             <button class="w-full rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200"
-                                                x-on:click.prevent="show = true; dropdown = false">Edit</button>                                          
+                                                x-on:click.prevent="show = true; dropdown = false">Edit</button>
                                             <button wire:click='delete'
                                                 class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                         </div>
                                     </div>
-                                    <div>
+                                    <div >
                                         @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Update your reply'])
                                     </div>
                                 </div>
 
                             </div>
-                        </div>
+                        @endcan
                     </div>
-                @endcan
+                </div>
             </div>
         </div>
     </div>

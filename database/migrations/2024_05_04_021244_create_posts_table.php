@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->uuid('id', 36)->primary();
             $table->string('title');
-            $table->string('content');
+            $table->text('content');
             $table->boolean('is_solved')->default(false);
             $table->integer('replies_count')->default(0);
             $table->integer('likes_count')->default(0);

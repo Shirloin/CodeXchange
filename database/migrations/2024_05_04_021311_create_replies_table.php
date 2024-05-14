@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('replies', function (Blueprint $table) {
             $table->uuid('id', 36)->primary();
-            $table->string('content');
+            $table->text('content');
             $table->boolean('is_approved')->default(false);
             $table->uuid('user_id', 36);
-            $table->uuid('post_id', 36);
-            $table->uuid('parent_id', 36)->nullable();
+            $table->uuidMorphs('replyable');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
-            $table->foreign('post_id')->references('id')->on('posts')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->timestamps();
         });
     }

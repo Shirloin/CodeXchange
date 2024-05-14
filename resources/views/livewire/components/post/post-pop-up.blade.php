@@ -1,4 +1,4 @@
-<div  class="z-10 fixed inset-0" x-transition:enter="transition ease-out duration-100 transform"
+<div x-show="show" class="z-10 fixed inset-0" x-transition:enter="transition ease-out duration-100 transform"
     x-transition:enter-start="opacity-100 translate-y-5" x-transition:enter-end="opacity-100 -translate-y-5"
     x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 -translate-y-5"
     x-transition:leave-end="opacity-100 translate-y-5">
