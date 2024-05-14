@@ -4,7 +4,7 @@
     x-transition:leave-end="opacity-100 translate-y-5" class="z-10 fixed inset-0">
     <div class="relative w-full h-full flex items-end text-white">
         <div class="mt-auto mx-auto max-w-3xl w-full">
-            <form wire:submit.prevent='save' x-on:submit="console.log('test'); show=false"
+            <form wire:submit.prevent='save' x-on:submit=" show=false"
                 class="bg-[#1c3150] w-full px-6 py-4 flex flex-col rounded-xl">
 
                 <div class="flex items-center mb-4">

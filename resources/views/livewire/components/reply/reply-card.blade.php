@@ -32,7 +32,7 @@
                 </div>
                 {{-- Content --}}
                 <div class="mb-0 text-grey-100 leading-relaxed break-words">
-                    {!! $reply->content !!}
+                    {{ $reply->content }}
                 </div>
                 {{-- Action --}}
                 <div class="mt-auto">

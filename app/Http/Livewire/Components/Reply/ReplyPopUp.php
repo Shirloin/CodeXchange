@@ -73,7 +73,7 @@ class ReplyPopUp extends Component
         } else {
             Controller::FailMessage('User not logged in');
         }
-        $this->emit('refresh');
+        $this->emitUp('refresh');
     }
     public function create($user)
     {
@@ -88,7 +88,7 @@ class ReplyPopUp extends Component
     {
         $reply = new Reply();
         $reply->id = getID();
-        $reply->content = '<span class="text-blue-1200">@' . $this->reply->user->username . '</span>' . $this->content;
+        $reply->content = $this->content;
         $reply->user_id = $user->id;
         $reply->replyable()->associate($this->reply);
         $reply->save();

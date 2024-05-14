@@ -17,7 +17,7 @@ class ReplyCard extends Component
     {
         try {
             $this->reply->delete();
-            $this->emit('refresh');
+            $this->emitUp('refresh');
             Controller::SuccessMessage('Reply Successfully Deleted');
         } catch (\Exception $e) {
             Controller::FailMessage($e->getMessage());
