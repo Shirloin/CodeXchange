@@ -27,15 +27,18 @@ class Like extends Model
             $like->user->increment('likes_count');
         });
         static::deleted(function ($like) {
-            $like->post->decrement('likes_count');
-            $like->user->decrement('likes_count');
+            if ($like->post->likes_count > 0 && $like->user->likes_count > 0) {
+                $like->post->decrement('likes_count');
+                $like->user->decrement('likes_count');
+            }
         });
     }
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id', 'id');
     }
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
