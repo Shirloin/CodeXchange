@@ -66,11 +66,20 @@
 
             <div class="mt-auto">
                 <div class="relative h-9 -mb-1 mt-4 flex justify-start ">
-                    <button wire:click='like'
-                        class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'text-red-200' : 'text-grey-600' }}">
-                        <i class="fa-solid fa-heart mr-2"></i>
-                        <p class="font-semibold ">{{ $post->likes()->count() }}</p>
-                    </button>
+                    @auth
+                        <button wire:click='like'
+                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'text-blue-1200' : 'text-grey-600' }}">
+                            <i class="fa-solid fa-heart mr-2"></i>
+                            <p class="font-semibold ">{{ $post->likes()->count() }}</p>
+                        </button>
+                    @endauth
+                    @guest
+                        <button wire:click='like'
+                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 w-16 px-0 border-transparent mr-auto md:mr-0 rounded-xl text-grey-600">
+                            <i class="fa-solid fa-heart mr-2"></i>
+                            <p class="font-semibold ">{{ $post->likes()->count() }}</p>
+                        </button>
+                    @endguest
                     @can('isMyPost', $post)
                         <div class="relative ml-auto">
                             <div class=" relative inline-block text-left" x-data="{ show: false }" x-cloak>
@@ -87,7 +96,9 @@
                                     class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg  focus:outline-none">
                                     <div class="p-1.5 text-black font-medium text-sm">
                                         <button
-                                            class="w-full  rounded-lg text-left block px-4 py-1.5  hover:bg-gray-200">Edit</button>
+                                            class=" w-full  rounded-lg text-left px-4 py-1.5  hover:bg-gray-200">
+                                            Edit
+                                        </button>
                                         <button
                                             class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                     </div>

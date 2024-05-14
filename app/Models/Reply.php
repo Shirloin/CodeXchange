@@ -19,6 +19,17 @@ class Reply extends Model
         "post_id",
         "parent_id"
     ];
+    protected static function booted(){
+        static::created(function ($reply) {
+            $reply->user->increment('replies_count');
+            $reply->user->increment('xp', 50);
+            $reply->post->increment('replies_count');
+        });
+        static::deleted(function ($reply) {
+            $reply->user->decrement('replies_count');
+            $reply->post->decrement('replies_count');
+        });
+    }
     public function post(){
         return $this->belongsTo(Post::class);
     }

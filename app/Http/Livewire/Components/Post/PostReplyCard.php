@@ -2,8 +2,10 @@
 
 namespace App\Http\Livewire\Components\Post;
 
+use App\Http\Controllers\Controller;
 use App\Models\Like;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -16,12 +18,22 @@ class PostReplyCard extends Component
     }
     public function like()
     {
-        if (Auth::user()->hasLikedPost($this->post)) {
-            Auth::user()->unlike($this->post);
-        } else {
-            Auth::user()->like($this->post);
+        if(Auth::check()){
+            /** @var User $user */
+            $user = Auth::user();
+            if (!$user instanceof User) {
+                Controller::FailMessage('User are not logged in');
+            }
+            if ($user->hasLikedPost($this->post)) {
+                $user->unlike($this->post);
+            } else {
+                $user->like($this->post);
+            }
+            $this->post = Post::find($this->post->id);
         }
-        $this->post = Post::find($this->post->id);
+        else{
+            Controller::FailMessage("User are not logged in");
+        }
     }
     public function render()
     {

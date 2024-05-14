@@ -4,11 +4,12 @@
         @foreach ($post->replies as $reply)
             @livewire('components.reply.reply-card', ['reply' => $reply])
         @endforeach
-        @can('isLoggedIn')
+        @auth
             <div
-                class="mt-6 rounded-xl px-8  bg-blue-1600 text-white border border-panel-600 hover:border-dashed hover:border-blue-1200">
-                @livewire('components.reply.create-reply')
+                class="relative mt-6 rounded-xl px-8  bg-blue-1600 text-white border border-panel-600 hover:border-dashed hover:border-blue-1200">
+                @livewire('components.reply.create-reply', ['post' => $post])
+                
             </div>
-        @endcan
+        @endauth
     </div>
 </div>
