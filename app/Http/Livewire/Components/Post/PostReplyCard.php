@@ -35,6 +35,9 @@ class PostReplyCard extends Component
             Controller::FailMessage("User are not logged in");
         }
     }
+    public function delete(){
+        $this->post->delete();
+    }
     public function render()
     {
         return view('livewire.components.post.post-reply-card');

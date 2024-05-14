@@ -27,6 +27,10 @@ class Post extends Model
             $post->user->increment('posts_count');
             $post->user->increment('xp', 100);
         });
+        static::deleted(function ($post) {
+            $post->user->decrement('posts_count');
+            $post->user->increment('xp', 100);
+        });
     }
 
     public function topic()

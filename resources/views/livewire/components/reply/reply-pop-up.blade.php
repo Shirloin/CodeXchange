@@ -21,9 +21,9 @@
                 <hr class="w-full border-b-[0.5] border-gray-500" />
                 <div class="w-full flex justify-end my-4">
                     <div class="w-full md:w-fit flex text-sm font-semibold gap-4">
-                        <a href="/"
+                        <button x-on:click.prevent='show=false'
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl bg-blue-1300 hover:bg-blue-1400"
-                            x-on:click.prevent="show=false">Cancel</a>
+                            >Cancel</button>
                         <button type="submit"
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl btn-blue-hover">Post</button>
                     </div>
