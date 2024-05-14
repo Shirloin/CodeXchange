@@ -17,12 +17,14 @@ class ReplyPopUp extends Component
     public $post;
     public $msg;
     public $to;
-    public function mount($post=null, $msg='Reply to', $to='',  $reply=null){
+    public $state;
+    public function mount($post=null, $msg='Reply to', $to='',  $reply=null, $state=''){
         $this->post = $post;
         $this->msg = $msg;
         $this->to = $to;
-        if($reply!=null){
-            $this->reply = $reply;
+        $this->reply = $reply;
+        $this->state = $state;
+        if($state === 'Update'){
             $this->content = $reply->content;
         }
     }
@@ -33,20 +35,32 @@ class ReplyPopUp extends Component
             if (!$user instanceof User) {
                 Controller::FailMessage('Failed To Reply');
             }
-            if($this->reply==null){
+            if($this->state === 'Create'){
                 $reply = new Reply();
                 $reply->id = getID();
                 $reply->content = $this->content;
                 $reply->user_id = $user->id;
-                $reply->post_id = $this->post->id;
+                $reply->replyable()->associate($this->post);
                 $reply->save();
-            }else{
+            }
+            else if($this->state === 'Reply'){
+                $reply = new Reply();
+                $reply->id = getID();
+                $reply->content = $this->content;
+                $reply->user_id = $user->id;
+                $reply->replyable()->associate($this->reply);
+                $reply->save();
+            }
+            else if($this->state === 'Update'){
                 $this->reply->content = $this->content;
                 $this->reply->save();
             }
+            $this->mount();
+            Controller::SuccessMessage('Reply Saved');
         }else{
             Controller::FailMessage('User not logged in');
         }
+        $this->emit('refreshPost');
     }
     public function render()
     {

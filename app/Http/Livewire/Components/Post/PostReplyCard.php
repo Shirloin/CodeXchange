@@ -37,6 +37,8 @@ class PostReplyCard extends Component
     }
     public function delete(){
         $this->post->delete();
+        Controller::SuccessMessage('Post Successfully Deleted');
+        return redirect('/');
     }
     public function render()
     {

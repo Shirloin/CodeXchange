@@ -15,7 +15,7 @@
                 </button>
             </div>
             <div >
-                @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post'])
+                @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post', 'state' => 'Create'])
             </div>
         @endauth
     </div>

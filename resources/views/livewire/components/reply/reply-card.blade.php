@@ -43,7 +43,7 @@
                                 <p class="font-semibold ">Reply</p>
                             </button>
                             <div >
-                                @livewire('components.reply.reply-pop-up', ['post' => $reply->post, 'msg' => 'Reply to', 'to' => $reply->user->username])
+                                @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Reply to', 'to' => $reply->user->username, 'state' => 'Reply'])
                             </div>
                         @endauth
                         @can('isMyReply', $reply)
@@ -68,7 +68,7 @@
                                         </div>
                                     </div>
                                     <div >
-                                        @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Update your reply'])
+                                        @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Update your reply', 'state' => 'Update'])
                                     </div>
                                 </div>
 
@@ -79,7 +79,7 @@
             </div>
         </div>
     </div>
-    @foreach ($reply->replies as $reply)
-        @livewire('components.reply.reply-card', ['reply' => $reply])
-    @endforeach
 </div>
+@foreach ($reply->replies as $reply)
+    @livewire('components.reply.reply-card', ['reply' => $reply])
+@endforeach

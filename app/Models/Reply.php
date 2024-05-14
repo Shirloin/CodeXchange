@@ -24,11 +24,15 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
             $reply->user->increment('xp', 50);
-            $reply->replyable->increment('replies_count');
+            if($reply->replyable instanceof Post){
+                $reply->replyable->increment('replies_count');
+            }
         });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');
-            $reply->replyable->decrement('replies_count');
+            if($reply->replyable instanceof Post){
+                $reply->replyable->decrement('replies_count');
+            }
         });
     }
     public function post()
