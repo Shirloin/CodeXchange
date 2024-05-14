@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Faker;
 
 use function App\Helper\getID;
 
@@ -42,11 +43,13 @@ class Register extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
+        $faker = Faker\Factory::create();
         $user = new User();
         $user->id = getID();
         $user->email = $this->email;
         $user->username = $this->username;
         $user->password = bcrypt($this->password);
+        $user->image = $faker->imageUrl(640, 480, 'people', true, null, false, 'png');
         $user->save();
         Controller::SuccessMessage('Register Success');
         return redirect('/login');

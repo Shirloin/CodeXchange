@@ -64,7 +64,7 @@
             </div>
             {{-- Action --}}
 
-            <div class="mt-auto" x-data="{show: false}">
+            <div class="mt-auto" x-data="{ show: false }">
                 <div class="relative h-9 -mb-1 mt-4 flex justify-start">
                     @auth
                         <button wire:click='like'
@@ -107,13 +107,17 @@
                                             class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                     </div>
                                 </div>
-                                @livewire('components.post.post-pop-up', ['post' => $post])
+                                <div x-show="show">
+                                    @livewire('components.post.post-pop-up', ['post' => $post])
+                                </div>
                             </div>
 
                         </div>
                     @endcan
                 </div>
-                @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post', 'state' => 'Create'])
+                <div x-show="show">
+                    @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post', 'state' => 'Create'])
+                </div>
             </div>
         </div>
     </div>

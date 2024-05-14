@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->date("dob")->nullable();
             $table->string("gender")->nullable();
-            $table->string("image")->default('https://source.unsplash.com/random/');
+            $table->string("image");
             $table->integer('xp')->default(0);
             $table->integer('level')->default(1);
             $table->integer('posts_count')->default(0);

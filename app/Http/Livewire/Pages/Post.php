@@ -7,7 +7,9 @@ use Livewire\Component;
 
 class Post extends Component
 {
-    protected $listeners = ['refreshPost' => 'refresh'];
+    protected $listeners = [
+        'refresh' => 'refresh',
+    ];
     public $post;
     public function mount($id = '')
     {
