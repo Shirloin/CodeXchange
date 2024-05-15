@@ -18,9 +18,8 @@
         <div class="flex justify-between mb-5">
             <object data="" type="">
                 <a href="/post/{{ $post->id }}"
-                    class="group relative text-xl font-medium max-w-xl text-wrap text-ellipsis line-clamp-1 truncate hover:cursor-pointer">
+                    class=" text-xl font-medium max-w-xl text-wrap text-ellipsis line-clamp-1 truncate hover:cursor-pointer hover:underline">
                     {{ $post->title }}
-                    <span class="underline-animation"></span>
                 </a>
             </object>
             <div class="hidden md:flex gap-6 font-medium">

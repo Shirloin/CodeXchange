@@ -108,7 +108,7 @@
                                     </div>
                                 </div>
                                 <div x-show="show">
-                                    @livewire('components.post.post-pop-up', ['post' => $post])
+                                    @livewire('components.post.post-pop-up', ['post' => $post, 'state' => 'Update'])
                                 </div>
                             </div>
 

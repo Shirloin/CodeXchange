@@ -1,4 +1,4 @@
-<div x-show="show" class="z-10 fixed inset-0" x-transition:enter="transition ease-out duration-100 transform"
+<div x-show="show" class="z-50 fixed inset-0" x-transition:enter="transition ease-out duration-100 transform"
     x-transition:enter-start="opacity-100 translate-y-5" x-transition:enter-end="opacity-100 -translate-y-5"
     x-transition:leave="transition ease-in duration-75 transform" x-transition:leave-start="opacity-100 -translate-y-5"
     x-transition:leave-end="opacity-100 translate-y-5">
@@ -22,7 +22,7 @@
                                 </option>
                                 @if ($topics != null && $topics->count() > 0)
                                     @foreach ($topics as $topic)
-                                        <option {{$topic->id === $this->topic ? 'selected' : ''}} class="bg-slate-800 hover:bg-blue-1200" value={{ $topic->id }}>
+                                        <option {{$topic && $topic->id === $this->topic ? 'selected' : ''}} class="bg-slate-800 hover:bg-blue-1200" value={{ $topic->id }}>
                                             {{ $topic->name }}
                                         </option>
                                     @endforeach
@@ -39,7 +39,7 @@
                 </div>
                 <hr class="w-full border-b-[0.5] border-gray-500" />
                 <textarea wire:model='content'
-                    class="bg-transparent mb-1 border-none px-0 py-4 text-sm min-h-[175px] max-h-[45vh] break-words resize-none font-medium outline-none overflow-x-hidden overflow-y-auto"
+                    class="bg-panel-1000 mb-1 border-none px-0 py-4 text-sm min-h-[175px] max-h-[45vh] break-words resize-none font-medium outline-none overflow-x-hidden overflow-y-auto"
                     placeholder="What's on your mind?" name="" id="" cols="30" rows="10"></textarea>
                 <hr class="w-full border-b-[0.5] border-gray-500" />
                 <div class="w-full flex justify-end mt-4">

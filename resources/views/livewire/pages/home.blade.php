@@ -1,9 +1,12 @@
 <div class="relative w-full mx-auto flex flex-grow justify-start lg:gap-x-10 px-6 xl:px-16  pt-10 text-white"
     x-data="{ tab: '#tab1' }">
-    <aside class="w-52 hidden flex-none lg:sticky lg:top-10 lg:block lg:self-start">
-        <a href="/create-post" class="btn-blue-hover rounded-2xl flex justify-center items-center mb-8 w-full  py-4">
+    <aside class="w-52 hidden flex-none lg:sticky lg:top-10 lg:block lg:self-start" x-data="{show:false}" x-cloak>
+        <button x-on:click.prevent="show=!show" class="btn-blue-hover rounded-2xl flex justify-center items-center mb-8 w-full  py-4">
             <span class="inline-block flex-shrink-0 text-wrap">New Discussion</span>
-        </a>
+        </button>
+        <div x-show='show'>
+            @livewire('components.post.post-pop-up', ['state' => 'Create'])
+        </div>
         <ul class="flex flex-col gap-y-2 lg:max-h-[80vh] lg:overflow-y-auto text-white font-semibold">
             <li class="side-nav-li" :class="{ 'text-blue-700': tab === '#tab1' }" x-on:click.prevent="tab='#tab1'">
                 All Threads
