@@ -19,7 +19,6 @@ class Post extends Component
     {
         $this->post = ModelsPost::find($this->post->id);
     }
-
     public function render()
     {
         return view('livewire.pages.post')->layout('layouts.template');

@@ -68,12 +68,12 @@ class ReplyPopUp extends Component
             } else if ($this->state === 'Update') {
                 $this->reply->content = $this->content;
                 $this->reply->save();
+                $this->emitUp('refreshReply');
             }
             Controller::SuccessMessage('Reply Saved');
         } else {
             Controller::FailMessage('User not logged in');
         }
-        $this->emitUp('refresh');
     }
     public function create($user)
     {
@@ -83,6 +83,8 @@ class ReplyPopUp extends Component
         $reply->user_id = $user->id;
         $reply->replyable()->associate($this->post);
         $reply->save();
+        $this->content = '';
+        $this->emitUp('refresh');
     }
     public function reply($user)
     {
@@ -92,6 +94,8 @@ class ReplyPopUp extends Component
         $reply->user_id = $user->id;
         $reply->replyable()->associate($this->reply);
         $reply->save();
+        $this->content = '';
+        $this->emitUp('refreshReply');
     }
     public function render()
     {

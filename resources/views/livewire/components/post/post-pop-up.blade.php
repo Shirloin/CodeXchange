@@ -4,7 +4,7 @@
     x-transition:leave-end="opacity-100 translate-y-5">
     <div class="relative w-full h-full flex items-end text-white">
         <div class="mt-auto mx-auto max-w-3xl w-full">
-            <form wire:submit.prevent='save' class="bg-panel-1000 w-full px-6 py-4 flex flex-col rounded-xl">
+            <form wire:submit.prevent='save' x-on:submit="show=false" class="bg-panel-1000 w-full px-6 py-4 flex flex-col rounded-xl">
                 <div class="md:flex justify-between items-center pb-3 ">
                     <div class="mb-2 mr-4 md:mb-0 md:flex-1">
                         <input wire:model='title'

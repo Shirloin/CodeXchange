@@ -11,10 +11,16 @@ use Livewire\Component;
 
 class PostReplyCard extends Component
 {
+    protected $listeners = [
+        'refreshPost' => 'refresh',
+    ];
     public $post;
     public function mount($post)
     {
         $this->post = $post;
+    }
+    public function refresh(){
+        $this->post = Post::find($this->post->id);
     }
     public function like()
     {

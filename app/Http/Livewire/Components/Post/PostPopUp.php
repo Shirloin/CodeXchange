@@ -28,7 +28,7 @@ class PostPopUp extends Component
         $this->post->topic_id = $this->topic;
         $this->post->save();
         Controller::SuccessMessage('Post Updated');
-        $this->emit('refreshPost');
+        $this->emitUp('refreshPost');
     }
     public function render()
     {

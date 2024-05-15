@@ -8,10 +8,22 @@ use Livewire\Component;
 
 class ReplyCard extends Component
 {
+    public $listeners = [
+        'refreshReply' => 'refresh'
+    ];
     public $reply;
+    public  $replies = [];
     public function mount($reply)
     {
         $this->reply = $reply;
+        $this->loadReplies();
+    }
+    public function refresh(){
+        $this->reply = Reply::with('replies')->find($this->reply->id);
+        $this->loadReplies();
+    }
+    protected  function loadReplies(){
+        $this->replies = $this->reply->replies;
     }
     public function delete()
     {
