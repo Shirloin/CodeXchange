@@ -1,11 +1,8 @@
 <?php
 
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\TopicController;
-use App\Http\Controllers\UserController;
 use App\Http\Livewire\Pages\Auth\Login;
 use App\Http\Livewire\Pages\Auth\Register;
-use App\Http\Livewire\Pages\CreatePost;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Post;
 use App\Http\Livewire\Pages\Profile;
@@ -26,7 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Home::class);
 Route::get('/topic', Topic::class);
 Route::get('/topic/{name}', Topic::class);
-Route::get('/create-post', CreatePost::class);
 Route::get('/login', Login::class);
 Route::get('/register', Register::class);
 
