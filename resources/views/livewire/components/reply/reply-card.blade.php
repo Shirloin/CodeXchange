@@ -43,13 +43,19 @@
                         <div class="relative h-9 -mb-1 mt-4 flex justify-start" x-data="{ show: false }">
                             @auth
                                 <button x-on:click="show=true"
-                                    class="hidden bg-blue-1700 group-hover/reply:inline-flex justify-center items-center font-semibold  text-sm py-2 px-6 border-transparent mr-auto md:mr-2 rounded-xl text-grey-600">
-                                    <p class="font-semibold ">Reply</p>
+                                    class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
+                                    <p>Reply</p>
                                 </button>
                                 <div x-show="show">
                                     @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Reply to', 'to' => $reply->user->username, 'state' => 'Reply'])
                                 </div>
                             @endauth
+                            @can('isMyPost', $reply->post)
+                                <button x-on:click="show=true"
+                                    class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
+                                    <p>Set Solved</p>
+                                </button>
+                            @endcan
                             @can('isMyReply', $reply)
                                 <div class="relative ml-auto" x-data="{ dropdown: false, show: false }" x-cloak>
                                     <div class="relative inline-block text-left" @click.away="dropdown=false">

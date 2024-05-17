@@ -6,7 +6,7 @@
         @endforeach
         @auth
             <div
-                class="relative mt-6 rounded-xl px-8  bg-blue-1600 text-white border border-panel-600 hover:border-dashed hover:border-blue-1200">
+                class="relative mt-6 rounded-xl px-8  bg-blue-1600 text-white border border-panel-600 hover:border-dashed hover:bg-panel-700 hover:border-blue-1200 transition-colors duration-300">
                 <button class="w-full flex items-center p-6" x-on:click.prevent="show=!show">
                     <div class="mr-5">
                         <img class="w-12 h-12 rounded-xl" src={{ Auth::user()->image }} alt="">

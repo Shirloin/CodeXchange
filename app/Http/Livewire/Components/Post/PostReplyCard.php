@@ -19,12 +19,13 @@ class PostReplyCard extends Component
     {
         $this->post = $post;
     }
-    public function refresh(){
+    public function refresh()
+    {
         $this->post = Post::find($this->post->id);
     }
     public function like()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             /** @var User $user */
             $user = Auth::user();
             if (!$user instanceof User) {
@@ -36,12 +37,12 @@ class PostReplyCard extends Component
                 $user->like($this->post);
             }
             $this->post = Post::find($this->post->id);
-        }
-        else{
+        } else {
             Controller::FailMessage("User are not logged in");
         }
     }
-    public function delete(){
+    public function delete()
+    {
         $this->post->delete();
         Controller::SuccessMessage('Post Successfully Deleted');
         return redirect('/');

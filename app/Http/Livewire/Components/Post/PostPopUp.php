@@ -75,6 +75,7 @@ class PostPopUp extends Component
                 $this->content = '';
                 $this->topic = '';
                 Controller::SuccessMessage('Post Successfully Created');
+                return redirect('/post/' . $post->id);
             } else {
                 $this->post->title = $this->title;
                 $this->post->content = $this->content;
@@ -83,7 +84,7 @@ class PostPopUp extends Component
                 Controller::SuccessMessage('Post Updated');
                 $this->emitUp('refreshPost');
             }
-        }else{
+        } else {
             Controller::FailMessage("User has not logged in");
         }
     }

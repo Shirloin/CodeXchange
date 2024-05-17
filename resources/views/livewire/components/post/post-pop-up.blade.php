@@ -4,7 +4,8 @@
     x-transition:leave-end="opacity-100 translate-y-5">
     <div class="relative w-full h-full flex items-end text-white">
         <div class="mt-auto mx-auto max-w-3xl w-full">
-            <form wire:submit.prevent='save' x-on:submit="show=false" class="bg-panel-1000 w-full px-6 py-4 flex flex-col rounded-xl">
+            <form wire:submit.prevent='save' x-on:submit="show=false"
+                class="bg-panel-1000 w-full px-6 py-4 flex flex-col rounded-xl">
                 <div class="md:flex justify-between items-center pb-3 ">
                     <div class="mb-2 mr-4 md:mb-0 md:flex-1">
                         <input wire:model='title'
@@ -17,12 +18,13 @@
                             <select wire:model='topic' required
                                 class="w-full h-8 font-medium pl-4 pr-8 text-xs rounded-md bg-transparent focus:border-none focus:outline-none"
                                 name="topic" id="topic">
-                                <option disabled selected hidden class="bg-slate-800 hover:bg-blue-1200" value>
+                                <option selected hidden class="bg-slate-800 hover:bg-blue-1200" value>
                                     Select Topic
                                 </option>
                                 @if ($topics != null && $topics->count() > 0)
                                     @foreach ($topics as $topic)
-                                        <option {{$topic && $topic->id === $this->topic ? 'selected' : ''}} class="bg-slate-800 hover:bg-blue-1200" value={{ $topic->id }}>
+                                        <option {{ $topic && $topic->id === $this->topic ? 'selected' : '' }}
+                                            class="bg-slate-800 hover:bg-blue-1200" value={{ $topic->id }}>
                                             {{ $topic->name }}
                                         </option>
                                     @endforeach

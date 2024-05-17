@@ -18,11 +18,13 @@ class ReplyCard extends Component
         $this->reply = $reply;
         $this->loadReplies();
     }
-    public function refresh(){
+    public function refresh()
+    {
         $this->reply = Reply::with('replies')->find($this->reply->id);
         $this->loadReplies();
     }
-    protected  function loadReplies(){
+    protected  function loadReplies()
+    {
         $this->replies = $this->reply->replies;
     }
     public function delete()

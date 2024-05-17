@@ -59,31 +59,24 @@
                 {{ $post->title }}
             </h1>
             {{-- Content --}}
-            <div class="mb-0 text-grey-100 leading-relaxed break-words">
+            <div class="mb-4 text-grey-100 leading-relaxed break-words">
                 {{ $post->content }}
             </div>
             {{-- Action --}}
 
             <div class="mt-auto" x-data="{ show: false }">
                 <div class="relative h-9 -mb-1 mt-4 flex justify-start">
+                    <button wire:click='like'
+                        class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-2 rounded-xl {{ Auth::user() && Auth::user()->hasLikedPost($post) ? 'text-blue-600' : 'text-grey-600' }}">
+                        <i class="fa-solid fa-heart mr-2"></i>
+                        <p class="font-semibold ">{{ $post->likes()->count() }}</p>
+                    </button>
                     @auth
-                        <button wire:click='like'
-                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-2 rounded-xl {{ Auth::user()->hasLikedPost($post) ? 'text-blue-600' : 'text-grey-600' }}">
-                            <i class="fa-solid fa-heart mr-2"></i>
-                            <p class="font-semibold ">{{ $post->likes()->count() }}</p>
-                        </button>
                         <button x-on:click="show=true"
-                            class="hidden bg-blue-1700 group-hover/post:inline-flex justify-center items-center font-semibold  text-sm py-2 px-6 border-transparent mr-auto md:mr-2 rounded-xl text-grey-600">
-                            <p class="font-semibold ">Reply</p>
+                            class="hidden group-hover/post:inline-flex justify-center items-center post-action-btn">
+                            <p>Reply</p>
                         </button>
                     @endauth
-                    @guest
-                        <button wire:click='like'
-                            class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-0 rounded-xl text-grey-600">
-                            <i class="fa-solid fa-heart mr-2"></i>
-                            <p class="font-semibold ">{{ $post->likes()->count() }}</p>
-                        </button>
-                    @endguest
                     @can('isMyPost', $post)
                         <div class="relative ml-auto">
                             <div class=" relative inline-block text-left" x-data="{ dropdown: false, show: false }" x-cloak>

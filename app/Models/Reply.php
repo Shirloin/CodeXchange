@@ -16,7 +16,7 @@ class Reply extends Model
         "content",
         "is_approved",
         "user_id",
-        'replyable_id', 
+        'replyable_id',
         'replyable_type'
     ];
     protected static function booted()
@@ -24,20 +24,20 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
             $reply->user->increment('xp', 50);
-            if($reply->replyable instanceof Post){
+            if ($reply->replyable instanceof Post) {
                 $reply->replyable->increment('replies_count');
             }
         });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');
-            if($reply->replyable instanceof Post){
+            if ($reply->replyable instanceof Post) {
                 $reply->replyable->decrement('replies_count');
             }
         });
     }
     public function post()
     {
-        return $this->belongsTo(Post::class);
+        return $this->morphTo('replyable');
     }
     public function parent()
     {
