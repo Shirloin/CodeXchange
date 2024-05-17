@@ -2,7 +2,7 @@
     <div class="w-full mx-auto sm:flex-1 md:max-w-3xl " x-data="{ show: false }" x-cloak>
         @livewire('components.post.post-reply-card', ['post' => $post])
         @foreach ($post->replies as $reply)
-            @livewire('components.reply.reply-card', ['reply' => $reply], key($reply->id))
+            @livewire('components.reply.reply-card', ['reply' => $reply, 'post' => $post], key($reply->id))
         @endforeach
         @auth
             <div

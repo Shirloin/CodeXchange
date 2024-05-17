@@ -47,6 +47,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected static function booted()
+    {
+    }
+
     public function likes()
     {
         return $this->belongsToMany(Post::class, 'likes', 'user_id', 'post_id');
@@ -61,7 +65,7 @@ class User extends Authenticatable
     }
     public function achievements()
     {
-        return $this->hasMany(Achievement::class, 'user_achievements', 'user_id', 'achievements_id');
+        return $this->belongsToMany(Achievement::class, 'user_achievements', 'user_id', 'achievement_id');
     }
     public function hasLikedPost(Post $post)
     {
@@ -82,5 +86,45 @@ class User extends Authenticatable
     {
         $this->likes()->detach($post->id);
         return $this;
+    }
+
+    public function addXP($count)
+    {
+        if ($this->xp >= 5000) {
+            return;
+        }
+        if ($this->xp + $count > 5000) {
+            $this->xp = 5000;
+            $this->save();
+        } else {
+            $this->increment('xp', $count);
+        }
+    }
+
+    public function minXP($count)
+    {
+        if ($this->xp <= 0 || $this->xp - $count < 0) {
+            return;
+        } else {
+            $this->decrement('xp', $count);
+        }
+    }
+
+    public function solvedPost()
+    {
+        $solvedPosts = $this->posts()->where('is_solved', true)->count();
+        $achievement = Achievement::where('name', 'Posty Posty')->first();
+        if (!$achievement) {
+            return;
+        }
+        if ($solvedPosts >= 5) {
+            if ($achievement) {
+                $this->achievements()->syncWithoutDetaching([$achievement->id]);
+            }
+        } else {
+            if ($this->achievements()->where('achievement_id', $achievement->id)->exists()) {
+                $this->achievements()->detach($achievement->id);
+            }
+        }
     }
 }

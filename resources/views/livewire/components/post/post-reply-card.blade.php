@@ -29,6 +29,12 @@
                 </div>
                 <div class="relative ml-3 flex -top-1">
                     <div class="hidden md:flex gap-6 font-medium">
+                        @if ($post->is_solved)
+                            <div class="bg-gray-600 flex items-center text-xs font-bold rounded-full px-4 py-1">
+                                <i class="fa-solid fa-check mr-3"></i>
+                                <p>Solved</p>
+                            </div>
+                        @endif
                         <div class="flex items-center gap-1">
                             <i class="fa-solid fa-comment"></i>
                             <p>{{ $post->replies_count }}</p>

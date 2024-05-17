@@ -1,7 +1,7 @@
 <div>
     <div class="relative ml-16 before-content">
         <div
-            class="group/reply mb-3 rounded-xl p-0 bg-blue-1600 text-white border border-panel-600 hover:border-blue-1200">
+            class="group/reply mb-3 rounded-xl p-0  text-white border hover:border-blue-1200 {{ $reply && $reply->is_approved ? 'border-blue-1200 bg-panel-700' : 'border-panel-600 bg-blue-1600' }}">
             <div class="flex px-6 py-4 lg:p-5">
                 {{-- Image --}}
                 <div class="mr-5 hidden max-w-min text-left md:block">
@@ -50,11 +50,14 @@
                                     @livewire('components.reply.reply-pop-up', ['reply' => $reply, 'msg' => 'Reply to', 'to' => $reply->user->username, 'state' => 'Reply'])
                                 </div>
                             @endauth
-                            @can('isMyPost', $reply->post)
-                                <button x-on:click="show=true"
-                                    class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
-                                    <p>Set Solved</p>
-                                </button>
+                            @can('isMyPost', $post)
+                                @if ($reply->is_approved)
+                                @else
+                                    <button wire:click='setSolved'
+                                        class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
+                                        <p>Set Solved</p>
+                                    </button>
+                                @endif
                             @endcan
                             @can('isMyReply', $reply)
                                 <div class="relative ml-auto" x-data="{ dropdown: false, show: false }" x-cloak>
@@ -93,6 +96,6 @@
         </div>
     </div>
     @foreach ($replies as $reply)
-        @livewire('components.reply.reply-card', ['reply' => $reply], key($reply->id))
+        @livewire('components.reply.reply-card', ['reply' => $reply, 'post' => $post], key($reply->id))
     @endforeach
 </div>

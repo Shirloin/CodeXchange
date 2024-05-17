@@ -25,11 +25,20 @@ class Post extends Model
     {
         static::created(function ($post) {
             $post->user->increment('posts_count');
-            $post->user->increment('xp', 100);
+            $post->user->addXP(100);
+            $post->user->solvedPost();
+        });
+        static::updated(function ($post) {
+            if ($post->isDirty("is_solved") && $post->is_solved) {
+                $post->user->solvedPost();
+                $post->user->addXP(100);
+                $post->user->solvedPost();
+            }
         });
         static::deleted(function ($post) {
             $post->user->decrement('posts_count');
-            $post->user->increment('xp', 100);
+            $post->user->minXP(100);
+            $post->user->solvedPost();
         });
     }
 

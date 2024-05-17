@@ -23,13 +23,16 @@ class Reply extends Model
     {
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
-            $reply->user->increment('xp', 50);
+            $reply->user->addXP(50);
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->increment('replies_count');
             }
         });
+        static::updated(function ($reply) {
+        });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');
+            $reply->user->minXP(50);
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->decrement('replies_count');
             }
@@ -38,10 +41,6 @@ class Reply extends Model
     public function post()
     {
         return $this->morphTo('replyable');
-    }
-    public function parent()
-    {
-        return $this->belongsTo(Reply::class, 'parent_id');
     }
     public function replies()
     {
@@ -54,5 +53,16 @@ class Reply extends Model
     public function replyable()
     {
         return $this->morphTo();
+    }
+    public function hasApprovedReplies()
+    {
+        $hasApproved = $this->is_approved;
+        foreach ($this->replies as $reply) {
+            if ($reply->hasApprovedReplies()) {
+                $hasApproved = true;
+                break;
+            }
+        }
+        return $hasApproved;
     }
 }
