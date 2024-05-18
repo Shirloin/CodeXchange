@@ -24,11 +24,21 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
             $reply->user->addXP(50);
+            while($reply->replyable instanceof Reply){
+                $reply = $reply->replyable;
+            }
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->increment('replies_count');
+                if($reply->is_approved){
+                    $reply->replyable->is_solved = true;
+                    $reply->replyable->save();
+                }
             }
         });
         static::updated(function ($reply) {
+            if ($reply->replyable instanceof Post) {
+
+            }
         });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');

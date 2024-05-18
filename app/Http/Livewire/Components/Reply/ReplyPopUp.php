@@ -85,6 +85,7 @@ class ReplyPopUp extends Component
         $reply->save();
         $this->content = '';
         $this->emitUp('refresh');
+        $this->emitTo('components.post.post-detail-card', 'refreshPost');
     }
     public function reply($user)
     {
@@ -96,6 +97,7 @@ class ReplyPopUp extends Component
         $reply->save();
         $this->content = '';
         $this->emitUp('refreshReply');
+        $this->emitTo('components.post.post-detail-card', 'refreshPost');
     }
     public function render()
     {

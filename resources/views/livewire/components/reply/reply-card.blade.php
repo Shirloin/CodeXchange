@@ -1,7 +1,7 @@
 <div>
     <div class="relative ml-16 before-content">
         <div
-            class="group/reply mb-3 rounded-xl p-0  text-white border hover:border-blue-1200 {{ $reply && $reply->is_approved ? 'border-blue-1200 bg-panel-700' : 'border-panel-600 bg-blue-1600' }}">
+            class="group/reply mb-3 rounded-xl p-0  text-white border-panel-600 bg-blue-1600 border hover:border-blue-1200">
             <div class="flex px-6 py-4 lg:p-5">
                 {{-- Image --}}
                 <div class="mr-5 hidden max-w-min text-left md:block">
@@ -31,6 +31,16 @@
                             </div>
                             <div class="mt-2 flex flex-wrap items-center gap-x-1 text-xs font-medium">
                                 <p class="text-2xs text-grey-600">Replied 53 minutes ago</p>
+                            </div>
+                        </div>
+                        <div class="relative ml-3 flex -top-1">
+                            <div class="hidden md:flex gap-6 font-medium">
+                                @if ($reply->is_approved)
+                                    <div class="bg-gray-600 flex items-center text-xs font-bold rounded-full px-4 py-2">
+                                        <i class="fa-solid fa-check mr-2"></i>
+                                        <p>Approved</p>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -26,6 +26,7 @@ class ReplySeeder extends Seeder
             $reply->id = getID();
             $reply->content = fake()->words(10, true);
             $reply->user_id = $user_id;
+            $reply->is_approved =  fake()->randomElement([false, true]);
             $reply->replyable()->associate($post);
             $reply->save();
         }
