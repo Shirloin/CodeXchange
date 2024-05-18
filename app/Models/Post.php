@@ -26,18 +26,21 @@ class Post extends Model
         static::created(function ($post) {
             $post->user->increment('posts_count');
             $post->user->addXP(100);
-            $post->user->solvedPost();
+            $post->user->posty();
         });
         static::updated(function ($post) {
             if ($post->isDirty("is_solved") && $post->is_solved) {
-                $post->user->solvedPost();
+                $post->user->posty();
                 $post->user->addXP(100);
+            }
+            if($post->isDirty("likes_count")){
+                $post->user->likey();
             }
         });
         static::deleted(function ($post) {
             $post->user->decrement('posts_count');
             $post->user->minXP(100);
-            $post->user->solvedPost();
+            $post->user->posty();
         });
     }
 

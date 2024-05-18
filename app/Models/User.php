@@ -49,6 +49,12 @@ class User extends Authenticatable
 
     protected static function booted()
     {
+        static::updated(function ($user){
+            if($user->isDirty('xp')){
+                $user->bossy();
+                $user->kingy();
+            }
+        });
     }
 
     public function likes()
@@ -66,6 +72,9 @@ class User extends Authenticatable
     public function achievements()
     {
         return $this->belongsToMany(Achievement::class, 'user_achievements', 'user_id', 'achievement_id');
+    }
+    public function replies(){
+        return $this->hasMany(Reply::class);
     }
     public function hasLikedPost(Post $post)
     {
@@ -110,21 +119,121 @@ class User extends Authenticatable
         }
     }
 
-    public function solvedPost()
+    public function goody(){
+        $achievement = Achievement::where('name', 'Goody Goody')->first();
+        if (!$achievement) {
+            return;
+        }
+        $approvedPosts = $this->replies()->where("is_approved", true)->count();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($approvedPosts >= 3){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+                $this->achievements()->detach($achievement->id);
+        }
+        $this->nar();
+    }
+
+    public function likey(){
+        $achievement = Achievement::where('name', 'Likey Likey')->first();
+        if (!$achievement) {
+            return;
+        }
+        $postLikes = $this->posts->where('likes_count', '>=', 10)->exists();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($postLikes){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+            $this->achievements()->detach($achievement->id);
+        }
+        $this->nar();
+    }
+
+    public function chaty(){
+        $achievement = Achievement::where('name', 'Chaty Chaty')->first();
+        if (!$achievement) {
+            return;
+        }
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($this->replies_count >= 10){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+            $this->achievements()->detach($achievement->id);
+        }
+        $this->nar();
+    }
+
+    public function bossy(){
+        $achievement = Achievement::where('name', 'Bossy Bossy')->first();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($this->xp >= 1000){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+            $this->achievements()->detach($achievement->id);
+        }
+        $this->nar();
+    }
+
+    public function posty()
     {
-        $solvedPosts = $this->posts()->where('is_solved', true)->count();
         $achievement = Achievement::where('name', 'Posty Posty')->first();
         if (!$achievement) {
             return;
         }
+        $solvedPosts = $this->posts()->where('is_solved', true)->count();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
         if ($solvedPosts >= 5) {
-            if ($achievement) {
-                $this->achievements()->syncWithoutDetaching([$achievement->id]);
-            }
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
         } else {
-            if ($this->achievements()->where('achievement_id', $achievement->id)->exists()) {
+            if($hasAchievement) 
                 $this->achievements()->detach($achievement->id);
-            }
+        }
+        $this->nar();
+    }
+
+    public function kingy(){
+        $achievement = Achievement::where('name', 'Kingy Kingy')->first();
+        if (!$achievement) {
+            return;
+        }
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($this->xp >= 5000){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+            $this->achievements()->detach($achievement->id);
+        }
+        $this->nar();
+    }
+    public function nar(){
+        $achievement = Achievement::where('name', 'NAR NAR')->first();
+        if (!$achievement) {
+            return;
+        }
+        $achievementCount = $this->achievements()->count();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        if($achievementCount >= 6){
+            if(!$hasAchievement)
+            $this->achievements()->syncWithoutDetaching([$achievement->id]);
+        }
+        else{
+            if($hasAchievement) 
+            $this->achievements()->detach($achievement->id);
         }
     }
 }

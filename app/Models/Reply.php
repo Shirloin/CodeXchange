@@ -34,10 +34,14 @@ class Reply extends Model
                     $reply->replyable->save();
                 }
             }
+            $reply->user->chaty();
         });
         static::updated(function ($reply) {
+            if($reply->isDirty('is_approved')){
+                $reply->user->goody();
+            }
             if ($reply->replyable instanceof Post) {
-
+                
             }
         });
         static::deleted(function ($reply) {
@@ -46,6 +50,8 @@ class Reply extends Model
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->decrement('replies_count');
             }
+            $reply->user->chaty();
+            $reply->user->goody();
         });
     }
     public function post()
