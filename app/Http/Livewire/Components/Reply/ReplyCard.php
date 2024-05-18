@@ -63,6 +63,12 @@ class ReplyCard extends Component
         $this->emitTo('components.post.post-detail-card', 'refreshPost');
         Controller::SuccessMessage("Reply is approved");
     }
+    public function edit(){
+        if($this->reply->is_approved){
+            Controller::FailMessage("Reply has been approved! You are not allowed to change it.");
+            return;
+        }
+    }
     public function render()
     {
         return view('livewire.components.reply.reply-card');

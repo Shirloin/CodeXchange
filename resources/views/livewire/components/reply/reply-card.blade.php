@@ -85,9 +85,10 @@
                                             x-transition:leave-end="opacity-0 scale-95"
                                             class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg  focus:outline-none">
                                             <div class="p-1.5 text-black font-medium text-sm">
-                                                <button
+                                                <button wire:click="edit"
                                                     class="w-full rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200"
-                                                    x-on:click.prevent="show = true; dropdown = false">Edit</button>
+                                                    x-on:click.prevent="{{!$reply->is_approved ? 'show = true; ' : ''}} dropdown = false">Edit</button>
+                                                
                                                 <button wire:click='delete' x-on:click="dropdown=false"
                                                     class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                             </div>

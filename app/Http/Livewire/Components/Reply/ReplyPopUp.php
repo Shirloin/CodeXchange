@@ -42,7 +42,6 @@ class ReplyPopUp extends Component
     }
     public function save()
     {
-
         if (Auth::check()) {
 
             /** @var User $user */
@@ -99,6 +98,7 @@ class ReplyPopUp extends Component
         $this->emitUp('refreshReply');
         $this->emitTo('components.post.post-detail-card', 'refreshPost');
     }
+    
     public function render()
     {
         return view('livewire.components.reply.reply-pop-up');
