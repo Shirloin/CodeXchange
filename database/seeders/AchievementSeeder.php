@@ -21,7 +21,7 @@ class AchievementSeeder extends Seeder
             [
                 'id' => getID(),
                 'name' => 'Goody Goody',
-                'description' => 'Rewarded after 3 approved of your replies',
+                'description' => 'Rewarded after 3 approved on your replies',
                 'image' => '/assets/achievements/goody.svg'
             ],
             [

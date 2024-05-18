@@ -22,7 +22,6 @@ class PostDetailCard extends Component
     public function refresh()
     {
         $this->post = Post::find($this->post->id);
-        // dd($this->post);
     }
     public function like()
     {

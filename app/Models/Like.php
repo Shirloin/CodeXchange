@@ -25,11 +25,13 @@ class Like extends Model
         static::created(function ($like) {
             $like->post->increment('likes_count');
             $like->user->increment('likes_count');
+            $like->user->addXP(50);
         });
         static::deleted(function ($like) {
             if ($like->post->likes_count > 0 && $like->user->likes_count > 0) {
                 $like->post->decrement('likes_count');
                 $like->user->decrement('likes_count');
+                $like->user->minXP(50);
             }
         });
     }

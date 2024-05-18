@@ -23,13 +23,13 @@ class Reply extends Model
     {
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
-            $reply->user->addXP(50);
-            while($reply->replyable instanceof Reply){
+            $reply->user->addXP(100);
+            while ($reply->replyable instanceof Reply) {
                 $reply = $reply->replyable;
             }
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->increment('replies_count');
-                if($reply->is_approved){
+                if ($reply->is_approved) {
                     $reply->replyable->is_solved = true;
                     $reply->replyable->save();
                 }
@@ -37,16 +37,16 @@ class Reply extends Model
             $reply->user->chaty();
         });
         static::updated(function ($reply) {
-            if($reply->isDirty('is_approved')){
+            if ($reply->isDirty('is_approved') && $reply->is_approved) {
+                $reply->user->addXP(100);
                 $reply->user->goody();
             }
             if ($reply->replyable instanceof Post) {
-                
             }
         });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');
-            $reply->user->minXP(50);
+            $reply->user->minXP(100);
             if ($reply->replyable instanceof Post) {
                 $reply->replyable->decrement('replies_count');
             }

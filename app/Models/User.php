@@ -114,6 +114,8 @@ class User extends Authenticatable
     public function minXP($count)
     {
         if ($this->xp <= 0 || $this->xp - $count < 0) {
+            $this->xp = 0;
+            $this->save();
             return;
         } else {
             $this->decrement('xp', $count);
@@ -129,11 +131,15 @@ class User extends Authenticatable
         $approvedPosts = $this->replies()->where("is_approved", true)->count();
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
         if ($approvedPosts >= 3) {
-            if (!$hasAchievement)
+            if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
+                $this->addXP(150);
+            }
         } else {
-            if ($hasAchievement)
+            if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
+                $this->minXP(150);
+            }
         }
         $this->nar();
     }
@@ -144,14 +150,18 @@ class User extends Authenticatable
         if (!$achievement) {
             return;
         }
-        $postLikes = $this->posts->where('likes_count', '>=', 10)->exists();
+        $postLikes = $this->posts()->where('likes_count', '>=', 10)->exists();
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
         if ($postLikes) {
-            if (!$hasAchievement)
+            if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
+                $this->addXP(200);
+            }
         } else {
-            if ($hasAchievement)
+            if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
+                $this->minXP(200);
+            }
         }
         $this->nar();
     }
@@ -164,26 +174,15 @@ class User extends Authenticatable
         }
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
         if ($this->replies_count >= 10) {
-            if (!$hasAchievement)
-                $this->achievements()->syncWithoutDetaching([$achievement->id]);
-        } else {
-            if ($hasAchievement)
-                $this->achievements()->detach($achievement->id);
-        }
-        $this->nar();
-    }
-
-    public function bossy()
-    {
-        $achievement = Achievement::where('name', 'Bossy Bossy')->first();
-        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
-        if ($this->xp >= 1000) {
             if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
+                $this->addXP(250);
             }
         } else {
-            if ($hasAchievement)
+            if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
+                $this->minXP(250);
+            }
         }
         $this->nar();
     }
@@ -197,14 +196,38 @@ class User extends Authenticatable
         $solvedPosts = $this->posts()->where('is_solved', true)->count();
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
         if ($solvedPosts >= 5) {
-            if (!$hasAchievement)
+            if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
+                $this->addXP(300);
+            }
         } else {
-            if ($hasAchievement)
+            if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
+                $this->minXP(300);
+            }
         }
         $this->nar();
     }
+
+    public function bossy()
+    {
+        $achievement = Achievement::where('name', 'Bossy Bossy')->first();
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
+        if ($this->xp >= 1000) {
+            if (!$hasAchievement) {
+                $this->achievements()->syncWithoutDetaching([$achievement->id]);
+                $this->addXP(500);
+            }
+        } else {
+            if ($hasAchievement) {
+                $this->achievements()->detach($achievement->id);
+                $this->minXP(500);
+            }
+        }
+        $this->nar();
+    }
+
+
 
     public function kingy()
     {
@@ -214,8 +237,9 @@ class User extends Authenticatable
         }
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
         if ($this->xp >= 5000) {
-            if (!$hasAchievement)
+            if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
+            }
         } else {
             if ($hasAchievement)
                 $this->achievements()->detach($achievement->id);
