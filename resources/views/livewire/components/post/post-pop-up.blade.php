@@ -9,7 +9,7 @@
                 <div class="md:flex justify-between items-center pb-3 ">
                     <div class="mb-2 mr-4 md:mb-0 md:flex-1">
                         <input wire:model='title'
-                            class=" bg-transparent w-full font-bold text-sm placeholder:text-white  focus:ring-0 focus:outline-none"
+                            class=" bg-transparent w-full font-bold text-md placeholder:text-white  focus:ring-0 focus:outline-none"
                             placeholder="Add a Title" type="text">
                     </div>
                     <div class="relative w-full md:w-fit inline-block text-left">

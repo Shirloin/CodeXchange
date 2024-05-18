@@ -1,6 +1,6 @@
 <div class="relative w-full mx-auto flex flex-col flex-grow justify-start lg:gap-x-10 px-6 xl:px-16 py-10">
     <div class="w-full mx-auto sm:flex-1 md:max-w-3xl " x-data="{ show: false }" x-cloak>
-        @livewire('components.post.post-reply-card', ['post' => $post])
+        @livewire('components.post.post-detail-card', ['post' => $post])
         @foreach ($post->replies as $reply)
             @livewire('components.reply.reply-card', ['reply' => $reply, 'post' => $post], key($reply->id))
         @endforeach

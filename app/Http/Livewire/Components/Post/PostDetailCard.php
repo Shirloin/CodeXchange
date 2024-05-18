@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class PostReplyCard extends Component
+class PostDetailCard extends Component
 {
     protected $listeners = [
         'refreshPost' => 'refresh',
@@ -22,6 +22,7 @@ class PostReplyCard extends Component
     public function refresh()
     {
         $this->post = Post::find($this->post->id);
+        // dd($this->post);
     }
     public function like()
     {
@@ -49,6 +50,6 @@ class PostReplyCard extends Component
     }
     public function render()
     {
-        return view('livewire.components.post.post-reply-card');
+        return view('livewire.components.post.post-detail-card');
     }
 }

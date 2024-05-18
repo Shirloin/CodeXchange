@@ -32,7 +32,6 @@ class Post extends Model
             if ($post->isDirty("is_solved") && $post->is_solved) {
                 $post->user->solvedPost();
                 $post->user->addXP(100);
-                $post->user->solvedPost();
             }
         });
         static::deleted(function ($post) {

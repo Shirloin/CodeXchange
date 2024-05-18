@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Components\Reply;
 
 use App\Http\Controllers\Controller;
+use App\Models\Post;
 use App\Models\Reply;
 use Livewire\Component;
 
@@ -33,7 +34,11 @@ class ReplyCard extends Component
     {
         try {
             $this->reply->delete();
-            foreach ($this->post->replies as $reply) {
+            $post = Post::find($this->post->id);
+            if($post->replies->count() == 0){
+                $this->post->update(['is_solved' => false]);
+            }
+            foreach ($post->replies as $reply) {
                 if (!$reply->hasApprovedReplies()) {
                     $this->post->update(['is_solved' => false]);
                 } else {
@@ -41,18 +46,21 @@ class ReplyCard extends Component
                 }
             }
             $this->emitUp('refresh');
+            $this->emitTo('components.post.post-detail-card', 'refreshPost');
+            $this->emitUp('refreshReply');
             Controller::SuccessMessage('Reply Successfully Deleted');
         } catch (\Exception $e) {
             Controller::FailMessage($e->getMessage());
         }
     }
-    public function setSolved()
+    public function setApprove()
     {
         $this->reply->is_approved = true;
         $this->reply->save();
         $this->post->is_solved = true;
         $this->post->save();
         $this->emitUp('refresh');
+        $this->emitTo('components.post.post-detail-card', 'refreshPost');
         Controller::SuccessMessage("Reply is approved");
     }
     public function render()

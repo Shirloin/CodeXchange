@@ -53,9 +53,9 @@
                             @can('isMyPost', $post)
                                 @if ($reply->is_approved)
                                 @else
-                                    <button wire:click='setSolved'
+                                    <button wire:click='setApprove'
                                         class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
-                                        <p>Set Solved</p>
+                                        <p>Set Approve</p>
                                     </button>
                                 @endif
                             @endcan
