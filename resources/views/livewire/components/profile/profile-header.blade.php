@@ -7,7 +7,7 @@
     </div>
     <div class="w-full hidden md:flex flex-wrap justify-center mt-10">
         @foreach ($achievements as $achievement)
-            @livewire('components.profile.achievement-tooltip', ['achievement' => $achievement])
+            @livewire('components.profile.achievement-tooltip', ['achievement' => $achievement, 'user' => $user])
         @endforeach
     </div>
 

@@ -87,8 +87,8 @@
                                             <div class="p-1.5 text-black font-medium text-sm">
                                                 <button wire:click="edit"
                                                     class="w-full rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200"
-                                                    x-on:click.prevent="{{!$reply->is_approved ? 'show = true; ' : ''}} dropdown = false">Edit</button>
-                                                
+                                                    x-on:click.prevent="{{ !$reply->is_approved ? 'show = true; ' : '' }} dropdown = false">Edit</button>
+
                                                 <button wire:click='delete' x-on:click="dropdown=false"
                                                     class="w-full  rounded-lg text-left block px-4 py-1.5 hover:bg-gray-200">Delete</button>
                                             </div>

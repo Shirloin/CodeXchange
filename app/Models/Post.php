@@ -33,7 +33,7 @@ class Post extends Model
                 $post->user->posty();
                 $post->user->addXP(100);
             }
-            if($post->isDirty("likes_count")){
+            if ($post->isDirty("likes_count")) {
                 $post->user->likey();
             }
         });

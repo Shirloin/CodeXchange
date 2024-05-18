@@ -9,7 +9,7 @@
 @layer components{
 
     .btn-blue-hover{
-        @apply bg-gradient-to-r from-blue-700 to-blue-800 hover:bg-gradient-to-r hover:from-blue-700 hover:via-blue-600 hover:to-cyan-500
+        @apply bg-gradient-to-r from-blue-0 to-blue-800 hover:bg-gradient-to-r hover:from-blue-0 hover:via-blue-600 hover:to-cyan-500
     }
     .underline-animation{
         @apply absolute inset-x-0 bottom-0 h-0.5 bg-white transition-all duration-300 w-0 overflow-hidden group-hover:w-full

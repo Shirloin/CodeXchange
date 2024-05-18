@@ -4,6 +4,6 @@
         <span class="font-bold mb-2">{{ $achievement->name }}</span>
         <span class="text-xs font-medium">{{ $achievement->description }}</span>
     </div>
-    <img class="md:w-16 lg:w-24 opacity-20 hover:opacity-100" src={{ $achievement->image }}
-        x-on:mouseenter="tooltip = true" x-on:mouseleave="tooltip = false" alt="">
+    <img class="md:w-16 lg:w-24 hover:opacity-100 {{ $hasAchievement ? 'opacity-100' : 'opacity-20' }}"
+        src={{ $achievement->image }} x-on:mouseenter="tooltip = true" x-on:mouseleave="tooltip = false" alt="">
 </div>

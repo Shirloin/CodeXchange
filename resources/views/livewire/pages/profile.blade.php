@@ -7,6 +7,12 @@
         @if ($user->posts_count == 0)
             <p class="text-5xl font-medium text-grey-600 mb-10">No Activity Yet</p>
             <i class="fa-solid fa-book fa-10x"></i>
+        @else
+            <div class="w-full mx-auto sm:flex-1 md:max-w-3xl ">
+                @foreach ($user->posts as $post)
+                    @livewire('components.post.post-card', ['post' => $post])
+                @endforeach
+            </div>
         @endif
     </div>
 </div>
