@@ -24,12 +24,6 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
             $reply->user->addXP(100);
-            $replyParent = $reply;
-            // Get Reply Post
-            // while ($replyParent->replyable instanceof Reply) {
-            //     $replyParent = $replyParent->replyable;
-            // }
-            // $post = $replyParent->replyable;
             $post = $reply->getReplyPost($reply);
             if ($post instanceof Post) {
                 $post->increment('replies_count');
@@ -47,11 +41,14 @@ class Reply extends Model
             }
         });
         static::deleted(function ($reply) {
-            $reply->user->decrement('replies_count');
-            $reply->user->minXP(100);
+            // $reply->user->decrement('replies_count');
+            // $reply->user->minXP(100);
+            // if ($reply->is_approved) {
+            //     $reply->user->minXP(100);
+            // }
             $post = $reply->getReplyPost($reply);
+            $reply->normalizeReplyStats($reply, $post);
             if ($post instanceof Post) {
-                $post->decrement('replies_count');
                 $post->checkSolved();
             }
             $reply->user->chaty();
@@ -91,5 +88,18 @@ class Reply extends Model
             return $reply->getReplyPost($reply->replyable);
         }
         return $reply->replyable;
+    }
+
+    public function normalizeReplyStats($reply, $post)
+    {
+        $reply->user->decrement('replies_count');
+        $reply->user->minXP(100);
+        if ($reply->is_approved) {
+            $reply->user->minXP(100);
+        }
+        $post->decrement('replies_count');
+        foreach ($reply->replies as $reply) {
+            $reply->normalizeReplyStats($reply, $post);
+        }
     }
 }

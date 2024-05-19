@@ -84,10 +84,10 @@ class User extends Authenticatable
     public function like(Post $post)
     {
         if (!$this->hasLikedPost($post)) {
-            $like = new Like();
-            $like->user_id = $this->id;
-            $like->post_id = $post->id;
-            $like->save();
+            $this->likes()->attach($post->id);
+            $post->increment('likes_count');
+            $this->increment('likes_count');
+            $this->addXP(50);
         }
         return $this;
     }
@@ -95,6 +95,13 @@ class User extends Authenticatable
     public function unlike(Post $post)
     {
         $this->likes()->detach($post->id);
+        if ($post->likes_count > 0) {
+            $post->decrement('likes_count');
+        }
+        if ($this->likes_count > 0) {
+            $this->decrement('likes_count');
+        }
+        $this->minXP(50);
         return $this;
     }
 
@@ -130,7 +137,7 @@ class User extends Authenticatable
         }
         $approvedPosts = $this->replies()->where("is_approved", true)->count();
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
-        if ($approvedPosts >= 3) {
+        if ($approvedPosts >= 5) {
             if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
                 $this->addXP(150);
