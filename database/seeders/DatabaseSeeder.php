@@ -3,6 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Post;
+use App\Models\Reply;
+use App\Models\Topic;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -25,12 +30,13 @@ class DatabaseSeeder extends Seeder
             ReplySeeder::class,
             LikeSeeder::class,
         ]);
-        DB::table('users')->insert([
-            'id' => getID(),
+        $user = new User([
+            'id' => 'myuser',
             'email' =>  'a@gmail.com',
             'username' =>  'test',
             'password' => bcrypt('test'),
             'image' => '/assets/achievements/slc.png'
         ]);
+        $user->save();
     }
 }

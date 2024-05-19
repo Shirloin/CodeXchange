@@ -20,6 +20,14 @@ class Like extends Model
         "user_id",
         "post_id"
     ];
+    public static function booted()
+    {
+        static::created(function ($like) {
+            $like->user->addXP(50);
+            $like->user->increment('likes_count');
+            $like->post->increment('likes_count');
+        });
+    }
     public function post()
     {
         return $this->belongsTo(Post::class, 'post_id', 'id');

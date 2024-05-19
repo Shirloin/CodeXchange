@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Reply extends Model
 {
@@ -40,19 +41,30 @@ class Reply extends Model
                 $reply->user->goody();
             }
         });
+        static::deleting(function ($reply) {
+            $user = User::find($reply->user_id);
+            Log::debug('Current XP: ' . $user->xp);
+            Log::debug("Deleting Reply " . $reply->content);
+            foreach ($reply->replies as $reply) {
+                $reply->delete();
+            }
+        });
         static::deleted(function ($reply) {
-            // $reply->user->decrement('replies_count');
-            // $reply->user->minXP(100);
-            // if ($reply->is_approved) {
-            //     $reply->user->minXP(100);
-            // }
+            $user = User::find($reply->user_id);
+            Log::debug($reply->content . ": is deleted");
+            $user->decrement('replies_count');
+            $user->minXP(100);
             $post = $reply->getReplyPost($reply);
-            $reply->normalizeReplyStats($reply, $post);
+            if ($reply->is_approved) {
+                $user->minXP(100);
+            }
             if ($post instanceof Post) {
+                $post->decrement('replies_count');
                 $post->checkSolved();
             }
-            $reply->user->chaty();
-            $reply->user->goody();
+            Log::debug("Final XP after deleted: " . $user->xp);
+            $user->goody();
+            $user->chaty();
         });
     }
     public function post()
@@ -88,18 +100,5 @@ class Reply extends Model
             return $reply->getReplyPost($reply->replyable);
         }
         return $reply->replyable;
-    }
-
-    public function normalizeReplyStats($reply, $post)
-    {
-        $reply->user->decrement('replies_count');
-        $reply->user->minXP(100);
-        if ($reply->is_approved) {
-            $reply->user->minXP(100);
-        }
-        $post->decrement('replies_count');
-        foreach ($reply->replies as $reply) {
-            $reply->normalizeReplyStats($reply, $post);
-        }
     }
 }

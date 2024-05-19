@@ -21,7 +21,7 @@ class PostDetailCard extends Component
     }
     public function refresh()
     {
-        $this->post = Post::find($this->post->id);
+        $this->post = Post::with('likes')->find($this->post->id);
     }
     public function like()
     {

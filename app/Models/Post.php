@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Post extends Model
 {
@@ -34,6 +35,7 @@ class Post extends Model
                     $post->user->addXP(100);
                 } else {
                     $post->user->minXP(100);
+                    Log::debug("Post not solved: " . $post->user->xp);
                 }
                 $post->user->posty();
             }
@@ -41,12 +43,22 @@ class Post extends Model
                 $post->user->likey();
             }
         });
+        static::deleting(function ($post) {
+            $user = $post->user;
+            Log::debug("Start Deleting Post");
+            foreach ($post->replies as $reply) {
+                $reply->delete();
+            }
+            Log::debug('XP after deleting all reply: ' . auth()->user()->xp);
+            foreach ($post->likes as $like) {
+                $like->unlike($post);
+            }
+            Log::debug('XP after deleting all like: ' . auth()->user()->xp);
+        });
         static::deleted(function ($post) {
             $post->user->decrement('posts_count');
             $post->user->minXP(100);
-            foreach ($post->likes as $like) {
-                $like->user->minXP(50);
-            }
+            Log::debug("final xp: " . auth()->user()->xp);
             $post->user->posty();
         });
     }
@@ -76,13 +88,16 @@ class Post extends Model
 
     public function checkSolved()
     {
-        if ($this->replies->count() == 0) {
+        if ($this->replies->count() == 0 && $this->is_solved) {
+            Log::debug("no replies and updated to not solved");
             $this->update(['is_solved' => false]);
         }
         foreach ($this->replies as $reply) {
             if (!$reply->hasApprovedReplies()) {
+                Log::debug("post not having approved reply and updated to not solved");
                 $this->update(['is_solved' => false]);
             } else if (!$this->is_solved) {
+                Log::debug("post is not solved and updated to solved");
                 $this->update(['is_solved' => true]);
             }
         }

@@ -13,11 +13,11 @@ class Post extends Component
     public $post;
     public function mount($id = '')
     {
-        $this->post = ModelsPost::find($id);
+        $this->post = ModelsPost::with('likes')->find($id);
     }
     public function refresh()
     {
-        $this->post = ModelsPost::find($this->post->id);
+        $this->post = ModelsPost::with('likes')->find($this->post->id);
     }
     public function render()
     {

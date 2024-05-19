@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -123,7 +124,6 @@ class User extends Authenticatable
         if ($this->xp <= 0 || $this->xp - $count < 0) {
             $this->xp = 0;
             $this->save();
-            return;
         } else {
             $this->decrement('xp', $count);
         }
@@ -137,7 +137,7 @@ class User extends Authenticatable
         }
         $approvedPosts = $this->replies()->where("is_approved", true)->count();
         $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
-        if ($approvedPosts >= 5) {
+        if ($approvedPosts >= 3) {
             if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
                 $this->addXP(150);
@@ -146,6 +146,7 @@ class User extends Authenticatable
             if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
                 $this->minXP(150);
+                Log::debug('remove goody achievement : ' . $this->xp);
             }
         }
         $this->nar();
@@ -229,6 +230,7 @@ class User extends Authenticatable
             if ($hasAchievement) {
                 $this->achievements()->detach($achievement->id);
                 $this->minXP(500);
+                Log::debug('remove bossy achievement : ' . $this->xp);
             }
         }
         $this->nar();
