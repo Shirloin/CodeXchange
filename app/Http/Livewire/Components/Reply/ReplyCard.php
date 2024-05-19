@@ -35,16 +35,7 @@ class ReplyCard extends Component
         try {
             $this->reply->delete();
             $post = Post::find($this->post->id);
-            if($post->replies->count() == 0){
-                $this->post->update(['is_solved' => false]);
-            }
-            foreach ($post->replies as $reply) {
-                if (!$reply->hasApprovedReplies()) {
-                    $this->post->update(['is_solved' => false]);
-                } else {
-                    $this->post->update(['is_solved' => true]);
-                }
-            }
+            $post->checkSolved();
             $this->emitUp('refresh');
             $this->emitTo('components.post.post-detail-card', 'refreshPost');
             $this->emitUp('refreshReply');
@@ -55,16 +46,15 @@ class ReplyCard extends Component
     }
     public function setApprove()
     {
-        $this->reply->is_approved = true;
-        $this->reply->save();
-        $this->post->is_solved = true;
-        $this->post->save();
+        $this->reply->update(['is_approved' => true]);
+        $this->post->update(['is_solved' => true]);
         $this->emitUp('refresh');
         $this->emitTo('components.post.post-detail-card', 'refreshPost');
         Controller::SuccessMessage("Reply is approved");
     }
-    public function edit(){
-        if($this->reply->is_approved){
+    public function edit()
+    {
+        if ($this->reply->is_approved) {
             Controller::FailMessage("Reply has been approved! You are not allowed to change it.");
             return;
         }

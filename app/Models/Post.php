@@ -29,9 +29,13 @@ class Post extends Model
             $post->user->posty();
         });
         static::updated(function ($post) {
-            if ($post->isDirty("is_solved") && $post->is_solved) {
+            if ($post->isDirty("is_solved")) {
+                if ($post->is_solved) {
+                    $post->user->addXP(100);
+                } else {
+                    $post->user->minXP(100);
+                }
                 $post->user->posty();
-                $post->user->addXP(100);
             }
             if ($post->isDirty("likes_count")) {
                 $post->user->likey();
@@ -40,6 +44,9 @@ class Post extends Model
         static::deleted(function ($post) {
             $post->user->decrement('posts_count');
             $post->user->minXP(100);
+            foreach ($post->likes as $like) {
+                $like->user->minXP(50);
+            }
             $post->user->posty();
         });
     }
@@ -65,5 +72,19 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function checkSolved()
+    {
+        if ($this->replies->count() == 0) {
+            $this->update(['is_solved' => false]);
+        }
+        foreach ($this->replies as $reply) {
+            if (!$reply->hasApprovedReplies()) {
+                $this->update(['is_solved' => false]);
+            } else if (!$this->is_solved) {
+                $this->update(['is_solved' => true]);
+            }
+        }
     }
 }

@@ -24,14 +24,18 @@ class Reply extends Model
         static::created(function ($reply) {
             $reply->user->increment('replies_count');
             $reply->user->addXP(100);
-            while ($reply->replyable instanceof Reply) {
-                $reply = $reply->replyable;
-            }
-            if ($reply->replyable instanceof Post) {
-                $reply->replyable->increment('replies_count');
+            $replyParent = $reply;
+            // Get Reply Post
+            // while ($replyParent->replyable instanceof Reply) {
+            //     $replyParent = $replyParent->replyable;
+            // }
+            // $post = $replyParent->replyable;
+            $post = $reply->getReplyPost($reply);
+            if ($post instanceof Post) {
+                $post->increment('replies_count');
                 if ($reply->is_approved) {
-                    $reply->replyable->is_solved = true;
-                    $reply->replyable->save();
+                    $post->is_solved = true;
+                    $post->save();
                 }
             }
             $reply->user->chaty();
@@ -41,14 +45,14 @@ class Reply extends Model
                 $reply->user->addXP(100);
                 $reply->user->goody();
             }
-            if ($reply->replyable instanceof Post) {
-            }
         });
         static::deleted(function ($reply) {
             $reply->user->decrement('replies_count');
             $reply->user->minXP(100);
-            if ($reply->replyable instanceof Post) {
-                $reply->replyable->decrement('replies_count');
+            $post = $reply->getReplyPost($reply);
+            if ($post instanceof Post) {
+                $post->decrement('replies_count');
+                $post->checkSolved();
             }
             $reply->user->chaty();
             $reply->user->goody();
@@ -80,5 +84,12 @@ class Reply extends Model
             }
         }
         return $hasApproved;
+    }
+    public function getReplyPost($reply)
+    {
+        if ($reply->replyable instanceof Reply) {
+            return $reply->getReplyPost($reply->replyable);
+        }
+        return $reply->replyable;
     }
 }

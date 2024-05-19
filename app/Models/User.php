@@ -129,7 +129,7 @@ class User extends Authenticatable
             return;
         }
         $approvedPosts = $this->replies()->where("is_approved", true)->count();
-        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id);
+        $hasAchievement = $this->achievements()->where('achievement_id', $achievement->id)->exists();
         if ($approvedPosts >= 3) {
             if (!$hasAchievement) {
                 $this->achievements()->syncWithoutDetaching([$achievement->id]);
