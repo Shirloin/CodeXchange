@@ -33,6 +33,15 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('isMyPost', function ($user, $post) {
             return $user->id === $post->user_id;
         });
+        Gate::define('update', function ($user, $post) {
+            return $user->id === $post->user_id;
+        });
+        Gate::define('delete', function ($user, $post) {
+            return $user->id === $post->user_id;
+        });
+        Gate::define('add-to-library', function($user, $post){
+            return $user->id !== $post->user_id;
+        });
         Gate::define('isMyReply', function ($user, $reply) {
             return $user->id === $reply->user_id;
         });

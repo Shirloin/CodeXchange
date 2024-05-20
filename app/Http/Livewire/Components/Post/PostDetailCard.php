@@ -47,6 +47,25 @@ class PostDetailCard extends Component
         Controller::SuccessMessage('Post Successfully Deleted');
         return redirect('/');
     }
+    public function addToLibrary(){
+        if (Auth::check()) {
+            /** @var User $user */
+            $user = Auth::user();
+            if (!$user instanceof User) {
+                Controller::FailMessage('User are not logged in');
+            }
+            if($user->libraries->contains($this->post)){
+                $user->libraries()->detach($this->post->id);
+                Controller::SuccessMessage("Post Removed From Library");
+            }
+            else{
+                $user->libraries()->attach($this->post->id);
+                Controller::SuccessMessage("Post Added To Library");
+            }
+        } else {
+            Controller::FailMessage("User are not logged in");
+        }
+    }
     public function render()
     {
         return view('livewire.components.post.post-detail-card');

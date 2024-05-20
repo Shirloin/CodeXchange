@@ -64,7 +64,7 @@ class User extends Authenticatable
     }
     public function libraries()
     {
-        return $this->hasMany(Post::class, 'libraries', 'post_id', 'user_id');
+        return $this->belongsToMany(Post::class, 'libraries', 'user_id', 'post_id');
     }
     public function posts()
     {

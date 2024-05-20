@@ -83,7 +83,8 @@
                             <p>Reply</p>
                         </button>
                     @endauth
-                    @can('isMyPost', $post)
+
+                    @canany(['update', 'delete'], $post)
                         <div class="relative ml-auto">
                             <div class=" relative inline-block text-left" x-data="{ dropdown: false, show: false }" x-cloak>
                                 <button x-on:click="dropdown=!dropdown" @click.away="dropdown = false"
@@ -112,7 +113,15 @@
                             </div>
 
                         </div>
-                    @endcan
+                    @elsecanany(['add-to-library'], $post)
+                        <button class="relative ml-auto" wire:click='addToLibrary'>
+                            @if ($post->libraries->contains(auth()->user()))
+                                <i class="fa-solid fa-bookmark"></i>
+                            @else
+                                <i class="fa-regular fa-bookmark"></i>
+                            @endif
+                        </button>
+                    @endcanany
                 </div>
                 <div x-show="show">
                     @livewire('components.reply.reply-pop-up', ['post' => $post, 'to' => 'Post', 'state' => 'Create'])
