@@ -12,6 +12,7 @@ class Unsolved extends Component
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('is_solved', false)
+            ->limit(50)
             ->get()
             ->sortByDesc('created_at');
     }

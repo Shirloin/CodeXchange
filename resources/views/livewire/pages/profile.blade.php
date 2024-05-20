@@ -9,7 +9,7 @@
             <i class="fa-solid fa-book fa-10x"></i>
         @else
             <div class="w-full mx-auto sm:flex-1 md:max-w-3xl ">
-                @foreach ($user->posts as $post)
+                @foreach ($posts as $post)
                     @livewire('components.post.post-card', ['post' => $post])
                 @endforeach
             </div>

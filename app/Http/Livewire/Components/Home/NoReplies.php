@@ -12,6 +12,7 @@ class NoReplies extends Component
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('replies_count', 0)
+            ->limit(50)
             ->get()
             ->sortByDesc('created_at');
     }
