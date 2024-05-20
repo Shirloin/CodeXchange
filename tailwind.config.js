@@ -7,6 +7,7 @@ export default {
     ],
     theme: {
         extend: {
+
             colors: {
                 'panel-1100': '#0A0F19',
                 'panel-1000': '#0f2239',
@@ -31,6 +32,7 @@ export default {
             },
             fontSize: {
                 '2xs': '.75rem',
+                '10xl': '10rem',
             },
         },
     },
