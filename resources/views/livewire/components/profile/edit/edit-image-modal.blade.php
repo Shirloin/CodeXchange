@@ -1,11 +1,11 @@
-<div class="group relative mr-8">
-    <label
-        class="z-20 absolute inset-0 w-full h-full justify-center items-center hidden group-hover:flex text-white cursor-pointer"
+<div class="group relative mr-4 sm:mr-8 w-24 h-24 sm:w-40 sm:h-40 ">
+    <label class="z-20 absolute inset-0 hidden group-hover:flex justify-center items-center  text-white cursor-pointer"
         for="file">
         <input wire:model='file' wire:change.debounce.2s='update' class="hidden" id="file" type="file"
             accept="image/*">
-        <p>Edit Profile</p>
+        <p class="text-2xs sm:text-sm">Edit Profile
+        </p>
     </label>
 
-    <img class="w-28 h-28 sm:w-40 sm:h-40  rounded-3xl object-cover  group-hover:opacity-50" src={{ $image }}>
+    <img class="absolute inset-0 rounded-3xl object-cover  group-hover:opacity-50" src={{ $image }}>
 </div>
