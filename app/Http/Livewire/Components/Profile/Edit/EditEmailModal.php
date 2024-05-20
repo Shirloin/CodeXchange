@@ -6,31 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
 use Livewire\Component;
 
-class EditUsernameModal extends Component
+class EditEmailModal extends Component
 {
-    public $username;
+    public $email;
     private $rules = [
-        'username' => 'required|min:3|max:15|unique:users'
+        'email' => 'required|email|unique:users'
     ];
     private $message = [
-        'required' => 'Username must be filled',
-        'min' => 'Username length must be at least 3 characters',
-        'max' => 'Username length must be less than 15 characters',
-        'unique' => 'Username has already taken'
+        'required' => 'Email must be filled',
+        'email' => 'Email is invalid',
+        'unique' => 'Email has been taken'
     ];
-
     public function update()
     {
         /** @var User $user */
         $user = Auth::user();
         if (!$user instanceof User) {
-            Controller::FailMessage('Update Username Failed');
+            Controller::FailMessage('Update Email Failed');
         }
         $validator = Validator::make(
-            ['username' => $this->username],
+            ['email' => $this->email],
             $this->rules,
             $this->message
         );
@@ -38,18 +35,17 @@ class EditUsernameModal extends Component
             Controller::FailMessage($validator->errors()->first());
             return redirect()->back()->withErrors($validator)->withInput();
         }
-        $user->username = $this->username;
+        $user->email = $this->email;
         $user->save();
-        Controller::SuccessMessage('Username Updated');
+        Controller::SuccessMessage('Email Updated');
         return redirect('/profile' . '/' . $user->id);
     }
-
-    public function mount($username)
+    public function mount($email)
     {
-        $this->username = $username;
+        $this->email = $email;
     }
     public function render()
     {
-        return view('livewire.components.profile.edit.edit-username-modal');
+        return view('livewire.components.profile.edit.edit-email-modal');
     }
 }

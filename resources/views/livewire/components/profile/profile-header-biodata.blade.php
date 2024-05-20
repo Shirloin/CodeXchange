@@ -9,6 +9,10 @@
         </div>
         @can('isMyProfile', $user)
             <div class="h-8 sm:h-10 flex items-center gap-2">
+                {{ $user->email }}
+                @livewire('components.profile.edit.edit-email-modal', ['email' => $user->email])
+            </div>
+            <div class="h-8 sm:h-10 flex items-center gap-2">
                 {{ $user->phone }}
                 @livewire('components.profile.edit.edit-phone-modal', ['phone' => $user->phone])
             </div>
