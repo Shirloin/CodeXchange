@@ -78,6 +78,18 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
+    public function hasPost(Post $post){
+        return $this->libraries()->where('post_id', $post->id)->exists();
+    }
+    public function addToLibrary(Post $post){
+        if(!$this->hasPost($post)){
+            $this->libraries()->attach($post->id);
+        }
+        else{
+            $this->libraries()->detach($post->id);
+        }
+        return $this;
+    }
     public function hasLikedPost(Post $post)
     {
         return $this->likes()->where('post_id', $post->id)->exists();

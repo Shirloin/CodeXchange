@@ -36,7 +36,7 @@ class PostDetailCard extends Component
             } else {
                 $user->like($this->post);
             }
-            $this->post = Post::find($this->post->id);
+            $this->refresh();
         } else {
             Controller::FailMessage("User are not logged in");
         }
@@ -54,7 +54,7 @@ class PostDetailCard extends Component
             if (!$user instanceof User) {
                 Controller::FailMessage('User are not logged in');
             }
-            if($user->libraries->contains($this->post)){
+            if($user->hasPost($this->post)){
                 $user->libraries()->detach($this->post->id);
                 Controller::SuccessMessage("Post Removed From Library");
             }
@@ -62,6 +62,7 @@ class PostDetailCard extends Component
                 $user->libraries()->attach($this->post->id);
                 Controller::SuccessMessage("Post Added To Library");
             }
+            $this->refresh();
         } else {
             Controller::FailMessage("User are not logged in");
         }

@@ -115,7 +115,7 @@
                         </div>
                     @elsecanany(['add-to-library'], $post)
                         <button class="relative ml-auto" wire:click='addToLibrary'>
-                            @if ($post->libraries->contains(auth()->user()))
+                            @if (Auth::user()->hasPost($post))
                                 <i class="fa-solid fa-bookmark"></i>
                             @else
                                 <i class="fa-regular fa-bookmark"></i>
