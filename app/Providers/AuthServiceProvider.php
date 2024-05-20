@@ -39,14 +39,14 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('delete', function ($user, $post) {
             return $user->id === $post->user_id;
         });
-        Gate::define('add-to-library', function($user, $post){
+        Gate::define('add-to-library', function ($user, $post) {
             return $user->id !== $post->user_id;
         });
         Gate::define('isMyReply', function ($user, $reply) {
             return $user->id === $reply->user_id;
         });
-        Gate::define('isLoggedIn', function ($user) {
-            return $user != null;
+        Gate::define('isLogin', function ($user) {
+            return Auth::check();
         });
 
 

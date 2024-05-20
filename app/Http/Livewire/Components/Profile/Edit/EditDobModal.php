@@ -31,6 +31,7 @@ class EditDobModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Date of Birth Failed');
+            return;
         }
         $validator = Validator::make(
             ['dob' => $this->dob],

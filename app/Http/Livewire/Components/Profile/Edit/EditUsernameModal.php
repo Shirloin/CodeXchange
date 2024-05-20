@@ -28,6 +28,7 @@ class EditUsernameModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Username Failed');
+            return;
         }
         $validator = Validator::make(
             ['username' => $this->username],

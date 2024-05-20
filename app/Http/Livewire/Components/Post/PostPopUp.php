@@ -34,25 +34,25 @@ class PostPopUp extends Component
     }
     public function save()
     {
+        $data = [
+            'title' => $this->title,
+            'content' => $this->content,
+            'topic' => $this->topic,
+        ];
+        $rules = [
+            'title' => ['required', 'min:5', 'max:25'],
+            'content' => ['required', 'min: 5'],
+            'topic' => ['required']
+        ];
+        $messages = [
+            'title.required' => 'Title must be filled',
+            'title.min' => 'Title length must be at least 5 characters',
+            'title.max' => 'Title length must be less than 25 characters',
+            'content.required' => 'Content must be filled',
+            'content.min' => 'Content length must be at least 5 characters',
+            'topic.required' => 'Topic has not been choosen',
+        ];
         if (Auth::check()) {
-            $data = [
-                'title' => $this->title,
-                'content' => $this->content,
-                'topic' => $this->topic,
-            ];
-            $rules = [
-                'title' => ['required', 'min:5', 'max:25'],
-                'content' => ['required', 'min: 5'],
-                'topic' => ['required']
-            ];
-            $messages = [
-                'title.required' => 'Title must be filled',
-                'title.min' => 'Title length must be at least 5 characters',
-                'title.max' => 'Title length must be less than 25 characters',
-                'content.required' => 'Content must be filled',
-                'content.min' => 'Content length must be at least 5 characters',
-                'topic.required' => 'Topic has not been choosen',
-            ];
             $validator = Validator::make($data, $rules, $messages);
             if ($validator->fails()) {
                 Controller::FailMessage($validator->errors()->first());
@@ -61,7 +61,8 @@ class PostPopUp extends Component
             /** @var User $user */
             $user = auth()->user();
             if (!$user instanceof User) {
-                Controller::FailMessage('Create Post Failed');
+                Controller::FailMessage('Unauthenticated User');
+                return;
             }
             if ($this->state === 'Create') {
                 $post = new Post();

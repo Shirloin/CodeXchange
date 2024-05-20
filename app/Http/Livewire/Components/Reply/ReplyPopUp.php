@@ -48,6 +48,7 @@ class ReplyPopUp extends Component
             $user = Auth::user();
             if (!$user instanceof User) {
                 Controller::FailMessage('Failed To Reply');
+                return;
             }
 
             $validator = Validator::make(
@@ -98,7 +99,7 @@ class ReplyPopUp extends Component
         $this->emitUp('refreshReply');
         $this->emitTo('components.post.post-detail-card', 'refreshPost');
     }
-    
+
     public function render()
     {
         return view('livewire.components.reply.reply-pop-up');

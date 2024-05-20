@@ -25,6 +25,7 @@ class EditEmailModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Email Failed');
+            return;
         }
         $validator = Validator::make(
             ['email' => $this->email],

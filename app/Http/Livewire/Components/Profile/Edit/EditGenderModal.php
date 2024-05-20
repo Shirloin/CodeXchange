@@ -28,6 +28,7 @@ class EditGenderModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Gender Failed');
+            return;
         }
         $validator = Validator::make(
             ['gender' => $this->gender],

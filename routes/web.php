@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', Home::class);
 Route::get('/topic', Topic::class);
 Route::get('/topic/{name}', Topic::class);
+Route::get('/library', Library::class);
 Route::get('/login', Login::class);
 Route::get('/register', Register::class);
 
 Route::get('/profile/{id}', Profile::class);
 Route::get('/post/{id}', Post::class);
-Route::get('/library/{id}', Library::class);
 
 Route::post('/logout', [AuthController::class, 'logout']);

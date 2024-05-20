@@ -73,6 +73,15 @@
                     <p>Solved</p>
                 </div>
             @endif
+            @can(['add-to-library'], $post)
+                <button class="relative ml-auto" wire:click.prevent='addToLibrary'>
+                    @if (Auth::user()->hasPost($post))
+                        <i class="fa-solid fa-bookmark"></i>
+                    @else
+                        <i class="fa-regular fa-bookmark"></i>
+                    @endif
+                </button>
+            @endcan
         </div>
     </div>
 </a>

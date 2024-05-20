@@ -37,6 +37,7 @@ class EditImageModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Profile Image Failed');
+            return;
         }
         $validator = Validator::make(
             ['file' => $this->file],

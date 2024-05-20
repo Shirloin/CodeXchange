@@ -31,6 +31,7 @@ class EditPhoneModal extends Component
         $user = Auth::user();
         if (!$user instanceof User) {
             Controller::FailMessage('Update Phone Number Failed');
+            return;
         }
         $validator = Validator::make(
             ['phone' => $this->phone],

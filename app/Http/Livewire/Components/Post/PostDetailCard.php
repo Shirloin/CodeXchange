@@ -29,7 +29,8 @@ class PostDetailCard extends Component
             /** @var User $user */
             $user = Auth::user();
             if (!$user instanceof User) {
-                Controller::FailMessage('User are not logged in');
+                Controller::FailMessage('Unauthenticated User');
+                return;
             }
             if ($user->hasLikedPost($this->post)) {
                 $user->unlike($this->post);
@@ -47,18 +48,19 @@ class PostDetailCard extends Component
         Controller::SuccessMessage('Post Successfully Deleted');
         return redirect('/');
     }
-    public function addToLibrary(){
+    public function addToLibrary()
+    {
         if (Auth::check()) {
             /** @var User $user */
             $user = Auth::user();
             if (!$user instanceof User) {
-                Controller::FailMessage('User are not logged in');
+                Controller::FailMessage('Unauthenticated User');
+                return;
             }
-            if($user->hasPost($this->post)){
+            if ($user->hasPost($this->post)) {
                 $user->libraries()->detach($this->post->id);
                 Controller::SuccessMessage("Post Removed From Library");
-            }
-            else{
+            } else {
                 $user->libraries()->attach($this->post->id);
                 Controller::SuccessMessage("Post Added To Library");
             }
