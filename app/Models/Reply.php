@@ -28,43 +28,38 @@ class Reply extends Model
             $post = $reply->getReplyPost($reply);
             if ($post instanceof Post) {
                 $post->increment('replies_count');
-                if ($reply->is_approved) {
-                    $post->is_solved = true;
-                    $post->save();
-                }
+                $post->checkSolved();
             }
             $reply->user->chaty();
+            $reply->user->bossy();
+            $reply->user->kingy();
         });
         static::updated(function ($reply) {
-            if ($reply->isDirty('is_approved') && $reply->is_approved) {
-                $reply->user->addXP(100);
-                $reply->user->goody();
+            if ($reply->isDirty('is_approved') ) {
+                if($reply->is_approved){
+                    $reply->user->addXP(100);
+                    $reply->user->goody();
+                }
             }
+            $reply->user->bossy();
+            $reply->user->kingy();
         });
         static::deleting(function ($reply) {
-            $user = User::find($reply->user_id);
-            Log::debug('Current XP: ' . $user->xp);
-            Log::debug("Deleting Reply " . $reply->content);
             foreach ($reply->replies as $reply) {
                 $reply->delete();
             }
+            
         });
         static::deleted(function ($reply) {
-            $user = User::find($reply->user_id);
-            Log::debug($reply->content . ": is deleted");
-            $user->decrement('replies_count');
-            $user->minXP(100);
+            $reply->user->decrement('replies_count');
             $post = $reply->getReplyPost($reply);
-            if ($reply->is_approved) {
-                $user->minXP(100);
-            }
             if ($post instanceof Post) {
                 $post->decrement('replies_count');
                 $post->checkSolved();
-            }
-            Log::debug("Final XP after deleted: " . $user->xp);
-            $user->goody();
-            $user->chaty();
+            }            
+
+            $reply->user->goody();
+            $reply->user->chaty();
         });
     }
     public function post()

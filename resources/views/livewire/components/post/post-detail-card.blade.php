@@ -24,7 +24,7 @@
                             href="/profile/{{ $post->user_id }}">{{ $post->user->username }}</a>
                     </div>
                     <div class="mt-2 flex flex-wrap items-center gap-x-1 text-xs font-medium">
-                        <p class="text-2xs text-grey-600">Posted 53 minutes ago</p>
+                        <p class="text-2xs text-grey-600">Posted {{ getTime($post->created_at) }}</p>
                     </div>
                 </div>
                 <div class="relative ml-3 flex -top-1">

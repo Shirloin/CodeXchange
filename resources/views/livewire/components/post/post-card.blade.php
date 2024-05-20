@@ -52,13 +52,20 @@
         </div>
         <div class="flex flex-wrap items-start text-sm">
             <div class=" flex items-center mr-3 text-ellipsis text-wrap">
+                @php
+                    $reply = $post->replies()->latest()->first();
+                @endphp
                 <object data="" type="">
-                    <a href="/profile/{{ $post->user_id }}"
+                    <a href="/profile/{{ $reply ? $reply->user_id : $post->user_id }}"
                         class="text-blue-500 mr-1 hover:underline hover:text-blue-700 transition-colors duration-300">
-                        Shirloin
+                        {{ $reply ? $reply->user->username : $post->user->username }}
                     </a>
                 </object>
-                <span>replied 23 minutes ago</span>
+                @if ($reply != null)
+                    <span>replied {{ getTime($reply->created_at) }}</span>
+                @else
+                    <span>posted {{ getTime($post->created_at) }}</span>
+                @endif
             </div>
             @if ($post->is_solved)
                 <div class="bg-gray-600 flex items-center text-xs font-bold rounded-full px-2 py-1">
