@@ -29,6 +29,6 @@ class Library extends Component
     }
     public function render()
     {
-        return view('livewire.pages.library')->layout('layouts.template');
+        return view('livewire.pages.library')->layout('components.layouts.template');
     }
 }

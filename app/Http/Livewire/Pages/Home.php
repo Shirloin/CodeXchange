@@ -16,6 +16,6 @@ class Home extends Component
     }
     public function render()
     {
-        return view('livewire.pages.home')->layout('layouts.template');
+        return view('livewire.pages.home')->layout('components.layouts.template');
     }
 }

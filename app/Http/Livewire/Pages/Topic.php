@@ -26,6 +26,6 @@ class Topic extends Component
 
     public function render()
     {
-        return view('livewire.pages.topic')->layout('layouts.template');
+        return view('livewire.pages.topic')->layout('components.layouts.template');
     }
 }

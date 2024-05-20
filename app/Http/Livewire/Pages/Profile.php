@@ -20,6 +20,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.pages.profile')->layout('layouts.template');
+        return view('livewire.pages.profile')->layout('components.layouts.template');
     }
 }
