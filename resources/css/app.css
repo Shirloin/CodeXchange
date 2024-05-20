@@ -7,6 +7,9 @@
 @tailwind utilities;
 
 @layer components{
+    html{
+        scroll-behavior: smooth;
+    }
 
     .btn-blue-hover{
         @apply bg-gradient-to-r from-blue-0 to-blue-800 hover:bg-gradient-to-r hover:from-blue-0 hover:via-blue-600 hover:to-cyan-500

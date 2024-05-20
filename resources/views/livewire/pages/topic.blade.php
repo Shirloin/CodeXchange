@@ -10,6 +10,12 @@
                 </p>
             </div>
         </div>
+        @if ($name != null)
+            <a href="#this" class="text-xl text-grey-600 font-semibold uppercase">
+                Click to view all posts about {{ $name }}
+                <i class="fa-solid fa-arrow-down"></i>
+            </a>
+        @endif
         <div
             class="max-w-6xl mx-auto mb-3 mt-8 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-5 px-7 md:mt-16">
             @foreach ($topics as $topic)
@@ -29,7 +35,7 @@
         </div>
     </div>
     @if ($posts->count() > 0)
-        <div class="w-full mx-auto mt-20 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
+        <div id="this" class="w-full mx-auto pt-20 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
             <h1 class="w-fit mx-auto mb-10 md:mb-16 text-grey-600 text-5xl font-medium uppercase ">
                 {{ $name }}
             </h1>
