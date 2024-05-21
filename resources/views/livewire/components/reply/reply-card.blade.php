@@ -53,7 +53,7 @@
                         <div class="relative h-9 -mb-1 mt-4 flex justify-start" x-data="{ show: false }">
                             @auth
                                 <button x-on:click="show=true"
-                                    class="hidden group-hover/reply:inline-flex justify-center items-center post-action-btn">
+                                    class="inline-flex justify-center items-center post-action-btn">
                                     <p>Reply</p>
                                 </button>
                                 <div x-show="show">

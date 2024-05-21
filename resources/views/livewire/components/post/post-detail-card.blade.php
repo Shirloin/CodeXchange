@@ -73,13 +73,13 @@
             <div class="mt-auto" x-data="{ show: false }">
                 <div class="relative h-9 -mb-1 mt-4 flex justify-start">
                     <button wire:click='like'
-                        class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-auto md:mr-2 rounded-xl {{ Auth::user() && Auth::user()->hasLikedPost($post) ? 'text-blue-600' : 'text-grey-600' }}">
+                        class="bg-blue-1700 inline-flex justify-center items-center font-semibold  text-sm py-2 px-4 border-transparent mr-2 rounded-xl {{ Auth::user() && Auth::user()->hasLikedPost($post) ? 'text-blue-600' : 'text-grey-600' }}">
                         <i class="fa-solid fa-heart mr-2"></i>
                         <p class="font-semibold ">{{ $post->likes()->count() }}</p>
                     </button>
                     @auth
                         <button x-on:click="show=true"
-                            class="hidden group-hover/post:inline-flex justify-center items-center post-action-btn">
+                            class="inline-flex  justify-center items-center post-action-btn">
                             <p>Reply</p>
                         </button>
                     @endauth
