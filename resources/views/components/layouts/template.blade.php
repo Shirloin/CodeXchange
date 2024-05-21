@@ -16,8 +16,9 @@
     }
 </style>
 
-<body>
+<body x-data="{menu:false}" x-cloak>
     @include('components.background')
+    @livewire('components.partial.menu')
     <div class="min-h-screen relative w-full flex flex-col justify-between z-20 ">
         @livewire('components.navbar')
         {{ $slot }}

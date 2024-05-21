@@ -11,7 +11,7 @@
             </div>
         </div>
         @if ($name != null)
-            <a href="#this" class="text-xl text-grey-600 font-semibold uppercase">
+            <a href="#this" class="text-center text-md sm:text-xl text-grey-600 font-semibold uppercase">
                 Click to view all posts about {{ $name }}
                 <i class="fa-solid fa-arrow-down"></i>
             </a>
@@ -33,9 +33,10 @@
                 </a>
             @endforeach
         </div>
+        
     </div>
     @if ($posts->count() > 0)
-        <div id="this" class="w-full mx-auto mt-auto pt-10 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
+        <div id="this" class="w-full mx-auto pt-10 px-6 xl:px-16 sm:flex-1 md:max-w-[835px]">
             <h1 class="w-fit mx-auto mb-10 md:mb-16 text-grey-600 text-5xl font-medium uppercase ">
                 {{ $name }}
             </h1>

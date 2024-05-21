@@ -38,7 +38,7 @@
 
     </div>
     <div class="flex md:hidden">
-        <button>
+        <button x-on:click="menu=true">
             <i class="fa-solid fa-bars fa-xl"></i>
         </button>
     </div>
