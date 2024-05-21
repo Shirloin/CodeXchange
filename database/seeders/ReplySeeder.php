@@ -19,7 +19,7 @@ class ReplySeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 40; $i++) {
             $post = Post::inRandomOrder()->first();
             $user_id = User::all()->random()->id;
             $reply = new Reply();

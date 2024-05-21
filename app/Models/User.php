@@ -51,26 +51,14 @@ class User extends Authenticatable
     protected static function booted()
     {
         static::updated(function ($user) {
-            if($user->isDirty('xp')){
-                if($user->xp >= 5000){
-                    $user->level = 7;
+            if ($user->isDirty('xp')) {
+                $newLevel = $user->calculateLevel();
+                if ($user->level != $newLevel) {
+                    $user->level = $newLevel;
+                    $user->timestamps = false;
+                    $user->update(['level' => $newLevel]);
+                    $user->timestamps = true;
                 }
-                else if($user->xp >= 4000){
-                    $user->level = 6;
-                }
-                else if($user->xp >= 3000){
-                    $user->level = 5;
-                }
-                else if($user->xp >= 2000){
-                    $user->level = 4;
-                }
-                else if($user->xp >= 1000){
-                    $user->level = 3;
-                }
-                else if($user->xp >= 500){
-                    $user->level = 2;
-                }
-                $user->save();
                 $user->bossy();
                 $user->kingy();
             }
@@ -97,14 +85,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reply::class);
     }
-    public function hasPost(Post $post){
+    public function hasPost(Post $post)
+    {
         return $this->libraries()->where('post_id', $post->id)->exists();
     }
-    public function addToLibrary(Post $post){
-        if(!$this->hasPost($post)){
+    public function addToLibrary(Post $post)
+    {
+        if (!$this->hasPost($post)) {
             $this->libraries()->attach($post->id);
-        }
-        else{
+        } else {
             $this->libraries()->detach($post->id);
         }
         return $this;
@@ -146,7 +135,6 @@ class User extends Authenticatable
         } else {
             $this->increment('xp', $count);
         }
-       
     }
 
     public function goody()
@@ -159,7 +147,7 @@ class User extends Authenticatable
         if ($approvedPosts >= 3 && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
             $this->addXP(150);
-        } 
+        }
         $this->nar();
     }
 
@@ -170,10 +158,10 @@ class User extends Authenticatable
             return;
         }
         $postLikes = $this->posts()->where('likes_count', '>=', 10)->exists();
-        if ($postLikes && !$this->hasAchievement($achievement) ) {
+        if ($postLikes && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
             $this->addXP(200);
-        } 
+        }
         $this->nar();
     }
 
@@ -183,7 +171,7 @@ class User extends Authenticatable
         if ($this->replies_count >= 10 && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
             $this->addXP(250);
-        } 
+        }
         $this->nar();
     }
 
@@ -194,7 +182,7 @@ class User extends Authenticatable
         if ($solvedPosts >= 5 && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
             $this->addXP(300);
-        } 
+        }
         $this->nar();
     }
 
@@ -204,7 +192,7 @@ class User extends Authenticatable
         if ($this->xp >= 1000 && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
             $this->addXP(500);
-        } 
+        }
         $this->nar();
     }
 
@@ -215,7 +203,7 @@ class User extends Authenticatable
         $achievement = Achievement::where('name', 'Kingy Kingy')->first();
         if ($this->xp >= 5000 && !$this->hasAchievement($achievement)) {
             $this->addAchievement($achievement);
-        } 
+        }
         $this->nar();
     }
     public function nar()
@@ -226,14 +214,33 @@ class User extends Authenticatable
             $this->addAchievement($achievement);
         }
     }
-    public function hasAchievement($achievement){
+    public function hasAchievement($achievement)
+    {
         return $this->achievements()->where('achievement_id', $achievement->id)->exists();
     }
-    public function addAchievement($achievement){
+    public function addAchievement($achievement)
+    {
         $this->achievements()->syncWithoutDetaching([$achievement->id]);
     }
-    public function removeAchievement($achievement){
+    public function removeAchievement($achievement)
+    {
         $this->achievements()->detach($achievement->id);
-
+    }
+    public function calculateLevel()
+    {
+        if ($this->xp >= 5000) {
+            return 7;
+        } elseif ($this->xp >= 4000) {
+            return 6;
+        } elseif ($this->xp >= 3000) {
+            return 5;
+        } elseif ($this->xp >= 2000) {
+            return 4;
+        } elseif ($this->xp >= 1000) {
+            return 3;
+        } elseif ($this->xp >= 500) {
+            return 2;
+        }
+        return 1;
     }
 }
