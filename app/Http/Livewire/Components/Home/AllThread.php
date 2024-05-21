@@ -11,9 +11,9 @@ class AllThread extends Component
     public function mount()
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
+        ->orderBy('created_at', 'desc') 
             ->limit(50)
-            ->get()
-            ->sortByDesc('created_at');
+            ->get();
     }
     public function render()
     {

@@ -52,6 +52,25 @@ class User extends Authenticatable
     {
         static::updated(function ($user) {
             if($user->isDirty('xp')){
+                if($user->xp >= 5000){
+                    $user->level = 7;
+                }
+                else if($user->xp >= 4000){
+                    $user->level = 6;
+                }
+                else if($user->xp >= 3000){
+                    $user->level = 5;
+                }
+                else if($user->xp >= 2000){
+                    $user->level = 4;
+                }
+                else if($user->xp >= 1000){
+                    $user->level = 3;
+                }
+                else if($user->xp >= 500){
+                    $user->level = 2;
+                }
+                $user->save();
                 $user->bossy();
                 $user->kingy();
             }

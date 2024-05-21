@@ -12,9 +12,9 @@ class Solved extends Component
     {
         $this->posts = Post::with(['topic', 'replies', 'user'])
             ->where('is_solved', true)
+            ->orderBy('created_at', 'desc') 
             ->limit(50)
-            ->get()
-            ->sortByDesc('created_at');
+            ->get();
     }
     public function render()
     {

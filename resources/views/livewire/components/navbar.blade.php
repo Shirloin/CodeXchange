@@ -1,5 +1,5 @@
 <div class="relative z-10 w-full flex justify-between items-center px-6 py-4 text-white">
-    <a href="/" class="flex items-center text-2xl font-semibold "><img class="w-12 mr-2" src="/assets/logo-white.png" alt=""> <span>CodeXchange</span></a>
+    <a href="/" class="flex items-center text-2xl font-semibold "><img class="w-10 mr-2" src="/assets/logo-white.png" alt=""> <span>CodeXchange</span></a>
     <div class="hidden md:flex justify-center items-center gap-12 text-md font-medium">
         <a href="/" class="group relative">
             HOME
