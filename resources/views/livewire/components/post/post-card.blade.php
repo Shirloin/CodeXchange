@@ -74,7 +74,7 @@
                 </div>
             @endif
             @can(['add-to-library'], $post)
-                <button class="relative ml-auto" wire:click.prevent='addToLibrary'>
+                <button class="relative ml-auto text-xl self-center" wire:click.prevent='addToLibrary'>
                     @if (Auth::user()->hasPost($post))
                         <i class="fa-solid fa-bookmark"></i>
                     @else
