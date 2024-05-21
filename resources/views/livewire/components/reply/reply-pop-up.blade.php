@@ -24,8 +24,12 @@
                     <div class="w-full md:w-fit flex text-sm font-semibold gap-4">
                         <button x-on:click.prevent='show=false' x-cloak
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl bg-blue-1300 hover:bg-blue-1400">Cancel</button>
-                        <button type="submit"
+                        <button type="submit" wire:loading.remove wire:target='save'
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl btn-blue-hover">Post</button>
+                        <button wire:loading wire:target='save'
+                            class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl btn-blue-hover">
+                            @livewire('loading-spinner')
+                        </button>
                     </div>
                 </div>
             </form>

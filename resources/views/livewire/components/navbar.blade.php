@@ -25,13 +25,15 @@
                 <img class=" w-10 h-10  rounded-lg object-cover" src={{ Auth::user()->image }} alt=""
                     loading="lazy">
             </a>
-            <form wire:submit='logout'>
-                @csrf
-                <button class="flex bg-panel-700 items-center px-6 py-3 rounded-lg ">
+            <button wire:click='logout'  class="flex bg-panel-700 items-center px-6 py-3 rounded-lg ">
+                <div wire:loading wire:target='logout'>
+                    @livewire('loading-spinner')
+                </div>
+                <div class="flex items-center" wire:loading.remove wire:target='logout'>
                     <i class="fa-solid fa-arrow-right-from-bracket fa-lg mr-2"></i>
                     <p class="text-md">Log Out</p>
-                </button>
-            </form>
+                </div>
+            </button>
         @endauth
 
     </div>

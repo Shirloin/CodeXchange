@@ -35,6 +35,19 @@
     .before-content::before{
         @apply absolute block top-0 -left-9 content-[""] w-1 h-full bg-panel-800
     }
+    .loader {
+        @apply w-3 h-3 border-2 border-white border-b-transparent rounded-full inline-block box-border animate-spin self-center
+    }
+
+    @keyframes rotation {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
 
     .progress::-webkit-progress-value{
         @apply bg-blue-1200 rounded-full
@@ -48,4 +61,5 @@
         text-indent: 1px;
         text-overflow: '';
       }
+
 }

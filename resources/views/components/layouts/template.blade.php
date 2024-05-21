@@ -17,7 +17,6 @@
 </style>
 
 <body>
-    @include('livewire.loading-spinner')
     @include('components.background')
     <div class="min-h-screen relative w-full flex flex-col justify-between z-20 ">
         @livewire('components.navbar')

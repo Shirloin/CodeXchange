@@ -21,7 +21,13 @@
                 class="w-full pt-1 pb-2  bg-transparent border-b-2 border-grey-600 focus:outline-none focus:ring-0  "
                 placeholder="Enter Password" id="password" name="password" type="password" autocomplete="off">
         </div>
-        <button type="submit" class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">Register</button>
+        <button wire:loading.remove wire:target='register' type="submit"
+            class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">
+            Register
+        </button>
+        <button wire:loading wire:target='register' class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">
+           @livewire('loading-spinner')
+        </button>
         <a href="/login" class="mx-auto mt-4 text-sm text-grey-600 hover:underline">Sign In</a>
     </form>
 </div>

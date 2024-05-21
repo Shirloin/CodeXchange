@@ -22,9 +22,13 @@
                     <input wire:model="username"
                         class="w-full bg-transparent p-3 mb-6 ring-1 ring-grey-600 rounded-md focus:ring-grey-600 focus:outline-none"
                         type="text" placeholder="Username" value={{ $username }}>
-                </div>
-                <button
+                </div> 
+                <button  wire:loading.remove wire:target='update'
                     class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">Save</button>
+                <button  wire:loading wire:target='update'
+                   class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">
+                    @livewire('loading-spinner')
+                </button>
             </form>
         </div>
     </div>
