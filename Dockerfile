@@ -1,7 +1,10 @@
 FROM php:8.0-fpm
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /app
+
+# Copy existing application directory contents
+COPY . .
 
 # Install depedencies
 RUN apt-get update && apt-get install -y \
@@ -24,22 +27,45 @@ RUN apt-get update && apt-get install -y \
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+#Install Node
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash
+
+RUN apt-get update && apt-get install -y nodejs
+
 # Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-RUN docker-php-ext-install gd
+RUN docker-php-ext-install \
+    bcmath \
+    bz2 \
+    calendar \
+    iconv \
+    intl \
+    mbstring \
+    opcache \
+    pdo_mysql \
+    zip \
+	sodium
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy existing application directory contents
-COPY . /var/www
+RUN npm install
 
-# Copy existing application directory permissions
-COPY --chown=www-data:www-data . /var/www
+RUN npm run build
 
-# Change current user to www
-USER www-data
+RUN composer update && composer install --no-dev --optimize-autoloader
 
-EXPOSE 9000
-CMD ["php-fpm"]
+# Copy .env.example to .env
+RUN cp /app/.env.example /app/.env
+
+# Modify env variable
+RUN sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /app/.env
+RUN sed -ri -e 's!APP_URL=http://localhost!APP_URL=https://codexchange.my.id!g' /app/.env
+RUN sed -ri -e 's!DB_HOST=127.0.0.1!DB_HOST=mysql_db!g' /app/.env
+RUN sed -ri -e 's!DB_DATABASE=laravel!DB_DATABASE=codexchange!g' /app/.env
+RUN sed -ri -e 's!DB_USERNAME=root!DB_USERNAME=cx!g' /app/.env
+RUN sed -ri -e 's!DB_PASSWORD=!DB_PASSWORD=cx!g' /app/.env
+
+RUN php artisan key:generate
+RUN php artisan storage:link
+
+RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
