@@ -7,6 +7,8 @@ services:
       restart: unless-stopped
       ports:
           - 80:80
+      volumes:
+      - .:/app
 
     mysql_db:
       image: mysql:latest

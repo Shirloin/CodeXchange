@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libzip-dev
+    libzip-dev \
+    libbz2-dev
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -41,9 +42,7 @@ RUN docker-php-ext-install \
     intl \
     mbstring \
     opcache \
-    pdo_mysql \
-    zip \
-	sodium
+    pdo_mysql
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
@@ -52,6 +51,7 @@ RUN npm install
 
 RUN npm run build
 
+#Install PHP depedencies
 RUN composer update && composer install --no-dev --optimize-autoloader
 
 # Copy .env.example to .env
