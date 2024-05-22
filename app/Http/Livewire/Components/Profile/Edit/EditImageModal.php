@@ -70,7 +70,8 @@ class EditImageModal extends Component
     {
         $existing_image_path = str_replace('/storage/', 'public/', $this->image);
         if (Storage::exists($existing_image_path)) {
-            Storage::delete($existing_image_path);
+            dd("test");
+            Storage::delete($existing_image_path);  
         }
     }
 

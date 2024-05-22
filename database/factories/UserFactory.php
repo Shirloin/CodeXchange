@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Alirezasedghi\LaravelImageFaker\ImageFaker;
+use Alirezasedghi\LaravelImageFaker\Services\FakePeople;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -22,7 +24,7 @@ class UserFactory extends Factory
             'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => bcrypt('ilovenar'),
-            'image' => $this->faker->imageUrl(640, 480, 'people', true, null, false, 'png')
+            'image' => (new ImageFaker(new FakePeople()))->imageUrl()
         ];
     }
 

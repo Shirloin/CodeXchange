@@ -2,13 +2,13 @@
 
 namespace App\Helper;
 
-use Illuminate\Support\Facades\Http;
+use Alirezasedghi\LaravelImageFaker\ImageFaker;
+use Alirezasedghi\LaravelImageFaker\Services\FakePeople;
 use Illuminate\Support\Str;
 
 function getImage()
 {
-    $response = Http::get('https://source.unsplash.com/random');
-    return $response->effectiveUri();
+    return (new ImageFaker(new FakePeople()))->imageUrl();
 }
 function getID()
 {

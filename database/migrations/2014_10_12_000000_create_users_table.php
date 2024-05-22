@@ -1,5 +1,7 @@
 <?php
 
+use Alirezasedghi\LaravelImageFaker\ImageFaker;
+use Alirezasedghi\LaravelImageFaker\Services\FakePeople;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -21,7 +23,7 @@ return new class extends Migration
             $table->string('phone')->unique()->nullable();
             $table->date("dob")->nullable();
             $table->string("gender")->nullable();
-            $table->string("image");
+            $table->string("image")->default((new ImageFaker(new FakePeople()))->imageUrl());
             $table->integer('xp')->default(0);
             $table->integer('level')->default(1);
             $table->integer('posts_count')->default(0);
