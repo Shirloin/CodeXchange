@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: digitalocean.com/php
+    container_name: app
+    restart: unless_stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: 
