@@ -27,7 +27,7 @@
             </a>
             <button wire:click='logout'  class="flex bg-panel-700 items-center px-6 py-3 rounded-lg ">
                 <div wire:loading wire:target='logout'>
-                    @livewire('loading-spinner')
+                    @livewire('components.partial.loading-spinner')
                 </div>
                 <div class="flex items-center" wire:loading.remove wire:target='logout'>
                     <i class="fa-solid fa-arrow-right-from-bracket fa-lg mr-2"></i>

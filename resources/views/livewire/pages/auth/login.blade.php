@@ -20,7 +20,7 @@
             Log In
         </button>
         <button wire:loading wire:target='login' class="btn-blue-hover w-full rounded-md p-2 font-bold mt-4 mb-4">
-           @livewire('loading-spinner')
+            @livewire('components.partial.loading-spinner')
         </button>
         <a href="/register" class="mx-auto mt-4 text-sm text-grey-600 hover:underline">Sign Up</a>
     </form>

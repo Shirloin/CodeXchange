@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Components;
+namespace App\Http\Livewire\Components\Partial;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -16,6 +16,6 @@ class Navbar extends Component
     }
     public function render()
     {
-        return view('livewire.components.navbar');
+        return view('livewire.components.partial.navbar');
     }
 }

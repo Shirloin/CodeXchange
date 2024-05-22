@@ -17,7 +17,7 @@
     <div class="min-h-screen relative w-full flex flex-col justify-center z-20">
         {{ $slot }}
     </div>
-    @livewire('components.footer')
+    @livewire('components.partial.footer')
     @livewireScripts
 </body>
 

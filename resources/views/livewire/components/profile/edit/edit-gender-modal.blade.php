@@ -51,7 +51,7 @@
                     class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">Save</button>
                 <button wire:loading wire:target='update'
                     class="font-bold text-sm w-full px-8 py-3 bg-panel-700 hover:text-grey-600 text-white rounded-lg transition-colors duration-300">
-                @livewire('loading-spinner')
+                    @livewire('components.partial.loading-spinner')
                 </button>
             </form>
         </div>

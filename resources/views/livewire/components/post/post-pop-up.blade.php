@@ -52,7 +52,7 @@
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl btn-blue-hover">Post</button>
                         <button wire:loading wire:target='save'
                             class="w-full md:w-fit px-12 py-4 md:py-3 rounded-xl btn-blue-hover">
-                            @livewire('loading-spinner')
+                            @livewire('components.partial.loading-spinner')
                         </button>
                     </div>
                 </div>

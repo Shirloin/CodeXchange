@@ -21,10 +21,10 @@
     @include('components.background')
     @livewire('components.partial.menu')
     <div class="min-h-screen relative w-full flex flex-col justify-between z-20 ">
-        @livewire('components.navbar')
+        @livewire('components.partial.navbar')
         {{ $slot }}
     </div>
-    @livewire('components.footer')
+    @livewire('components.partial.footer')
     @livewireScripts
 </body>
 
