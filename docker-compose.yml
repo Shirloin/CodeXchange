@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     image: codexchange_app
     container_name: codexchange_app
+    ports:
+      - "8001:9000"
     volumes:
       - .:/var/www
     networks:
@@ -16,7 +18,7 @@ services:
     image: mysql:8.0
     container_name: codexchange_mysql
     ports:
-      - "3306:3306"
+      - "8306:3306"
     environment:
       MYSQL_DATABASE: codexchange
       MYSQL_ROOT_PASSWORD: cx
