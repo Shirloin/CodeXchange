@@ -1,22 +1,46 @@
 version: '3'
 
 services:
-    codexchange:
-      container_name: codexchange
-      build: .
-      restart: unless-stopped
-      ports:
-          - 80:80
-      volumes:
-      - .:/app
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: codexchange
+    container_name: codexchange
+    volumes:
+      - .:/var/www
+    networks:
+      - laravel
 
-    mysql_db:
-      image: mysql:latest
-      restart: unless-stopped
-      environment:
-        MYSQL_ROOT_PASSWORD: cx
-        MYSQL_DATABASE: codexchange
-        MYSQL_USER: cx
-        MYSQL_PASSWORD: cx
-      ports:
-      - 3306:3306
+  nginx:
+    image: nginx:latest
+    container_name: codexchange
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    container_name: codexchange
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: codexchange
+      MYSQL_ROOT_PASSWORD: cx
+      MYSQL_USER: cx
+      MYSQL_PASSWORD: cx
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - laravel
+
+volumes:
+  mysql_data:
+
+networks:
+  laravel:
+    driver: bridge

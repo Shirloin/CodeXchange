@@ -1,19 +1,11 @@
+# Menggunakan image PHP dengan FPM
 FROM php:8.0-fpm
 
-# Set working directory
-WORKDIR /app
-
-# Copy existing application directory contents
-COPY . .
-
-# Install depedencies
+# Install dependencies
 RUN apt-get update && apt-get install -y \
-    libicu-dev \
-    libmariadb-dev \
     build-essential \
     libpng-dev \
     libjpeg-dev \
-    libjpeg62-turbo-dev \
     libfreetype6-dev \
     locales \
     zip \
@@ -22,50 +14,49 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    libzip-dev \
-    libbz2-dev
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
-#Install Node
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash
-
-RUN apt-get update && apt-get install -y nodejs
-
-# Install extensions
-RUN docker-php-ext-install \
-    bcmath \
-    bz2 \
-    calendar \
-    iconv \
-    intl \
-    mbstring \
-    opcache \
-    pdo_mysql
+# Install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN npm install
+# Set working directory
+WORKDIR /var/www
 
-RUN npm run build
+# Copy existing application directory contents
+COPY . /var/www
 
-#Install PHP depedencies
-RUN composer update && composer install --no-dev --optimize-autoloader
+# Install Laravel dependencies
+RUN composer install --no-dev --optimize-autoloader
 
-# Copy .env.example to .env
-RUN cp /app/.env.example /app/.env
+# Install Node.js and NPM
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs
 
-# Modify env variable
-RUN sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /app/.env
-RUN sed -ri -e 's!APP_URL=http://localhost!APP_URL=https://codexchange.my.id!g' /app/.env
-RUN sed -ri -e 's!DB_HOST=127.0.0.1!DB_HOST=mysql_db!g' /app/.env
-RUN sed -ri -e 's!DB_DATABASE=laravel!DB_DATABASE=codexchange!g' /app/.env
-RUN sed -ri -e 's!DB_USERNAME=root!DB_USERNAME=cx!g' /app/.env
-RUN sed -ri -e 's!DB_PASSWORD=!DB_PASSWORD=cx!g' /app/.env
+# Install Vite and dependencies
+RUN npm install && npm run build
 
-RUN php artisan key:generate
-RUN php artisan storage:link
+# Copy .env.example to .env and modify environment variables
+RUN cp /var/www/.env.example /var/www/.env \
+    && sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /var/www/.env \
+    && sed -ri -e 's!APP_URL=http://localhost!APP_URL=https://codexchange.my.id!g' /var/www/.env \
+    && sed -ri -e 's!DB_HOST=127.0.0.1!DB_HOST=mysql_db!g' /var/www/.env \
+    && sed -ri -e 's!DB_DATABASE=laravel!DB_DATABASE=codexchange!g' /var/www/.env \
+    && sed -ri -e 's!DB_USERNAME=root!DB_USERNAME=cx!g' /var/www/.env \
+    && sed -ri -e 's!DB_PASSWORD=!DB_PASSWORD=cx!g' /var/www/.env
 
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
+# Generate Laravel key and setup storage link
+RUN php artisan key:generate \
+    && php artisan storage:link \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
+
+# Expose port 9000 for PHP-FPM
+EXPOSE 9000
+
+# Start PHP-FPM
+CMD ["php-fpm"]
