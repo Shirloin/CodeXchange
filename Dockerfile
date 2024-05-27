@@ -1,4 +1,4 @@
-FROM php:8.0-fpm
+FROM php:8.0-apache
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -31,6 +31,7 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 
 RUN npm install && npm run build
 
+
 RUN cp /var/www/.env.example /var/www/.env \
     && sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /var/www/.env \
     && sed -ri -e 's!APP_URL=http://localhost!APP_URL=https://codexchange.my.id!g' /var/www/.env \
@@ -45,6 +46,10 @@ RUN php artisan key:generate \
     && php artisan route:cache \
     && php artisan view:cache
 
-EXPOSE 9000
+RUN sed -ri -e 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!/var/www/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+RUN a2enmod rewrite
 
-CMD ["php-fpm"]
+EXPOSE 8001
+
+CMD ["apache2-foreground"]
