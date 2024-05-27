@@ -7,17 +7,19 @@ services:
       dockerfile: Dockerfile
     image: codexchange_app
     container_name: codexchange_app
+    env_file:
+      - .env
     ports:
       - "8001:8001"
     volumes:
       - .:/var/www
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/public
     networks:
       - laravel
+    entrypoint: sh -c "apache2-foreground"
 
   mysql:
-    image: mysql:8.0
+    image: mariadb
+    # image: mysql:8.0
     container_name: codexchange_mysql
     ports:
       - "8306:3306"
