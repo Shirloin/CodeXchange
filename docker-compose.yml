@@ -10,7 +10,7 @@ services:
     environment:
       - .env
     ports:
-      - "8001:8001"
+      - "8001:80"
     volumes:
       - .:/var/www
     networks:

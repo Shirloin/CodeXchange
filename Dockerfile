@@ -31,7 +31,9 @@ COPY . /var/www
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/storage
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www/storage
+
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
