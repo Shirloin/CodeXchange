@@ -19,12 +19,13 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+
         return [
             'id' => Str::uuid(36),
             'username' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'password' => bcrypt('ilovenar'),
-            'image' => (new ImageFaker(new FakePeople()))->imageUrl()
+            'image' => $this->faker->imageUrl(800,600),
         ];
     }
 
