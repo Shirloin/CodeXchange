@@ -31,15 +31,12 @@ COPY . /var/www
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage
-
+RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/storage
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 
 RUN npm install && npm run build
-
 
 # RUN cp /var/www/.env.example /var/www/.env \
 #     && sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /var/www/.env \
@@ -49,7 +46,7 @@ RUN npm install && npm run build
 #     && sed -ri -e 's!DB_USERNAME=root!DB_USERNAME=cx!g' /var/www/.env \
 #     && sed -ri -e 's!DB_PASSWORD=!DB_PASSWORD=cx!g' /var/www/.env
 
-RUN php artisan key:generate \
+RUN php artisan key:generate --force\
     && php artisan storage:link \
     && php artisan config:cache \
     && php artisan route:cache \
