@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: codexchange_app
     container_name: codexchange_app
-    env_file:
+    environment:
       - .env
     ports:
       - "8001:8001"
@@ -15,26 +15,24 @@ services:
       - .:/var/www
     networks:
       - laravel
-    entrypoint: sh -c "apache2-foreground"
+    depends_on:
+      - mysql
 
   mysql:
-    image: mariadb
-    # image: mysql:8.0
-    container_name: codexchange_mysql
+    image: mysql:8.0
+    container_name: codexchange_db
+    restart: unless-stopped
     ports:
       - "8306:3306"
     environment:
-      MYSQL_DATABASE: codexchange
+      MYSQL_DATABASE: codexchange_db
       MYSQL_ROOT_PASSWORD: cx
       MYSQL_USER: cx
       MYSQL_PASSWORD: cx
     volumes:
-      - mysql_data:/var/lib/mysql
+      - ./seed/app_patchy.sql:/docker-entrypoint-initdb.d/codexchange_db.sql
     networks:
       - laravel
-
-volumes:
-  mysql_data:
 
 networks:
   laravel:
