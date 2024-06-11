@@ -38,14 +38,6 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
 
 RUN npm install && npm run build
 
-RUN cp /var/www/.env.example /var/www/.env \
-    && sed -ri -e 's!APP_NAME=Laravel!APP_NAME="CodeXchange"!g' /var/www/.env \
-    && sed -ri -e 's!APP_URL=http://localhost!APP_URL=https://codexchange.my.id!g' /var/www/.env \
-    && sed -ri -e 's!DB_HOST=127.0.0.1!DB_HOST=mysql_db!g' /var/www/.env \
-    && sed -ri -e 's!DB_DATABASE=laravel!DB_DATABASE=codexchange!g' /var/www/.env \
-    && sed -ri -e 's!DB_USERNAME=root!DB_USERNAME=cx!g' /var/www/.env \
-    && sed -ri -e 's!DB_PASSWORD=!DB_PASSWORD=cx!g' /var/www/.env
-
 RUN php artisan key:generate\
     && php artisan storage:link \
     && php artisan config:cache \
