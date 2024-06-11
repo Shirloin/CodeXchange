@@ -25,18 +25,21 @@ RUN sed -ri -e 's!/var/www!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf 
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs
+
+    
 COPY . /var/www
 
 WORKDIR /var/www
 
 RUN composer install --no-dev --optimize-autoloader
 
-RUN chown -R www-data:www-data /var/www && chmod -R 755 /var/www/storage
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
-    apt-get install -y nodejs
-
 RUN npm install && npm run build
+
+RUN mkdir -p /var/www/bootstrap/cache
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+RUN chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 
 RUN php artisan key:generate\
     && php artisan storage:link \
