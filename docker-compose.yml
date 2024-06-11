@@ -10,7 +10,7 @@ services:
     environment:
       - .env
     ports:
-      - "8001:80"
+      - "8000:80"
     volumes:
       - .:/var/www
     networks:
@@ -23,7 +23,7 @@ services:
     container_name: codexchange_db
     restart: unless-stopped
     ports:
-      - "8306:3306"
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: codexchange_db
       MYSQL_ROOT_PASSWORD: cx
