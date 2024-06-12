@@ -14,13 +14,13 @@ class Post extends Component
     public function mount($id = '')
     {
         $this->post = ModelsPost::with(['likes', 'replies' => function ($query) {
-            $query->orderBy('created_at', 'asc');
+            $query->orderBy('created_at', 'desc');
         }])->find($id);
     }
     public function refresh()
     {
         $this->post = ModelsPost::with(['likes', 'replies' => function ($query) {
-            $query->orderBy('created_at', 'asc');
+            $query->orderBy('created_at', 'desc');
         }])->find($this->post->id);
     }
     public function render()
