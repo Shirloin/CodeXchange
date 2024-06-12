@@ -24,7 +24,7 @@ class ReplyCard extends Component
     public function refresh()
     {
         $this->reply = Reply::with(['replies' => function($query){
-            $query->orderBy('created_at', 'desc');
+            $query->orderBy('created_at', 'asc');
         }])->find($this->reply->id);
         $this->loadReplies();
     }
