@@ -21,7 +21,6 @@ class EditImageModal extends Component
         'file' => 'required|image|max:2048'
     ];
     private $message = [
-        'required' => 'Image must not be empty',
         'image' => 'File must be an image',
         'max' => 'File size must be not more than 2048 bytes'
     ];
