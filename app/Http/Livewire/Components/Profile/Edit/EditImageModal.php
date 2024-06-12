@@ -18,7 +18,7 @@ class EditImageModal extends Component
     public $image;
     public $file;
     private $rules = [
-        'file' => 'required|image|max:2048'
+        'file' => 'image|max:2048'
     ];
     private $message = [
         'image' => 'File must be an image',
