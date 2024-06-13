@@ -26,6 +26,8 @@ class EditImageModal extends Component
         'max' => 'File size must be not more than 2048 bytes'
     ];
 
+    protected $listeners = ['update'];
+
     public function mount($image)
     {
         $this->image = $image;
@@ -64,7 +66,6 @@ class EditImageModal extends Component
         $filePath = $this->file->storeAs('profile-images', $fileName, 'public');
         $user->image = '/storage/' . $filePath;
         $user->save();
-        Controller::SuccessMessage("Image Saved");
     }
 
     public function remove()
