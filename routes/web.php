@@ -35,5 +35,4 @@ Route::middleware(['security'])->group(function () {
 Route::middleware(['guest'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/library', Library::class);
-    Route::post('/update/image', [AuthController::class, 'updateImage']);
 });

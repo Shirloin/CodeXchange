@@ -18,9 +18,10 @@ class EditImageModal extends Component
     public $image;
     public $file;
     private $rules = [
-        'file' => 'image|max:2048'
+        'file' => 'required|image|max:2048'
     ];
     private $message = [
+        'required' => 'Image is required',
         'image' => 'File must be an image',
         'max' => 'File size must be not more than 2048 bytes'
     ];
@@ -63,13 +64,13 @@ class EditImageModal extends Component
         $filePath = $this->file->storeAs('profile-images', $fileName, 'public');
         $user->image = '/storage/' . $filePath;
         $user->save();
+        Controller::SuccessMessage("Image Saved");
     }
 
     public function remove()
     {
         $existing_image_path = str_replace('/storage/', 'public/', $this->image);
         if (Storage::exists($existing_image_path)) {
-            dd("test");
             Storage::delete($existing_image_path);  
         }
     }
