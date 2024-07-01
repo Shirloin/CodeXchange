@@ -35,9 +35,9 @@ class Register extends Component
             'unique.username' => 'Username has been taken',
             'email' => 'Email is in invalid format',
             'username.min' => 'Username length must be at least 3 characters',
-            'username.max' => 'Username length must be less than 15 characters',
+            'username.max' => 'Username length must be not more than 15 characters',
             'password.min' => 'Password length must be at least 3 characters',
-            'password.max' => 'Password length must be less than 15 characters'
+            'password.max' => 'Password length must be not more than 15 characters'
         ];
         $validator = Validator::make($data, $rules, $messages);
         if ($validator->fails()) {

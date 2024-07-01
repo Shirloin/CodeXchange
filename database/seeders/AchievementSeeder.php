@@ -60,6 +60,7 @@ class AchievementSeeder extends Seeder
                 'description' => 'Rewarded after having all of the remain achievements',
                 'image' => '/assets/achievements/slc.png'
             ],
+            
         ]);
     }
 }
