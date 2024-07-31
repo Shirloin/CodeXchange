@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<a href="https://codexchange.my.id" alt="AppDemo" target="_blank" rel="noopener noreferrer">Demo</a>
+[Demo](https://codexchange.my.id)
 
 ## About Laravel
 
