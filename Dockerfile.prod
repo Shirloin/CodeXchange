@@ -1,0 +1,101 @@
+# Multi-stage build for production
+FROM node:18-alpine AS node-builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install dependencies
+RUN npm ci --only=production=false
+
+# Copy source files needed for build
+COPY vite.config.js tailwind.config.js postcss.config.js ./
+COPY resources ./resources
+COPY public ./public
+
+# Build assets
+RUN npm run build
+
+# PHP/Apache stage
+FROM php:8.2-apache
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    unzip \
+    git \
+    curl \
+    libonig-dev \
+    libzip-dev \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Configure and install PHP extensions
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) \
+        pdo_mysql \
+        mbstring \
+        exif \
+        pcntl \
+        bcmath \
+        gd \
+        zip
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite
+
+# Configure Apache for Laravel
+RUN sed -ri -e 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/*.conf \
+    && sed -ri -e 's!/var/www!/var/www/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+# Add ServerName to prevent Apache warnings
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# Set working directory
+WORKDIR /var/www
+
+# Copy application files
+COPY . /var/www
+
+# Copy built assets from node-builder stage
+COPY --from=node-builder /app/public/build ./public/build
+
+# Install PHP dependencies (production only)
+RUN composer install --no-dev --no-interaction --optimize-autoloader --no-scripts
+
+# Create necessary directories
+RUN mkdir -p /var/www/bootstrap/cache \
+    && mkdir -p /var/www/storage/framework/cache \
+    && mkdir -p /var/www/storage/framework/sessions \
+    && mkdir -p /var/www/storage/framework/views \
+    && mkdir -p /var/www/storage/logs
+
+# Set proper permissions
+RUN chown -R www-data:www-data /var/www \
+    && chmod -R 755 /var/www \
+    && chmod -R 775 /var/www/storage \
+    && chmod -R 775 /var/www/bootstrap/cache
+
+# Cache configuration for production
+RUN php artisan config:cache || true \
+    && php artisan route:cache || true \
+    && php artisan view:cache || true
+
+# Expose port (Railway will set PORT env var)
+EXPOSE 8080
+
+# Run migrations and start Apache (configure PORT from environment)
+CMD sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf && \
+    sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT:-8080}>/g" /etc/apache2/sites-available/000-default.conf && \
+    php artisan migrate --force && \
+    apache2-foreground
+

@@ -1,39 +1,39 @@
-version: '3'
+version: "3"
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: codexchange_app
-    container_name: codexchange_app
-    environment:
-      - .env
-    ports:
-      - "8001:80"
-    volumes:
-      - .:/var/www
-    networks:
-      - laravel
-    depends_on:
-      - mysql
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: codexchange_app
+        container_name: codexchange_app
+        environment:
+            - .env
+        ports:
+            - "8000:80"
+        volumes:
+            - .:/var/www
+        networks:
+            - laravel
+        depends_on:
+            - mysql
 
-  mysql:
-    image: mysql:8.0
-    container_name: codexchange_db
-    restart: unless-stopped
-    ports:
-      - "8306:3306"
-    environment:
-      MYSQL_DATABASE: codexchange_db
-      MYSQL_ROOT_PASSWORD: cx
-      MYSQL_USER: cx
-      MYSQL_PASSWORD: cx
-    volumes:
-      - ./seed/app_patchy.sql:/docker-entrypoint-initdb.d/codexchange_db.sql
-    networks:
-      - laravel
+    mysql:
+        image: mysql:8.0
+        container_name: codexchange_db
+        restart: unless-stopped
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: codexchange_db
+            MYSQL_ROOT_PASSWORD: cx
+            MYSQL_USER: cx
+            MYSQL_PASSWORD: cx
+        volumes:
+            - ./seed/app_patchy.sql:/docker-entrypoint-initdb.d/codexchange_db.sql
+        networks:
+            - laravel
 
 networks:
-  laravel:
-    driver: bridge
+    laravel:
+        driver: bridge
