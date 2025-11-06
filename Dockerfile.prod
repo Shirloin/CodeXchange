@@ -87,10 +87,9 @@ RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 /var/www/storage \
     && chmod -R 775 /var/www/bootstrap/cache
 
-# Cache configuration for production
-RUN php artisan config:cache || true \
-    && php artisan route:cache || true \
-    && php artisan view:cache || true
+# Cache routes and views for production (config will be cached at runtime)
+RUN php artisan route:cache || true \
+&& php artisan view:cache || true
 
 # Expose port (Railway will set PORT env var)
 EXPOSE 8080
