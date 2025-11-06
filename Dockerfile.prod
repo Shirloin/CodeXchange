@@ -94,11 +94,11 @@ RUN php artisan route:cache || true \
 # Expose port (Railway will set PORT env var)
 EXPOSE 8080
 
-# Run migrations and start Apache (configure PORT from environment)
-CMD sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf && \
+# Run migrations and start Apache (configure PORT from environment, force IPv4)
+CMD echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf && \
+    sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf && \
     sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT:-8080}>/g" /etc/apache2/sites-available/000-default.conf && \
     php artisan config:clear && \
     php artisan config:cache && \
     php artisan migrate --force || true && \
     apache2-foreground
-
