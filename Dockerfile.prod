@@ -59,6 +59,10 @@ RUN sed -ri -e 's!/var/www/html!/var/www/public!g' /etc/apache2/sites-available/
 # Add ServerName to prevent Apache warnings
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
+# Disable IPv6 to force IPv4 connections
+RUN echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf && \
+    echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
+
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
@@ -94,8 +98,8 @@ RUN php artisan route:cache || true \
 # Expose port (Railway will set PORT env var)
 EXPOSE 8080
 
-# Run migrations and start Apache (configure PORT from environment, force IPv4)
-CMD echo "precedence ::ffff:0:0/96 100" >> /etc/gai.conf && \
+# Run migrations and start Apache (configure PORT from environment, disable IPv6)
+CMD sysctl -p && \
     sed -i "s/Listen 80/Listen ${PORT:-8080}/g" /etc/apache2/ports.conf && \
     sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT:-8080}>/g" /etc/apache2/sites-available/000-default.conf && \
     php artisan config:clear && \
